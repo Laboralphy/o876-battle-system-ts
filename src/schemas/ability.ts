@@ -1,0 +1,13 @@
+import z from 'zod';
+import CONSTS from '../consts';
+
+export const AbilitySchema = z
+    .enum([
+        CONSTS.ABILITY_STRENGTH,
+        CONSTS.ABILITY_DEXTERITY,
+        CONSTS.ABILITY_CONSTITUTION,
+        CONSTS.ABILITY_INTELLIGENCE,
+        CONSTS.ABILITY_WISDOM,
+        CONSTS.ABILITY_CHARISMA,
+    ])
+    .describe('fields.ability');
