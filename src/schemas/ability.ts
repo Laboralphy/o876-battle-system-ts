@@ -11,3 +11,5 @@ export const AbilitySchema = z
         CONSTS.ABILITY_CHARISMA,
     ])
     .describe('fields.ability');
+
+export type Ability = z.infer<typeof AbilitySchema>;
