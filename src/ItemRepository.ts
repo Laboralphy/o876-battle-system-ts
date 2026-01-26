@@ -1,5 +1,4 @@
 import { Item, ItemSchema } from './schemas/item';
-import Consts from './consts';
 
 export class ItemRepository {
     private blueprints = new Map<string, Item>();
@@ -10,6 +9,4 @@ export class ItemRepository {
         this.blueprints.set(id, item);
         return item;
     }
-
-    getItem(id: string);
 }
