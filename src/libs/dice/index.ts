@@ -28,7 +28,7 @@ export class Dice {
      *
      * @return {void} No return value.
      */
-    cheatOff() {
+    cheatOff(): void {
         this.debug = false;
         this.forceValue = -1;
     }

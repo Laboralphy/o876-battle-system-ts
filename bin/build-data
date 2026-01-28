@@ -1,0 +1,6 @@
+#!/bin/bash
+
+script_folder=$(dirname "$(realpath "$0")")
+
+$script_folder/build-consts-index
+$script_folder/build-enum-schema

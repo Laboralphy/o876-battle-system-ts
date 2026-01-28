@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "build const index"
+
 script_folder=$(dirname "$(realpath "$0")")
 target_folder="${script_folder}/../src/consts"
 index_json="${target_folder}/index.json"

@@ -1,7 +1,7 @@
 {
-  "ENVIRONMENT_DARKNESS": "darkness",
-  "ENVIRONMENT_FOG": "fog",
-  "ENVIRONMENT_UNDERWATER": "underwater",
-  "ENVIRONMENT_WINDY": "windy",
-  "ENVIRONMENT_DIFFICULT_TERRAIN": "difficultTerrain"
+    "ENVIRONMENT_DARKNESS": "darkness",
+    "ENVIRONMENT_RAIN": "rain",
+    "ENVIRONMENT_UNDERWATER": "underwater",
+    "ENVIRONMENT_WIND": "wind",
+    "ENVIRONMENT_DIFFICULT_TERRAIN": "difficultTerrain"
 }

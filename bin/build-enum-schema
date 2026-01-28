@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo "build enum schema"
+
+script_folder=$(dirname "$(realpath "$0")")
+source_folder="${script_folder}/../src/consts"
+target_folder="${script_folder}/../src/schemas/enums"
+
+
+generateFileContent() {
+    local sSchemaName="$1"
+    local sConstFilename="$2"
+    local sSchemaNameMin="$(echo $sSchemaName | tr '[:upper:]' '[:lower:'])"
+    echo "import z from 'zod';"
+    echo "import CONSTS from '../consts';"
+    echo ""
+    echo "export const ${sSchemaName}Schema = z"
+    echo "    .enum(["
+    jq -r 'to_entries[] | "        CONSTS.\(.key),"' ${source_folder}/${sConstFilename}.json
+    echo "    ])"
+    echo "    .describe('fields.${sSchemaNameMin}');"
+    echo ""
+    echo "export type ${sSchemaName} = z.infer<typeof ${sSchemaName}Schema>;"
+}
+
+generateFile() {
+    local sSchemaName="$1"
+    local sConstFilename="$2"
+    local sSchemaNameMin="$(echo $sSchemaName | tr '[:upper:]' '[:lower:'])"
+    generateFileContent "$sSchemaName" "$sConstFilename" > ${target_folder}/${sSchemaNameMin}.ts
+}
+
+generateFile Specie species
+generateFile Ability abilities
+generateFile Race races
+generateFile Proficiency proficiencies
+

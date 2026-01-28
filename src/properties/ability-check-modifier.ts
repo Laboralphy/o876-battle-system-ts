@@ -1,6 +1,6 @@
 import z from 'zod';
 import CONSTS from '../consts';
-import { AbilitySchema } from '../schemas/ability';
+import { AbilitySchema } from '../schemas/enums/ability';
 
 /**
  * This property modifies an ability check
