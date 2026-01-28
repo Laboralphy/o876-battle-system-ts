@@ -1,15 +1,15 @@
 import z from 'zod';
-import { PropertiesSchema } from '../schemas/properties';
+import { PropertiesSchema } from '../schemas/Properties';
 import CONSTS from '../consts';
-import { ItemSchema } from '../schemas/item';
-import { SpecieSchema } from '../schemas/enums/specie';
-import { RaceSchema } from '../schemas/enums/race';
-import { ProficiencySchema } from '../schemas/enums/proficiency';
+import { ItemSchema } from '../schemas/Item';
+import { SpecieSchema } from '../schemas/enums/Specie';
+import { RaceSchema } from '../schemas/enums/Race';
+import { ProficiencySchema } from '../schemas/enums/Proficiency';
 
 export const CreatureStateSchema = z.strictObject({
     specie: SpecieSchema,
     race: RaceSchema,
-    abilities: z.object({
+    abilities: z.strictObject({
         strength: z.number(),
         dexterity: z.number(),
         constitution: z.number(),
@@ -24,7 +24,7 @@ export const CreatureStateSchema = z.strictObject({
     hitPoints: z.number(),
     properties: PropertiesSchema,
     proficiencies: ProficiencySchema,
-    equipment: z.object({
+    equipment: z.strictObject({
         [CONSTS.EQUIPMENT_SLOT_HEAD]: ItemSchema.nullable(),
         [CONSTS.EQUIPMENT_SLOT_NECK]: ItemSchema.nullable(),
         [CONSTS.EQUIPMENT_SLOT_BACK]: ItemSchema.nullable(),
@@ -44,7 +44,7 @@ export const CreatureStateSchema = z.strictObject({
     }),
     effect: z.array(z.number()),
     encumbrance: z.number(),
-    environment: z.object({
+    environment: z.strictObject({
         [CONSTS.ENVIRONMENT_DARKNESS]: z.boolean(),
         [CONSTS.ENVIRONMENT_RAIN]: z.boolean(),
         [CONSTS.ENVIRONMENT_WIND]: z.boolean(),

@@ -1,6 +1,6 @@
 import z from 'zod';
 import CONSTS from '../consts';
-import { AbilitySchema } from '../schemas/enums/ability';
+import { AbilitySchema } from '../schemas/enums/Ability';
 
 /**
  * This property modifies an ability score

@@ -1,7 +1,7 @@
 import z from 'zod';
-import { AmmoPropertiesSchema } from './ammo-properties';
+import { AmmoPropertiesSchema } from './AmmoProperties';
 import CONSTS from '../consts';
-import { PropertiesSchema } from './properties';
+import { PropertiesSchema } from './Properties';
 
 export const ItemSchema = z
     .strictObject({

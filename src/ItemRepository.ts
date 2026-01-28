@@ -1,4 +1,4 @@
-import { Item, ItemSchema } from './schemas/item';
+import { Item, ItemSchema } from './schemas/Item';
 
 export class ItemRepository {
     private blueprints = new Map<string, Item>();

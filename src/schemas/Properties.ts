@@ -1,5 +1,5 @@
 import z from 'zod';
-import { AmmoPropertiesSchema } from './ammo-properties';
+import { AmmoPropertiesSchema } from './AmmoProperties';
 
 // This schema validates any creature of item property
 export const PropertySchema = z.discriminatedUnion('type', [AmmoPropertiesSchema]);
