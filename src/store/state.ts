@@ -5,6 +5,8 @@ import { ItemSchema } from '../schemas/Item';
 import { SpecieSchema } from '../schemas/enums/Specie';
 import { RaceSchema } from '../schemas/enums/Race';
 import { ProficiencySchema } from '../schemas/enums/Proficiency';
+import { ActionSchema } from '../schemas/Action';
+import { SpellSlotSchema } from '../schemas/SpellSlot';
 
 export const CreatureStateSchema = z.strictObject({
     specie: SpecieSchema,
@@ -23,7 +25,7 @@ export const CreatureStateSchema = z.strictObject({
     speed: z.number(),
     hitPoints: z.number(),
     properties: PropertiesSchema,
-    proficiencies: ProficiencySchema,
+    proficiencies: z.array(ProficiencySchema),
     equipment: z.strictObject({
         [CONSTS.EQUIPMENT_SLOT_HEAD]: ItemSchema.nullable(),
         [CONSTS.EQUIPMENT_SLOT_NECK]: ItemSchema.nullable(),
@@ -51,4 +53,9 @@ export const CreatureStateSchema = z.strictObject({
         [CONSTS.ENVIRONMENT_DIFFICULT_TERRAIN]: z.boolean(),
         [CONSTS.ENVIRONMENT_UNDERWATER]: z.boolean(),
     }),
+    actions: z.array(ActionSchema),
+    spells: z.array(z.string()),
+    spellSlots: z.array(SpellSlotSchema),
 });
+
+export type State = z.infer<typeof CreatureStateSchema>;

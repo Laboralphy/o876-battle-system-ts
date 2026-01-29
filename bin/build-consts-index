@@ -23,5 +23,3 @@ for this_file in "$target_folder"/*.json; do
         jq -s '.[0] * .[1]' "$index_json" "$this_file" > tmp.json && mv tmp.json "$index_json"
     fi
 done
-
-echo "File $index_json has been successfully generated."

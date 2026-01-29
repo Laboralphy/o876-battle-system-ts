@@ -1,7 +1,7 @@
 import { Item, ItemSchema } from './schemas/Item';
 
 export class ItemRepository {
-    private blueprints = new Map<string, Item>();
+    private readonly blueprints = new Map<string, Item>();
     constructor() {}
 
     defineBlueprint(id: string, oItemDef: Item) {

@@ -28,9 +28,25 @@ generateFile() {
     generateFileContent "$sSchemaName" "$sConstFilename" > ${target_folder}/${sSchemaName}.ts
 }
 
-generateFile Specie species
 generateFile Ability abilities
-generateFile Race races
-generateFile Proficiency proficiencies
+generateFile AttackType attack-types
+generateFile ActionType action-types
+generateFile Condition conditions
+generateFile DamageType damage-types
+generateFile Disease diseases
+generateFile EffectSubtype effect-subtypes
+generateFile EntityType entity-types
+generateFile Environment environments
 generateFile EquipmentSlot equipment-slots
-
+generateFile Immunity immunities
+generateFile OnAttackHit on-attack-hit
+generateFile Proficiency proficiencies
+generateFile Property properties
+generateFile Race races
+generateFile RollType roll-types
+generateFile SkillProficiency skill-proficiencies
+generateFile Skill skills
+generateFile Specie species
+generateFile ThreatType threat-types
+generateFile WeaponAttribute weapon-attributes
+generateFile WeaponSize weapon-sizes
