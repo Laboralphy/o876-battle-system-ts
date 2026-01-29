@@ -1,5 +1,5 @@
 import z from 'zod';
-import CONSTS from '../../consts';
+import { CONSTS } from '../../consts';
 
 export const EquipmentSlotSchema = z
     .enum([

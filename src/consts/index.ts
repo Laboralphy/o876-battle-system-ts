@@ -1,2 +1,2 @@
-import CONSTS from './index.json';
-export default CONSTS;
+import Consts from './index.json';
+export const CONSTS = Consts;

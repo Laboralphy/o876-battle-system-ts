@@ -1,12 +1,14 @@
 import z from 'zod';
 import { PropertiesSchema } from '../schemas/Properties';
-import CONSTS from '../consts';
+import { CONSTS } from '../consts';
 import { ItemSchema } from '../schemas/Item';
 import { SpecieSchema } from '../schemas/enums/Specie';
 import { RaceSchema } from '../schemas/enums/Race';
 import { ProficiencySchema } from '../schemas/enums/Proficiency';
 import { ActionSchema } from '../schemas/Action';
 import { SpellSlotSchema } from '../schemas/SpellSlot';
+import { EquipmentSchema } from '../schemas/Equipment';
+import { EquipmentSlotSchema } from '../schemas/enums/EquipmentSlot';
 
 export const CreatureStateSchema = z.strictObject({
     specie: SpecieSchema,
@@ -26,24 +28,8 @@ export const CreatureStateSchema = z.strictObject({
     hitPoints: z.number(),
     properties: PropertiesSchema,
     proficiencies: z.array(ProficiencySchema),
-    equipment: z.strictObject({
-        [CONSTS.EQUIPMENT_SLOT_HEAD]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_NECK]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_BACK]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_CHEST]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_ARMS]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_FINGER_LEFT]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_FINGER_RIGHT]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_WEAPON_MELEE]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_WEAPON_RANGED]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_AMMO]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_SHIELD]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_WAIST]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_FEET]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_1]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_2]: ItemSchema.nullable(),
-        [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_3]: ItemSchema.nullable(),
-    }),
+    equipment: EquipmentSchema,
+    selectedOffensiveSlot: EquipmentSlotSchema,
     effect: z.array(z.number()),
     encumbrance: z.number(),
     environment: z.strictObject({

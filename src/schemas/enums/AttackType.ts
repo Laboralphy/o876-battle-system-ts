@@ -1,0 +1,13 @@
+import z from 'zod';
+import { CONSTS } from '../../consts';
+
+export const AttackTypeSchema = z
+    .enum([
+        CONSTS.ATTACK_TYPE_ANY,
+        CONSTS.ATTACK_TYPE_MELEE,
+        CONSTS.ATTACK_TYPE_RANGED,
+        CONSTS.ATTACK_TYPE_HOMING,
+    ])
+    .describe('fields.attackType');
+
+export type AttackType = z.infer<typeof AttackTypeSchema>;

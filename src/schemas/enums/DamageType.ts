@@ -1,0 +1,22 @@
+import z from 'zod';
+import { CONSTS } from '../../consts';
+
+export const DamageTypeSchema = z
+    .enum([
+        CONSTS.DAMAGE_TYPE_ANY,
+        CONSTS.DAMAGE_TYPE_SLASHING,
+        CONSTS.DAMAGE_TYPE_CRUSHING,
+        CONSTS.DAMAGE_TYPE_PIERCING,
+        CONSTS.DAMAGE_TYPE_FIRE,
+        CONSTS.DAMAGE_TYPE_COLD,
+        CONSTS.DAMAGE_TYPE_ACID,
+        CONSTS.DAMAGE_TYPE_ELECTRICITY,
+        CONSTS.DAMAGE_TYPE_PSYCHIC,
+        CONSTS.DAMAGE_TYPE_POISON,
+        CONSTS.DAMAGE_TYPE_RADIANT,
+        CONSTS.DAMAGE_TYPE_WITHERING,
+        CONSTS.DAMAGE_TYPE_FORCE,
+    ])
+    .describe('fields.damageType');
+
+export type DamageType = z.infer<typeof DamageTypeSchema>;
