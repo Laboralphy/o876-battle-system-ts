@@ -5,6 +5,7 @@ import { getDefensiveSlots } from './getters/getDefensiveSlots';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
+import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
 import { isWeildingShield } from './getters/isWeildingShield';
 import { isWeildingTwoHandedWeapon } from './getters/isWeildingTwoHandedWeapon';
 
@@ -13,6 +14,7 @@ export function defineGetters(store: ReactiveStore<State>) {
     store.defineGetter('getEquipmentSlotProperties', getEquipmentSlotProperties);
     store.defineGetter('getInnateProperties', getInnateProperties);
     store.defineGetter('getSelectedWeaponAttributeSet', getSelectedWeaponAttributeSet);
+    store.defineGetter('isRangedWeaponLoaded', isRangedWeaponLoaded);
     store.defineGetter('isWeildingShield', isWeildingShield);
     store.defineGetter('isWeildingTwoHandedWeapon', isWeildingTwoHandedWeapon);
 }

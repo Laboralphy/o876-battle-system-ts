@@ -14,7 +14,7 @@ export function getDefensiveSlots(state: State, getters: GetterRegistry) {
         CONSTS.EQUIPMENT_SLOT_WAIST,
         CONSTS.EQUIPMENT_SLOT_FEET,
     ];
-    if (!getters.isWieldingTwoHandedWeapon) {
+    if (!getters.isWeildingTwoHandedWeapon) {
         aSlots.push(CONSTS.EQUIPMENT_SLOT_SHIELD);
     }
     const eq = state.equipment;

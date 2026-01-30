@@ -27,8 +27,8 @@ for this_file in "$getter_folder"/*.ts; do
         echo "import { $functionName } from './getters/$functionName';" >> $define_getters_ts
     fi
 done
-
 echo "" >> "$define_getters_ts"
+
 echo "export function defineGetters(store: ReactiveStore<State>) {" >> $define_getters_ts
 
 for this_file in "$getter_folder"/*.ts; do
