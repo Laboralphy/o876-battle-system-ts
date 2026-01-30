@@ -1,0 +1,13 @@
+import z from 'zod';
+import CONSTS from '../../consts';
+
+export const WeaponSizeSchema = z
+    .enum([
+        CONSTS.WEAPON_SIZE_SMALL,
+        CONSTS.WEAPON_SIZE_MEDIUM,
+        CONSTS.WEAPON_SIZE_LARGE,
+        CONSTS.WEAPON_SIZE_REACH,
+    ])
+    .describe('fields.weaponSize');
+
+export type WeaponSize = z.infer<typeof WeaponSizeSchema>;

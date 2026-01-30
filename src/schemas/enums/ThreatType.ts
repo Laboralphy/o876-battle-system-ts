@@ -1,0 +1,24 @@
+import z from 'zod';
+import CONSTS from '../../consts';
+
+export const ThreatTypeSchema = z
+    .enum([
+        CONSTS.THREAT_TYPE_DEATH,
+        CONSTS.THREAT_TYPE_DISEASE,
+        CONSTS.THREAT_TYPE_FEAR,
+        CONSTS.THREAT_TYPE_CHARM,
+        CONSTS.THREAT_TYPE_PARALYSIS,
+        CONSTS.THREAT_TYPE_PETRIFICATION,
+        CONSTS.THREAT_TYPE_FIRE,
+        CONSTS.THREAT_TYPE_COLD,
+        CONSTS.THREAT_TYPE_ACID,
+        CONSTS.THREAT_TYPE_ELECTRICITY,
+        CONSTS.THREAT_TYPE_PSYCHIC,
+        CONSTS.THREAT_TYPE_POISON,
+        CONSTS.THREAT_TYPE_RADIANT,
+        CONSTS.THREAT_TYPE_WITHERING,
+        CONSTS.THREAT_TYPE_SPELL,
+    ])
+    .describe('fields.threatType');
+
+export type ThreatType = z.infer<typeof ThreatTypeSchema>;

@@ -1,0 +1,23 @@
+import z from 'zod';
+import CONSTS from '../../consts';
+
+export const OnAttackHitSchema = z
+    .enum([
+        CONSTS.ON_ATTACK_HIT_ABILITY_DRAIN,
+        CONSTS.ON_ATTACK_HIT_ATTACK_DRAIN,
+        CONSTS.ON_ATTACK_HIT_ARMOR_CLASS_DRAIN,
+        CONSTS.ON_ATTACK_HIT_BLINDNESS,
+        CONSTS.ON_ATTACK_HIT_DISEASE,
+        CONSTS.ON_ATTACK_HIT_DOOM,
+        CONSTS.ON_ATTACK_HIT_FEAR,
+        CONSTS.ON_ATTACK_HIT_LEVEL_DRAIN,
+        CONSTS.ON_ATTACK_HIT_POISON,
+        CONSTS.ON_ATTACK_HIT_PARALYSIS,
+        CONSTS.ON_ATTACK_HIT_PETRIFICATION,
+        CONSTS.ON_ATTACK_HIT_SILENCE,
+        CONSTS.ON_ATTACK_HIT_SLOW,
+        CONSTS.ON_ATTACK_HIT_STUN,
+    ])
+    .describe('fields.onAttackHit');
+
+export type OnAttackHit = z.infer<typeof OnAttackHitSchema>;
