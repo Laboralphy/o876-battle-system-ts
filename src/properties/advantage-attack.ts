@@ -1,5 +1,5 @@
 import z from 'zod';
-import CONSTS from '../consts';
+import { CONSTS } from '../consts';
 import { AttackTypeSchema } from '../schemas/enums/AttackType';
 
 /**

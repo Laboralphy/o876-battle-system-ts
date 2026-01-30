@@ -1,5 +1,5 @@
 import z from 'zod';
-import CONSTS from '../consts';
+import { CONSTS } from '../consts';
 import * as AMMO_TYPES from '../consts/ammo-types.json';
 import { EquipmentSlotSchema } from './enums/EquipmentSlot';
 

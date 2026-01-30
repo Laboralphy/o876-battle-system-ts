@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "build getter index"
+
+script_folder=$(dirname "$(realpath "$0")")
+store_folder="${script_folder}/../src/store"
+getter_folder="${store_folder}/getters"
+define_getters_ts="${store_folder}/define-getters.ts"
+
+# Iterate each .ts file
+for this_file in "$getter_folder"/*.ts; do
+    # Ignore index.ts
+    if [ "$(basename "$this_file")" != "index.ts" ]; then
+        functionName=$(basename "$this_file" .ts)
+        echo "import { $functionName } from './$functionName';" >> $define_getters_ts
+    fi
+done
+
+echo "import { ReactiveStore } from '@laboralphy/reactor';" > "$define_getters_ts"
+echo "import { State } from './state';" >> "$define_getters_ts"
+echo "" >> "$define_getters_ts"
+
+for this_file in "$getter_folder"/*.ts; do
+    # Ignore index.ts
+    if [ "$(basename "$this_file")" != "index.ts" ]; then
+        functionName=$(basename "$this_file" .ts)
+        echo "import { $functionName } from './getters/$functionName';" >> $define_getters_ts
+    fi
+done
+
+echo "" >> "$define_getters_ts"
+echo "export function defineGetters(store: ReactiveStore<State>) {" >> $define_getters_ts
+
+for this_file in "$getter_folder"/*.ts; do
+    # Ignore index.ts
+    if [ "$(basename "$this_file")" != "index.ts" ]; then
+        functionName=$(basename "$this_file" .ts)
+        echo "    store.defineGetter('$functionName', $functionName);" >> $define_getters_ts
+    fi
+done
+echo "}" >> $define_getters_ts

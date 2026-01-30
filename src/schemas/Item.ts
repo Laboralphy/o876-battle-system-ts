@@ -1,7 +1,8 @@
 import z from 'zod';
-import { AmmoPropertiesSchema } from './AmmoProperties';
-import CONSTS from '../consts';
+import { CONSTS } from '../consts';
 import { PropertiesSchema } from './Properties';
+import { AmmoPropertiesSchema } from './AmmoProperties';
+import { WeaponPropertiesSchema } from './WeaponProperties';
 
 export const ItemSchema = z
     .strictObject({
@@ -13,6 +14,6 @@ export const ItemSchema = z
         tag: z.string().optional().describe('fields.tag'),
         spell: z.string().optional().describe('fields.spell'),
     })
-    .and(z.discriminatedUnion('itemType', [AmmoPropertiesSchema]));
+    .and(z.discriminatedUnion('itemType', [WeaponPropertiesSchema, AmmoPropertiesSchema]));
 
 export type Item = z.infer<typeof ItemSchema>;
