@@ -1,14 +1,14 @@
 import { State } from '../state';
 import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
-import { Property } from '../../schemas/enums/Property';
+import { PropertyType } from '../../schemas/enums/PropertyType';
 import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 
 export function getEquipmentSlotProperties(state: State, getters: GetterRegistry) {
-    const aSlots: Property[] = [
+    const aSlots: PropertyType[] = [
         ...getters.getDefensiveSlots,
         // ...getters.getOffensiveSlots
     ];
-    const oProperties: Record<EquipmentSlot, Property[]> = {};
+    const oProperties: Record<EquipmentSlot, PropertyType[]> = {};
     const eq = state.equipment;
     aSlots.forEach((slot) => {
         const oItem = eq[slot];
