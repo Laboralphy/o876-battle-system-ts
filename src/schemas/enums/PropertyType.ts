@@ -1,7 +1,7 @@
 import z from 'zod';
 import { CONSTS } from '../../consts';
 
-export const PropertySchema = z
+export const PropertyTypeSchema = z
     .enum([
         CONSTS.PROPERTY_ABILITY_CHECK_MODIFIER,
         CONSTS.PROPERTY_ABILITY_MODIFIER,
@@ -46,4 +46,4 @@ export const PropertySchema = z
     ])
     .describe('fields.property');
 
-export type Property = z.infer<typeof PropertySchema>;
+export type PropertyType = z.infer<typeof PropertyTypeSchema>;
