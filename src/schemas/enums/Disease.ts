@@ -4,11 +4,7 @@ import z from 'zod';
 import { CONSTS } from '../../consts';
 
 export const DiseaseSchema = z
-    .enum([
-        CONSTS.DISEASE_GHOUL_FEVER,
-        CONSTS.DISEASE_MUMMY_ROT,
-        CONSTS.DISEASE_RAT_SICKNESS,
-    ])
+    .enum([CONSTS.DISEASE_GHOUL_FEVER, CONSTS.DISEASE_MUMMY_ROT, CONSTS.DISEASE_RAT_SICKNESS])
     .describe('fields.disease');
 
 export type Disease = z.infer<typeof DiseaseSchema>;
