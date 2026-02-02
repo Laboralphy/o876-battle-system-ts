@@ -40,6 +40,7 @@ export function buildState(): State {
             [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_2]: null,
             [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_3]: null,
         },
+        selectedOffensiveSlot: CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_1,
         effect: [],
         encumbrance: 0,
         environment: {

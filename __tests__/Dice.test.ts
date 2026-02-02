@@ -99,7 +99,7 @@ describe('Dice class', () => {
         });
 
         it('should use cache for subsequent rolls of the same formula', () => {
-            const parseSpy = jest.spyOn(dice, 'parse');
+            const parseSpy = vitest.spyOn(dice, 'parse');
             dice.roll('2d6');
             dice.roll('2d6');
             expect(parseSpy).toHaveBeenCalledTimes(1);

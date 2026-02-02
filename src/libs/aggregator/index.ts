@@ -15,12 +15,19 @@ export type AggregatorOptions = {
     restrictSlots?: EquipmentSlot[];
 };
 
+export type AggregatorAccumulator = {
+    sum: number;
+    max: number;
+    min: number;
+    count: number;
+};
+
 export function aggregateProperties(
     aWantedProperties: PropertyType[],
     creature: Creature,
     oFunctions: AggregatorFunc<Property>,
     options: AggregatorOptions
-) {
+): AggregatorAccumulator & { discriminator: Record<string, AggregatorAccumulator> } {
     const restrictSlots: EquipmentSlot[] = options?.restrictSlots ?? [];
     const excludeInnate = options?.excludeInnate ?? false;
     const aTypeSet = new Set<PropertyType>(aWantedProperties);
@@ -62,12 +69,13 @@ export function aggregateProperties(
         // Applies a forEach function to all properties
         aFilteredProperties.forEach(oFunctions.forEach);
     }
-    const oSorter: Record<string, { sum: number; max: number; count: number }> = {};
+    const oSorter: Record<string, AggregatorAccumulator> = {};
     const getDiscriminatorRegistry = (sDisc: string) => {
         if (!(sDisc in oSorter)) {
             oSorter[sDisc] = {
                 sum: 0,
-                max: 0,
+                min: Infinity,
+                max: -Infinity,
                 count: 0,
             };
         }
@@ -82,6 +90,7 @@ export function aggregateProperties(
                     throw TypeError('Effect amp has not been properly evaluated');
                 }
                 sd.max = Math.max(sd.max, amp);
+                sd.min = Math.min(sd.min, amp);
                 sd.sum += amp;
                 ++sd.count;
             }

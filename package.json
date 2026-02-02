@@ -4,7 +4,7 @@
     "description": "",
     "main": "eslint.config.js",
     "scripts": {
-        "test": "jest",
+        "test": "vitest",
         "build-data": "./bin/build-data"
     },
     "keywords": [],
@@ -12,17 +12,15 @@
     "license": "ISC",
     "type": "module",
     "devDependencies": {
-        "@types/jest": "^30.0.0",
         "@types/node": "^25.0.10",
         "eslint": "^9.39.2",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
-        "jest": "^30.2.0",
         "prettier": "^3.8.1",
-        "ts-jest": "^29.4.6",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.53.1"
+        "typescript-eslint": "^8.53.1",
+        "vitest": "^4.0.18"
     },
     "dependencies": {
         "@laboralphy/reactor": "^1.0.2",
