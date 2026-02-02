@@ -3,6 +3,7 @@ import { Property } from '../../properties';
 
 /**
  * Returns the innate properties of the creature
+ * @returns Property[]
  */
 export function getInnateProperties(state: State): Property[] {
     return state.properties.slice(0);

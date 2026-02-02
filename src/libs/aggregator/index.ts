@@ -34,7 +34,7 @@ export function aggregateProperties(
             aStartingProperties.push(...creature.getters.getInnateProperties);
         }
         // Get all properties ...
-        const oSlotProperties = creature.getters.getSlotProperties;
+        const oSlotProperties = creature.getters.getEquipmentSlotProperties;
         // But keep only properties for item of restricted slots
         restrictSlots.forEach((s: EquipmentSlot) => {
             if (oSlotProperties[s]) {
@@ -101,7 +101,6 @@ export function aggregateProperties(
     });
     return {
         sum: nIPAcc,
-        ip: nIPAcc,
         max: nMax,
         min: nMin,
         count: aFilteredProperties.length,

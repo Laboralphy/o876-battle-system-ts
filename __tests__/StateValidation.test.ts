@@ -1,5 +1,5 @@
-import { CreatureStateSchema } from '../src/store/state';
-import CONSTS from '../src/consts';
+import {CreatureStateSchema} from '../src/store/state';
+import { CONSTS } from '../src/consts';
 
 describe('State Validation', () => {
     it('should validate a complete State object', () => {
@@ -39,6 +39,7 @@ describe('State Validation', () => {
                 [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_2]: null,
                 [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_3]: null,
             },
+            selectedOffensiveSlot: CONSTS.EQUIPMENT_SLOT_WEAPON_MELEE,
             effect: [],
             encumbrance: 0,
             environment: {
@@ -115,7 +116,9 @@ describe('State Validation', () => {
         };
 
         const result = CreatureStateSchema.safeParse(state);
-        console.log(result);
+        if (!result.success) {
+            console.error(result);
+        }
         expect(result.success).toBe(true);
     });
 });
