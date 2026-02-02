@@ -38,9 +38,16 @@ export class Creature {
         }
     }
 
+    /**
+     * Will aggregate properties and return sum, min, max, and count
+     * @param aPropertyTypes
+     * @param oFunctions
+     * @param options
+     * @return {AggregatorAccumulator & { discriminator: Record<string, AggregatorAccumulator> }}
+     */
     aggregateProperties(
         aPropertyTypes: PropertyType[],
-        oFunctions: AggregatorFunc<Property>,
+        oFunctions: AggregatorFunc<Property> = {},
         options: AggregatorOptions = {}
     ) {
         return aggregateProperties(aPropertyTypes, this, oFunctions, options);

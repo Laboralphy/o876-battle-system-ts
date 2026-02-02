@@ -1,4 +1,5 @@
-import {CreatureStateSchema} from '../src/store/state';
+import { describe, it, expect } from 'vitest';
+import { CreatureStateSchema } from '../src/store/state';
 import { CONSTS } from '../src/consts';
 
 describe('State Validation', () => {

@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vitest } from 'vitest';
 import { Dice } from '../src/libs/dice';
 
 describe('Dice class', () => {

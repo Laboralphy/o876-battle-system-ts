@@ -1,4 +1,4 @@
-const REGEX_XDY = /^\s*([-+]?)\s*(\d+)\s*[Dd]\s*(\d+)\s*(([-+])\s*(\d+))?\s*$/;
+export const REGEX_XDY = /^\s*([-+]?)\s*(\d+)\s*[Dd]\s*(\d+)\s*(([-+])\s*(\d+))?\s*$/;
 const REGEX_NUM = /^([-+]?)\s*(\d+)\s*$/;
 
 export type EvaluatedFormula = { count: number; sides: number; modifier: number };

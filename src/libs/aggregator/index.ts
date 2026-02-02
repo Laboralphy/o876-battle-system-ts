@@ -96,20 +96,20 @@ export function aggregateProperties(
             }
         });
     }
-    let nIPAcc = 0,
+    let nAccumulator = 0,
         nMin = Infinity,
         nMax = -Infinity;
     aFilteredProperties.forEach((pe: Property) => {
         if ('amp' in pe) {
             if (!Number.isNaN(pe.amp)) {
-                nIPAcc += pe.amp;
+                nAccumulator += pe.amp;
                 nMax = Math.max(nMax, pe.amp);
                 nMin = Math.min(nMin, pe.amp);
             }
         }
     });
     return {
-        sum: nIPAcc,
+        sum: nAccumulator,
         max: nMax,
         min: nMin,
         count: aFilteredProperties.length,
