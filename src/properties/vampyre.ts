@@ -4,10 +4,10 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { DiceExpression } from '../schemas/DiceExpression';
 
 /**
- * This property modifies to output damage of a certain type
- * The amp may be a dice expression
+ * When applied on a weapon, the property grants the creature the ability to convert dealt damage into health
+ * This can be restricted to certain damage types
  */
-export const PropertyDamageModifier = z.strictObject({
+export const PropertyVampyre = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_DAMAGE_MODIFIER),
     amp: DiceExpression.or(z.number().int()),
     damageType: DamageTypeSchema,

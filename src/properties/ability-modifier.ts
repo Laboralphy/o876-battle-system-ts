@@ -8,7 +8,7 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  * - if amp is positive this property grants a bonus
  * - if amp is negative this property imposes a malus
  */
-export const PropertyAbilityModifierSchema = z
+export const PropertyAbilityModifier = z
     .strictObject({
         type: z.literal(CONSTS.PROPERTY_ABILITY_MODIFIER).describe('fields.propertyType'),
         amp: z.number().int().describe('fields.amp'),

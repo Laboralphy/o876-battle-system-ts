@@ -4,11 +4,11 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { DiceExpression } from '../schemas/DiceExpression';
 
 /**
- * This property modifies to output damage of a certain type
+ * This property reduce damage of a certain type
  * The amp may be a dice expression
  */
-export const PropertyDamageModifier = z.strictObject({
-    type: z.literal(CONSTS.PROPERTY_DAMAGE_MODIFIER),
+export const PropertyDamageReduction = z.strictObject({
+    type: z.literal(CONSTS.PROPERTY_DAMAGE_REDUCTION),
     amp: DiceExpression.or(z.number().int()),
     damageType: DamageTypeSchema,
 });

@@ -5,7 +5,7 @@ import { CONSTS } from '../../consts';
 
 export const RollTypeSchema = z
     .enum([
-        CONSTS.ROLL_TYPE_ATTACK_ROLL,
+        CONSTS.ROLL_TYPE_ATTACK,
         CONSTS.ROLL_TYPE_SAVING_THROW,
         CONSTS.ROLL_TYPE_SKILL_CHECK,
     ])

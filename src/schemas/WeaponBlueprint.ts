@@ -6,7 +6,7 @@ import { DamageTypeSchema } from './enums/DamageType';
 import { WeaponSizeSchema } from './enums/WeaponSize';
 import { AmmoTypeSchema } from './enums/AmmoType';
 
-export const WeaponPropertiesSchema = z.object({
+export const WeaponBlueprintSchema = z.object({
     itemType: z.literal(CONSTS.ITEM_TYPE_WEAPON).describe('fields.itemType'),
     damages: z.string().describe('fields.damages'),
     damageType: DamageTypeSchema.describe('fields.damageType'),
@@ -27,4 +27,4 @@ export const WeaponPropertiesSchema = z.object({
         .describe('fields.equipmentSlots'),
 });
 
-export type WeaponProperties = z.infer<typeof WeaponPropertiesSchema>;
+export type WeaponBlueprint = z.infer<typeof WeaponBlueprintSchema>;

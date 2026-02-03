@@ -4,7 +4,10 @@ import z from 'zod';
 import { CONSTS } from '../../consts';
 
 export const AmmoTypeSchema = z
-    .enum([CONSTS.AMMO_TYPE_QUARREL, CONSTS.AMMO_TYPE_ARROW])
+    .enum([
+        CONSTS.AMMO_TYPE_QUARREL,
+        CONSTS.AMMO_TYPE_ARROW,
+    ])
     .describe('fields.ammoType');
 
 export type AmmoType = z.infer<typeof AmmoTypeSchema>;

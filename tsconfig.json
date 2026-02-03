@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
         "typeRoots": ["./node_modules/@types", "./@types"],
-        "types": ["vitest/globals"],
-        "target": "ES2016",
-        "module": "commonjs",
+        "target": "ESNext",
+        "module": "CommonJS",
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
