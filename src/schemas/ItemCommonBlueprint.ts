@@ -7,6 +7,5 @@ export const ItemCommonBlueprintSchema = z.strictObject({
     properties: z.array(PropertySchema),
     weight: z.number().min(0).describe('fields.weight'),
     charges: z.number().int().min(0).optional().describe('fields.charges'),
-    tag: z.string().optional().describe('fields.tag'),
     spell: z.string().optional().describe('fields.spell'),
 });

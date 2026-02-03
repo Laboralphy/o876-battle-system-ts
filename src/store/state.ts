@@ -22,7 +22,7 @@ export const CreatureStateSchema = z.strictObject({
     }),
     level: z.number(),
     hitDie: z.number(),
-    naturalArmorClass: z.number(),
+    armorClass: z.number(),
     speed: z.number(),
     hitPoints: z.number(),
     properties: z.array(PropertySchema),

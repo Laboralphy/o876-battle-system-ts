@@ -1,12 +1,12 @@
-function cloneArray<T>(aArray: T[]): T[] {
-    return aArray.map((item) => deepClone(item));
+function cloneArray<T>(aArray: T[], seen: WeakSet<object>): T[] {
+    return aArray.map((item) => deepClone(item, seen));
 }
 
-function cloneObject<T extends object>(oObject: T): T {
+function cloneObject<T extends object>(oObject: T, seen: WeakSet<object>): T {
     const oOutput = {} as T;
     for (const sKey in oObject) {
         if (Object.hasOwn(oObject, sKey)) {
-            oOutput[sKey] = deepClone(oObject[sKey]);
+            oOutput[sKey] = deepClone(oObject[sKey], seen);
         }
     }
     return oOutput;
@@ -17,10 +17,8 @@ function cloneObject<T extends object>(oObject: T): T {
  * Supports primitives, arrays, objects, Dates, and Sets.
  * Functions are returned by reference.
  *
- * @param oItem The item to clone
- * @returns A deep clone of the item
  */
-export function deepClone<T>(oItem: T): T {
+export function deepClone<T>(oItem: T, seen: WeakSet<object> = new WeakSet()): T {
     if (oItem === null) {
         return null as unknown as T;
     }
@@ -28,13 +26,17 @@ export function deepClone<T>(oItem: T): T {
     switch (typeof oItem) {
         case 'object': {
             if (Array.isArray(oItem)) {
-                return cloneArray(oItem) as unknown as T;
+                return cloneArray(oItem, seen) as unknown as T;
             } else if (oItem instanceof Date) {
                 return new Date(oItem) as unknown as T;
             } else if (oItem instanceof Set) {
-                return new Set(cloneArray([...oItem])) as unknown as T;
+                return new Set(cloneArray([...oItem], seen)) as unknown as T;
             } else {
-                return cloneObject(oItem as unknown as object) as T;
+                if (seen.has(oItem)) {
+                    throw new Error('ERR_MERGE_RECURSIVE');
+                }
+                seen.add(oItem);
+                return cloneObject(oItem as unknown as object, seen) as T;
             }
         }
 

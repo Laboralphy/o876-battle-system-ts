@@ -10,7 +10,7 @@ import { ProficiencySchema } from './enums/Proficiency';
 
 export const CreatureBlueprintSchema = z.strictObject({
     ref: z.string().optional().describe('fields.CreatureField.ref'),
-    entityType: z.literal(CONSTS.ENTITY_TYPE_ACTOR).describe('fields.CreatureField.entityType'),
+    entityType: z.literal(CONSTS.ENTITY_TYPE_CREATURE).describe('fields.CreatureField.entityType'),
     classType: z.string(),
     level: z.number().int().min(1).describe('fields.CreatureField.level'),
     abilities: z.object({

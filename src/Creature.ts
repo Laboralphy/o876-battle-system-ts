@@ -32,7 +32,7 @@ export class Creature {
 
         creature.state.level = blueprint.level;
         creature.state.hitDie = blueprint.hitDie;
-        creature.state.naturalArmorClass = blueprint.ac;
+        creature.state.armorClass = blueprint.armorClass;
         creature.state.speed = blueprint.speed;
         creature.state.hitPoints = 1;
 
@@ -165,25 +165,40 @@ export class Creature {
             };
         }
         // get the first slot available
-        let availableSlot = slots.find((slot) => !this._store.state.equipment[slot]);
-        if (!availableSlot) {
-            const bUnequipSuccess = false;
+        const availableSlot: EquipmentSlot | undefined = slots.find(
+            (slot) => !this._store.state.equipment[slot]
+        );
+        if (availableSlot) {
+            const unequippedItem = this._store.state.equipment[availableSlot];
+            this._store.state.equipment[availableSlot] = item;
+            return {
+                unequippedItem,
+                outcome: CONSTS.EQUIP_ITEM_SUCCESS,
+            };
+        } else {
             // No available slot: must remove item prior to equip the new one
+            let lastOutcome = '';
             for (const slot of slots) {
                 const eqo = this.unequipSlot(slot);
                 if (eqo.outcome === CONSTS.EQUIP_ITEM_SUCCESS) {
-                    availableSlot = slot;
-                    break;
+                    // an item of one of the suitable slots has been unequipped
+                    // use this very slot to equip the new item
+                    // ann exit with success
+                    const unequippedItem = this._store.state.equipment[slot];
+                    this._store.state.equipment[slot] = item;
+                    return {
+                        unequippedItem,
+                        outcome: CONSTS.EQUIP_ITEM_SUCCESS,
+                    };
                 }
+                lastOutcome = eqo.outcome;
             }
             // Could not find an available slot, even after attempting to unequip items
             // Exit
             return {
-                outcome: CONSTS.EQUIP_ITEM_FAILURE_REASON_NO_SUITABLE_SLOT,
+                outcome: lastOutcome,
                 unequippedItem: null,
             };
         }
-        this._store.state.equipment[availableSlot] = item;
-        return item;
     }
 }

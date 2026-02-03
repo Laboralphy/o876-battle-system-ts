@@ -17,7 +17,7 @@ export function buildState(): State {
         },
         level: 1,
         hitDie: 8,
-        naturalArmorClass: 0,
+        armorClass: 0,
         speed: 30,
         hitPoints: 8,
         properties: [],
