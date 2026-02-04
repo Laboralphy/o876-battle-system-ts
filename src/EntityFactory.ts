@@ -4,15 +4,18 @@ import crypto from 'node:crypto';
 import { Creature } from './Creature';
 import { CreatureBlueprint, CreatureBlueprintSchema } from './schemas/CreatureBlueprint';
 import { CONSTS } from './consts';
-import { ExtendedProperties, ExtendedPropertiesSchema } from './schemas/ExtendedProperties';
+import {
+    PartialCreatureBlueprint,
+    PartialCreatureBlueprintSchema,
+} from './schemas/PartialCreatureBlueprint';
 import { Property } from './properties';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
     private readonly creatureBlueprints = new Map<string, CreatureBlueprint>();
-    private readonly extendedProperties = new Map<string, ExtendedProperties>();
+    private readonly partialCreatureBlueprints = new Map<string, PartialCreatureBlueprint>();
 
-    defineBlueprint<T extends ItemBlueprint | CreatureBlueprint | ExtendedProperties>(
+    defineBlueprint<T extends ItemBlueprint | CreatureBlueprint | PartialCreatureBlueprint>(
         ref: string,
         oEntityDef: T
     ): void {
@@ -27,29 +30,15 @@ export class EntityFactory {
                 this.itemBlueprints.set(ref, oNewEntity);
                 break;
             }
-            case CONSTS.ENTITY_TYPE_PARTIAL_ITEM:
             case CONSTS.ENTITY_TYPE_PARTIAL_CREATURE: {
-                const oNewEntity: ExtendedProperties = ExtendedPropertiesSchema.parse(oEntityDef);
-                this.extendedProperties.set(ref, oNewEntity);
+                const oNewEntity: PartialCreatureBlueprint =
+                    PartialCreatureBlueprintSchema.parse(oEntityDef);
+                this.partialCreatureBlueprints.set(ref, oNewEntity);
                 break;
             }
             default: {
                 throw new TypeError(`unknown entity type ${oEntityDef.entityType}`);
             }
-        }
-    }
-
-    inflateExtendedProperties(ref: string): Property[] {
-        const xp = this.extendedProperties.get(ref);
-        if (xp) {
-            const aProps: Property[] = [];
-            if (xp.extends) {
-                xp.extends.forEach((extend) => {
-                    aProps.push(...this.inflateExtendedProperties(extend));
-                });
-            }
-        } else {
-            throw new ReferenceError(`unknown extended properties for entity ${ref}`);
         }
     }
 
