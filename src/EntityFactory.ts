@@ -8,7 +8,6 @@ import {
     PartialCreatureBlueprint,
     PartialCreatureBlueprintSchema,
 } from './schemas/PartialCreatureBlueprint';
-import { Property } from './properties';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
@@ -16,8 +15,8 @@ export class EntityFactory {
     private readonly partialCreatureBlueprints = new Map<string, PartialCreatureBlueprint>();
 
     defineBlueprint<T extends ItemBlueprint | CreatureBlueprint | PartialCreatureBlueprint>(
-        ref: string,
-        oEntityDef: T
+        oEntityDef: T,
+        ref: string
     ): void {
         switch (oEntityDef.entityType) {
             case CONSTS.ENTITY_TYPE_CREATURE: {
@@ -42,12 +41,62 @@ export class EntityFactory {
         }
     }
 
+    inflateCreatureBlueprint<T extends PartialCreatureBlueprint | CreatureBlueprint>(
+        ref: string,
+        baseBlueprint: T
+    ): T {
+        // iterate through extends
+        for (const x of baseBlueprint.extends ?? []) {
+            const extendedBlueprint = this.inflateCreatureBlueprint(x, baseBlueprint);
+            // concat properties, feats, actions
+            const xProps = extendedBlueprint.properties ?? [];
+            const xFeats = extendedBlueprint.feats ?? [];
+            const xActions = extendedBlueprint.actions ?? [];
+            const xProficiencies = extendedBlueprint.proficiencies ?? [];
+            if (xProps.length > 0) {
+                baseBlueprint.properties = baseBlueprint.properties
+                    ? baseBlueprint.properties.concat(xProps)
+                    : xProps;
+            }
+            if (xFeats.length > 0) {
+                baseBlueprint.feats = baseBlueprint.feats
+                    ? baseBlueprint.feats.concat(xFeats)
+                    : xFeats;
+            }
+            if (xActions.length > 0) {
+                baseBlueprint.actions = baseBlueprint.actions
+                    ? baseBlueprint.actions.concat(xActions)
+                    : xActions;
+            }
+            if (xProficiencies.length > 0) {
+                baseBlueprint.proficiencies = baseBlueprint.proficiencies
+                    ? baseBlueprint.proficiencies.concat(xProficiencies)
+                    : xProficiencies;
+            }
+        }
+        return baseBlueprint;
+    }
+
     createItem(ref: string, id: string = ''): Item {
         const bp = this.itemBlueprints.get(ref);
         if (!bp) {
             throw new Error(`Item blueprint ${ref} not found`);
         }
         return { ...deepClone(bp), ref, id: id.length > 0 ? id : crypto.randomUUID() };
+    }
+
+    createCreature(ref: string, id: string = ''): Creature {
+        const bpCreature = this.creatureBlueprints.get(ref);
+        if (bpCreature) {
+            this.inflateCreatureBlueprint(ref);
+            for (const x of bpCreature.extends ?? []) {
+                const xp = this.inflateCreatureBlueprint(x);
+            }
+            if (bpCreature.extends && bpCreature.extends.length > 0) {
+                const extendedBlueprint = this.inflateCreatureBlueprint();
+            }
+            return new Creature();
+        }
     }
 
     createEntity(ref: string, id: string = ''): Item | Creature {

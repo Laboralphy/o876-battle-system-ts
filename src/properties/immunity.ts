@@ -8,5 +8,5 @@ import { ImmunitySchema } from '../schemas/enums/Immunity';
  */
 export const PropertyImmunity = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_IMMUNITY),
-    damageType: ImmunitySchema,
+    immunityType: ImmunitySchema,
 });

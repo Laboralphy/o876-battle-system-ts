@@ -16,6 +16,11 @@ export const PropertySpikeDamage = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SPIKE_DAMAGE),
     amp: DiceExpression.or(z.number()),
     damageType: DamageTypeSchema.optional(),
-    savingThrow: AbilitySchema.or(ThreatTypeSchema).optional(),
+    savingThrow: z
+        .object({
+            ability: AbilitySchema,
+            threat: ThreatTypeSchema.optional(),
+        })
+        .optional(),
     maxDistance: z.number().int().optional().default(Infinity),
 });

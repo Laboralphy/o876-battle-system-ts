@@ -5,7 +5,7 @@ import { ProficiencySchema } from './enums/Proficiency';
 
 export const ShieldBlueprintSchema = z.strictObject({
     itemType: z.literal(CONSTS.ITEM_TYPE_SHIELD).describe('fields.itemType'),
-    ac: z.number().int().describe('fields.ac'),
+    armorClass: z.number().int().describe('fields.ac'),
     proficiency: ProficiencySchema,
     equipmentSlots: z.array(EquipmentSlotSchema),
 });

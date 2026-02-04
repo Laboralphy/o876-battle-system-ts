@@ -8,7 +8,7 @@ import { DiceExpression } from '../schemas/DiceExpression';
  * This can be restricted to certain damage types
  */
 export const PropertyVampyre = z.strictObject({
-    type: z.literal(CONSTS.PROPERTY_DAMAGE_MODIFIER),
+    type: z.literal(CONSTS.PROPERTY_VAMPYRE),
     amp: DiceExpression.or(z.number().int()),
     damageType: DamageTypeSchema,
 });

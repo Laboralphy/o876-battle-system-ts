@@ -20,17 +20,18 @@ export const CreatureBlueprintSchema = z.strictObject({
         wisdom: z.number().int().min(1).describe('fields.CreatureField.wisdom'),
         charisma: z.number().int().min(1).describe('fields.CreatureField.charisma'),
     }),
-    ac: z.number().int().describe('fields.CreatureField.ac'),
+    armorClass: z.number().int().describe('fields.CreatureField.ac'),
     hitDie: z.number().int().min(1).describe('fields.CreatureField.hitDie'),
     specie: SpecieSchema,
     race: RaceSchema.optional().describe('fields.CreatureField.race'),
     speed: z.number().int().min(0).describe('fields.CreatureField.speed'),
-    feats: z.array(FeatTypeSchema).optional().describe('fields.CreatureField.feats'),
+    feats: z.array(FeatTypeSchema).describe('fields.CreatureField.feats'),
     properties: z.array(PropertySchema).describe('fields.CreatureField.properties'),
     equipment: z.array(ItemBlueprintSchema).describe('fields.CreatureField.equipment'),
     proficiencies: z.array(ProficiencySchema).describe('fields.CreatureField.proficiencies'),
     actions: z.array(ActionSchema).describe('fields.CreatureField.actions'),
     spells: z.array(z.string()).optional().describe('fields.CreatureField.spells'),
+    extends: z.array(z.string()).optional(),
 });
 
 export type CreatureBlueprint = z.infer<typeof CreatureBlueprintSchema>;

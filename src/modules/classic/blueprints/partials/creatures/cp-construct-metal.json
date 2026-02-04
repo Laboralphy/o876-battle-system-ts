@@ -1,0 +1,5 @@
+{
+    "entityType": "ENTITY_TYPE_PARTIAL_CREATURE",
+    "properties": [],
+    "extends": ["cp-construct", "cp-deflective-skin"]
+}
