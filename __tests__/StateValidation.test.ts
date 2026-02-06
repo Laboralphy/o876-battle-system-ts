@@ -17,7 +17,7 @@ describe('State Validation', () => {
             },
             level: 1,
             hitDie: 8,
-            naturalArmorClass: 10,
+            armorClass: 10,
             speed: 30,
             hitPoints: 8,
             properties: [],

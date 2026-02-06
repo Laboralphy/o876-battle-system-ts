@@ -112,9 +112,9 @@ describe('CreatureCreation', () => {
     };
     it('should build the golem properly', () => {
         const ef = new EntityFactory();
-        ef.defineBlueprint(cpConstruct, 'cp-construct');
-        ef.defineBlueprint(cpDeflectiveSkin, 'cp-deflective-skin');
-        ef.defineBlueprint(cpConstructMetal, 'cp-construct-metal');
-        ef.defineBlueprint(cGolemBronze, 'c-golem-bronze');
+        ef.declareBlueprint(cpConstruct, 'cp-construct');
+        ef.declareBlueprint(cpDeflectiveSkin, 'cp-deflective-skin');
+        ef.declareBlueprint(cpConstructMetal, 'cp-construct-metal');
+        ef.declareBlueprint(cGolemBronze, 'c-golem-bronze');
     });
 });
