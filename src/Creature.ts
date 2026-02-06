@@ -5,7 +5,7 @@ import { Property, PropertySchema } from './properties';
 import { PropertyType } from './schemas/enums/PropertyType';
 import { aggregateProperties, AggregatorFunc, AggregatorOptions } from './libs/aggregator';
 import { CreatureBlueprint } from './schemas/CreatureBlueprint';
-import { Item, ItemBlueprintSchema } from './schemas/Item';
+import { Item, ItemBlueprintSchema, ItemSchema } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
 import { CONSTS } from './consts';
 import { EquipmentSlot } from './schemas/enums/EquipmentSlot';
@@ -13,42 +13,8 @@ import { EquipmentSlot } from './schemas/enums/EquipmentSlot';
 export class Creature {
     private readonly _store: ReactiveStore<State>;
 
-    constructor() {
+    constructor(private readonly _id: string = '') {
         this._store = buildStore();
-    }
-
-    static create(blueprint: CreatureBlueprint): Creature {
-        const creature = new Creature();
-        // specie and race
-        creature.state.specie = blueprint.specie;
-        creature.state.race = blueprint.race;
-        // abilities
-        creature.state.abilities.strength = blueprint.abilities.strength;
-        creature.state.abilities.dexterity = blueprint.abilities.dexterity;
-        creature.state.abilities.constitution = blueprint.abilities.constitution;
-        creature.state.abilities.intelligence = blueprint.abilities.intelligence;
-        creature.state.abilities.wisdom = blueprint.abilities.wisdom;
-        creature.state.abilities.charisma = blueprint.abilities.charisma;
-
-        creature.state.level = blueprint.level;
-        creature.state.hitDie = blueprint.hitDie;
-        creature.state.armorClass = blueprint.armorClass;
-        creature.state.speed = blueprint.speed;
-        creature.state.hitPoints = 1;
-
-        // Innate Properties
-        blueprint.properties.forEach((property) => creature.addInnateProperty(property));
-        creature.state.proficiencies.push(...blueprint.proficiencies);
-        blueprint.equipment.forEach((equipementItem) => {
-            if (typeof equipementItem === 'string') {
-            } else if (typeof equipementItem === 'object') {
-                // check if its a real item
-                const oItem: Item = ItemBlueprintSchema.parse(equipementItem);
-                // see ? oItem is a real item
-            }
-        });
-
-        return creature;
     }
 
     get getters() {

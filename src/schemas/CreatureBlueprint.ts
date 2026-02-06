@@ -27,7 +27,9 @@ export const CreatureBlueprintSchema = z.strictObject({
     speed: z.number().int().min(0).describe('fields.CreatureField.speed'),
     feats: z.array(FeatTypeSchema).describe('fields.CreatureField.feats'),
     properties: z.array(PropertySchema).describe('fields.CreatureField.properties'),
-    equipment: z.array(ItemBlueprintSchema).describe('fields.CreatureField.equipment'),
+    equipment: z
+        .array(z.union([ItemBlueprintSchema, z.string()]))
+        .describe('fields.CreatureField.equipment'),
     proficiencies: z.array(ProficiencySchema).describe('fields.CreatureField.proficiencies'),
     actions: z.array(ActionSchema).describe('fields.CreatureField.actions'),
     spells: z.array(z.string()).optional().describe('fields.CreatureField.spells'),

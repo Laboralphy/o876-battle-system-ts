@@ -6,7 +6,7 @@ import { ActionSchema } from './Action';
 
 export const PartialCreatureBlueprintSchema = z.object({
     entityType: z
-        .literal(CONSTS.ENTITY_TYPE_PARTIAL_CREATURE)
+        .literal(CONSTS.ENTITY_TYPE_EXTENDED_PROPERTIES)
         .describe('fields.CreatureField.entityType'),
     extends: z.array(z.string()).optional(),
     properties: z.array(PropertySchema).optional(),

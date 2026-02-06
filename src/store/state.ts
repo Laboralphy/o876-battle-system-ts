@@ -11,7 +11,7 @@ import { PropertySchema } from '../properties';
 
 export const CreatureStateSchema = z.strictObject({
     specie: SpecieSchema,
-    race: RaceSchema,
+    race: RaceSchema.or(z.literal('')),
     abilities: z.strictObject({
         strength: z.number(),
         dexterity: z.number(),
