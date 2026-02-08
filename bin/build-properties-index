@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "build property index"
+echo "generating properties index"
 
 script_folder=$(dirname "$(realpath "$0")")
-target_folder="${script_folder}/../src/properties"
+target_folder=$(realpath "${script_folder}/../src/properties")
 index_ts="${target_folder}/index.ts"
 
 # Initialise le fichier index.json avec un objet JSON vide
@@ -41,3 +41,5 @@ done
 echo "]);" >> "$index_ts"
 echo "" >> "$index_ts"
 echo "export type Property = z.infer<typeof PropertySchema>;" >> "$index_ts"
+
+echo "generated: $index_ts"
