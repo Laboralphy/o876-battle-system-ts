@@ -1,0 +1,55 @@
+{
+  "entityType": "ENTITY_TYPE_CREATURE",
+  "classType": "CLASS_TYPE_MONSTER",
+  "proficiencies": [
+    "PROFICIENCY_WEAPON_NATURAL",
+    "PROFICIENCY_WEAPON_SIMPLE",
+    "PROFICIENCY_WEAPON_MARTIAL",
+    "PROFICIENCY_ARMOR_LIGHT",
+    "PROFICIENCY_ARMOR_MEDIUM",
+    "PROFICIENCY_ARMOR_HEAVY",
+    "PROFICIENCY_SHIELD",
+    "PROFICIENCY_SAVING_THROW_WISDOM",
+    "PROFICIENCY_SAVING_THROW_CHARISMA"
+  ],
+  "abilities": {
+    "strength": 18,
+    "dexterity": 18,
+    "constitution": 18,
+    "intelligence": 17,
+    "wisdom": 20,
+    "charisma": 20
+  },
+  "equipment": [
+    "wpn-mace-deva",
+    "arm-splint"
+  ],
+  "properties": [
+    {
+      "type": "PROPERTY_ATTACK_COUNT_MODIFIER",
+      "amp": 1
+    }
+  ],
+  "actions": [
+    {
+      "id": "act-heal",
+      "actionType": "ACTION_TYPE_SPELL_LIKE_ABILITY",
+      "script": "ca-heal",
+      "bonus": false,
+      "hostile": false,
+      "range": 100,
+      "parameters": {},
+      "cooldown": 6
+    }
+  ],
+  "feats": [],
+  "specie": "SPECIE_CELESTIAL",
+  "armorClass": 3,
+  "level": 16,
+  "hitDie": 8,
+  "speed": 30,
+  "extends": [
+    "cp-celestial",
+    "cp-hard-skin"
+  ]
+}

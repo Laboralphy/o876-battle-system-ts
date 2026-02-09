@@ -1,0 +1,22 @@
+{
+  "entityType": "ENTITY_TYPE_PARTIAL_ITEM",
+  "itemType": "ITEM_TYPE_WEAPON",
+  "proficiency": "PROFICIENCY_WEAPON_MARTIAL",
+  "damages": "1d10",
+  "damageType": "DAMAGE_TYPE_SLASHING",
+  "weight": 12,
+  "size": "WEAPON_SIZE_LARGE",
+  "attributes": [
+    "WEAPON_ATTRIBUTE_REACH",
+    "WEAPON_ATTRIBUTE_TWO_HANDED"
+  ],
+  "properties": [
+    {
+      "type": "PROPERTY_EXTRA_WEAPON_DAMAGE_TYPE",
+      "damageType": "DAMAGE_TYPE_PIERCING"
+    }
+  ],
+  "equipmentSlots": [
+    "EQUIPMENT_SLOT_WEAPON_MELEE"
+  ]
+}

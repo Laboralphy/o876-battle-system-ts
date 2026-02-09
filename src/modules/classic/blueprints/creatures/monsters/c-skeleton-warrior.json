@@ -1,0 +1,38 @@
+{
+  "entityType": "ENTITY_TYPE_CREATURE",
+  "classType": "CLASS_TYPE_MONSTER",
+  "proficiencies": [
+    "PROFICIENCY_WEAPON_NATURAL",
+    "PROFICIENCY_WEAPON_SIMPLE",
+    "PROFICIENCY_WEAPON_MARTIAL",
+    "PROFICIENCY_ARMOR_LIGHT",
+    "PROFICIENCY_ARMOR_MEDIUM",
+    "PROFICIENCY_ARMOR_HEAVY",
+    "PROFICIENCY_SHIELD"
+  ],
+  "abilities": {
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 15,
+    "intelligence": 6,
+    "wisdom": 8,
+    "charisma": 5
+  },
+  "equipment": [
+    "arm-chain-shirt",
+    "wpn-short-sword-hq",
+    "wpn-short-bow-hq",
+    "ammo-arrow"
+  ],
+  "properties": [],
+  "actions": [],
+  "feats": [],
+  "specie": "SPECIE_UNDEAD",
+  "armorClass": 0,
+  "level": 4,
+  "hitDie": 8,
+  "speed": 30,
+  "extends": [
+    "cp-undead-skeleton"
+  ]
+}
