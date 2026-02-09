@@ -1,7 +1,0 @@
-{
-  "entityType": "ENTITY_TYPE_ITEM",
-  "extends": [
-    "gear-type-helm"
-  ],
-  "properties": []
-}
