@@ -1,0 +1,9 @@
+{
+  "entityType": "ENTITY_TYPE_PARTIAL_ITEM",
+  "itemType": "ITEM_TYPE_BELT",
+  "weight": 1,
+  "properties": [],
+  "equipmentSlots": [
+    "EQUIPMENT_SLOT_WAIST"
+  ]
+}

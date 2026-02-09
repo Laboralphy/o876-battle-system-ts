@@ -5,20 +5,37 @@ import { Creature } from './Creature';
 import { CreatureBlueprint, CreatureBlueprintSchema } from './schemas/CreatureBlueprint';
 import { ExtendableEntity, ExtendResolver } from './ExtendResolver';
 import { CONSTS } from './consts';
+import { EntityType } from './schemas/enums/EntityType';
+
+import MODULE_CLASSIC from './modules/classic';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
     private readonly creatureBlueprints = new Map<string, CreatureBlueprint>();
     private readonly extendResolver = new ExtendResolver();
 
+    loadModules() {
+        for (const [key, blueprint] of Object.entries(MODULE_CLASSIC.blueprints)) {
+            this.declareBlueprint(key, blueprint);
+        }
+    }
+
+    get refs(): string[] {
+        return this.extendResolver.keys;
+    }
+
     /**
      * Register a blueprint. The blueprint is allowed to be a partial one.
-     * Partiale blueprints are resolved when item/creature are created.
+     * Partial blueprints are resolved when item/creature are created.
      * @param ref
      * @param blueprint
      */
     declareBlueprint(ref: string, blueprint: ExtendableEntity): void {
         this.extendResolver.declareEntity(ref, blueprint);
+    }
+
+    getAssetEntityType(ref: string): EntityType {
+        return this.extendResolver.getEntityType(ref);
     }
 
     /**
@@ -88,5 +105,20 @@ export class EntityFactory {
         // no effect at start
 
         return creature;
+    }
+
+    createEntity(ref: string, id: string = '') {
+        const entityType = this.extendResolver.getEntityType(ref);
+        switch (entityType) {
+            case CONSTS.ENTITY_TYPE_CREATURE: {
+                return this.createCreature(ref, id);
+            }
+            case CONSTS.ENTITY_TYPE_ITEM: {
+                return this.createItem(ref, id);
+            }
+            default: {
+                throw new Error(`Entity type ${entityType} not supported`);
+            }
+        }
     }
 }

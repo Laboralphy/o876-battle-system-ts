@@ -1,0 +1,45 @@
+{
+  "entityType": "ENTITY_TYPE_CREATURE",
+  "classType": "CLASS_TYPE_MONSTER",
+  "proficiencies": [
+    "PROFICIENCY_WEAPON_NATURAL",
+    "PROFICIENCY_WEAPON_SIMPLE",
+    "PROFICIENCY_WEAPON_MARTIAL",
+    "PROFICIENCY_ARMOR_LIGHT",
+    "PROFICIENCY_ARMOR_MEDIUM",
+    "PROFICIENCY_ARMOR_HEAVY",
+    "PROFICIENCY_SHIELD"
+  ],
+  "abilities": {
+    "strength": 15,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 10,
+    "wisdom": 13,
+    "charisma": 15
+  },
+  "equipment": [
+    "wpn-long-sword-wight",
+    "wpn-long-bow",
+    "arm-studded-leather"
+  ],
+  "properties": [
+    {
+      "type": "PROPERTY_DARKVISION"
+    },
+    {
+      "type": "PROPERTY_ATTACK_COUNT_MODIFIER",
+      "amp": 1
+    }
+  ],
+  "actions": [],
+  "feats": [],
+  "specie": "SPECIE_UNDEAD",
+  "armorClass": 0,
+  "level": 6,
+  "hitDie": 8,
+  "speed": 30,
+  "extends": [
+    "cp-undead-corporeal"
+  ]
+}

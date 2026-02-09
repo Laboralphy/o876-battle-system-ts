@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../.env"
 doDownloadSheet () {
   sFileName="$1"
   sURL="$2"
-  curl -s -L --max-redir 5 "$sURL" --output "$SCRIPT_DIR/$sFileName.csv"
+  curl -s -L --max-redirs 5 "$sURL" --output "$SCRIPT_DIR/$sFileName.csv"
   if [ ! -f "$SCRIPT_DIR/$sFileName.csv" ]
   then
     echo "FILE NOT DOWNLOADED"

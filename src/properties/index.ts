@@ -6,6 +6,7 @@ import { PropertyAdvantageAttack } from './advantage-attack';
 import { PropertyAdvantageSavingThrow } from './advantage-saving-throw';
 import { PropertyArmorClassModifier } from './armor-class-modifier';
 import { PropertyAttackCountModifier } from './attack-count-modifier';
+import { PropertyAttackModifier } from './attack-modifier';
 import { PropertyCriticalRangeModifier } from './critical-range-modifier';
 import { PropertyCursed } from './cursed';
 import { PropertyDamageImmunity } from './damage-immunity';
@@ -45,6 +46,7 @@ export const PropertySchema = z.discriminatedUnion('type', [
     PropertyAdvantageSavingThrow,
     PropertyArmorClassModifier,
     PropertyAttackCountModifier,
+    PropertyAttackModifier,
     PropertyCriticalRangeModifier,
     PropertyCursed,
     PropertyDamageImmunity,

@@ -1,0 +1,36 @@
+{
+  "entityType": "ENTITY_TYPE_CREATURE",
+  "classType": "CLASS_TYPE_MONSTER",
+  "proficiencies": [
+    "PROFICIENCY_WEAPON_NATURAL",
+    "PROFICIENCY_WEAPON_SIMPLE",
+    "PROFICIENCY_WEAPON_MARTIAL",
+    "PROFICIENCY_ARMOR_LIGHT",
+    "PROFICIENCY_ARMOR_MEDIUM",
+    "PROFICIENCY_ARMOR_HEAVY",
+    "PROFICIENCY_SHIELD"
+  ],
+  "abilities": {
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 16,
+    "intelligence": 7,
+    "wisdom": 11,
+    "charisma": 10
+  },
+  "equipment": [
+    "wpn-great-axe"
+  ],
+  "properties": [
+    {
+      "type": "PROPERTY_DARKVISION"
+    }
+  ],
+  "actions": [],
+  "feats": [],
+  "specie": "SPECIE_HUMANOID",
+  "armorClass": 0,
+  "level": 2,
+  "hitDie": 8,
+  "speed": 30
+}

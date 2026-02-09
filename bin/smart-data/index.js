@@ -105,6 +105,10 @@ export class SmartData {
          * @param obj
          */
         function kv(obj) {
+            if (!obj) {
+                console.error(oContext);
+                throw new Error('kv: no object provided');
+            }
             if (typeof oContext.value === 'number' || typeof oContext.value === 'boolean') {
                 obj[oContext.leftValue] = oContext.value;
                 return;
@@ -150,9 +154,8 @@ export class SmartData {
         return vm.createContext(oContext);
     }
 
-    runRow(aRow, aScripts, oContext) {
+    runRow(aRow, aScripts, oContext, aSourceScripts) {
         if (!Array.isArray(aRow)) {
-            console.error(aRow);
             throw new TypeError('ERR_ARRAY_EXPECTED');
         }
         aRow.forEach((value, i) => {
@@ -166,7 +169,7 @@ export class SmartData {
                     }
                 } catch (e) {
                     console.error(e);
-                    console.error(aRow);
+                    console.error(aRow, i, aRow[i], aSourceScripts[i]);
                     console.error('COLUMN ' + i + ' : ' + value);
                     throw e;
                 } finally {
@@ -188,7 +191,7 @@ export class SmartData {
         const aCompiledScripts = this.compile(oScripts);
         const oContext = this.createContext();
         aData.forEach((row) => {
-            this.runRow(row, aCompiledScripts, oContext);
+            this.runRow(row, aCompiledScripts, oContext, aScripts);
         });
         oContext.output();
         return oContext._output;

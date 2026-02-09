@@ -1,0 +1,21 @@
+{
+  "entityType": "ENTITY_TYPE_PARTIAL_ITEM",
+  "itemType": "ITEM_TYPE_WEAPON",
+  "proficiency": "PROFICIENCY_WEAPON_SIMPLE",
+  "damages": "1d4",
+  "damageType": "DAMAGE_TYPE_PIERCING",
+  "weight": 1,
+  "size": "WEAPON_SIZE_SMALL",
+  "attributes": [
+    "WEAPON_ATTRIBUTE_FINESSE"
+  ],
+  "properties": [
+    {
+      "type": "PROPERTY_EXTRA_WEAPON_DAMAGE_TYPE",
+      "damageType": "DAMAGE_TYPE_SLASHING"
+    }
+  ],
+  "equipmentSlots": [
+    "EQUIPMENT_SLOT_WEAPON_MELEE"
+  ]
+}

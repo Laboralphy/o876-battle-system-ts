@@ -1,0 +1,11 @@
+{
+    "entityType": "ENTITY_TYPE_PARTIAL_ITEM",
+    "itemType": "ITEM_TYPE_TORCH",
+    "weight": 1,
+    "properties": [
+        {
+            "type": "PROPERTY_LIGHT"
+        }
+    ],
+    "equipmentSlots": ["EQUIPMENT_SLOT_SHIELD"]
+}
