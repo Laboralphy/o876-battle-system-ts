@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "build getter index"
+echo "generating store getters index"
 
 script_folder=$(dirname "$(realpath "$0")")
-store_folder="${script_folder}/../src/store"
+store_folder=$(realpath "${script_folder}/../src/store")
 getter_folder="${store_folder}/getters"
 define_getters_ts="${store_folder}/define-getters.ts"
 
@@ -37,3 +37,5 @@ for this_file in "$getter_folder"/*.ts; do
     echo "    store.defineGetter('$functionName', $functionName);" >> $define_getters_ts
 done
 echo "}" >> $define_getters_ts
+
+echo "generated: $define_getters_ts"

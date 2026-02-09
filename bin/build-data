@@ -6,3 +6,5 @@ $script_folder/build-consts-index
 $script_folder/build-properties-index
 $script_folder/build-getters-index
 $script_folder/build-enum-schema
+$script_folder/build-module-blueprints
+$script_folder/build-module-index classic

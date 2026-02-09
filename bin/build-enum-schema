@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo "build enum schema"
+echo "generating schemas enum index"
 
 script_folder=$(dirname "$(realpath "$0")")
-source_folder="${script_folder}/../src/consts"
-target_folder="${script_folder}/../src/schemas/enums"
+source_folder=$(realpath "${script_folder}/../src/consts")
+target_folder=$(realpath "${script_folder}/../src/schemas/enums")
 
 
 generateFileContent() {
@@ -55,3 +55,5 @@ generateFile Specie species
 generateFile ThreatType threat-types
 generateFile WeaponAttribute weapon-attributes
 generateFile WeaponSize weapon-sizes
+
+echo "generated: all schemas enum"

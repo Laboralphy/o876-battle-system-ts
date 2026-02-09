@@ -1,7 +1,9 @@
 #!/bin/bash
 
+echo "generating constant index"
+
 script_folder=$(dirname "$(realpath "$0")")
-target_folder="${script_folder}/../src/consts"
+target_folder=$(realpath "${script_folder}/../src/consts")
 index_json="${target_folder}/index.json"
 
 # Initialise le fichier index.json avec un objet JSON vide
@@ -22,4 +24,4 @@ for this_file in "$target_folder"/*.json; do
     fi
 done
 
-echo "generated : $index_json"
+echo "generated: $index_json"
