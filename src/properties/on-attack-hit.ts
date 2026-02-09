@@ -11,7 +11,7 @@ import { DiseaseSchema } from '../schemas/enums/Disease';
 export const PropertyOnAttackHit = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ON_ATTACK_HIT).describe('fields.propertyType'),
     ailment: OnAttackHitSchema,
-    savingThrow: AbilitySchema.or(ThreatTypeSchema),
+    savingThrow: AbilitySchema.optional(),
     subType: EffectSubtypeSchema.optional().default(CONSTS.EFFECT_SUBTYPE_MAGICAL),
     duration: z.number().int().optional(),
     ability: AbilitySchema.optional(),

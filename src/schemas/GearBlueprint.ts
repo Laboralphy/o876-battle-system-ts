@@ -15,6 +15,7 @@ export const GearBlueprintSchema = z.strictObject({
             z.literal(CONSTS.ITEM_TYPE_HAT),
             z.literal(CONSTS.ITEM_TYPE_RING),
             z.literal(CONSTS.ITEM_TYPE_NECKLACE),
+            z.literal(CONSTS.ITEM_TYPE_TORCH),
         ])
         .describe('fields.itemType'),
     equipmentSlots: z.array(EquipmentSlotSchema),

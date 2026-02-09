@@ -1,3 +1,5 @@
+import { EntityType } from './schemas/enums/EntityType';
+
 export interface ExtendableEntity {
     extends?: string[];
     [key: string]: any;
@@ -11,6 +13,19 @@ export class ExtendResolver {
 
     declareEntity(ref: string, obj: ExtendableEntity): void {
         this.entities.set(ref, obj);
+    }
+
+    get keys(): string[] {
+        return [...this.entities.keys()];
+    }
+
+    getEntityType(ref: string): EntityType {
+        const oEntity = this.entities.get(ref);
+        if (oEntity === undefined) {
+            throw new ReferenceError(`Entity ${ref} not found`);
+        } else {
+            return oEntity.entityType;
+        }
     }
 
     resolveEntity(ref: string, seen: Set<string> = new Set<string>()): ExtendableEntity {

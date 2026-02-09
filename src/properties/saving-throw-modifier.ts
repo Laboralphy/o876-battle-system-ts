@@ -7,7 +7,7 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 export const PropertySavingThrowModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SAVING_THROW_MODIFIER).describe('fields.propertyType'),
     amp: DiceExpression.or(z.number().int()).describe('fields.amp'),
-    ability: AbilitySchema.or(z.number().int()),
+    ability: AbilitySchema,
     threat: ThreatTypeSchema.optional(),
     universal: z.boolean().optional().default(false),
 });

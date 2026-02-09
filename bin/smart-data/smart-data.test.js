@@ -1,4 +1,4 @@
-const SmartData = require('./index.js');
+import { SmartData } from './index.js';
 
 describe('test1', function () {
     it('should instanciate without error', function () {

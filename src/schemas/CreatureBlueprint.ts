@@ -7,6 +7,7 @@ import { SpecieSchema } from './enums/Specie';
 import { RaceSchema } from './enums/Race';
 import { FeatTypeSchema } from './enums/FeatType';
 import { ProficiencySchema } from './enums/Proficiency';
+import { SkillProficiencySchema } from './enums/SkillProficiency';
 
 export const CreatureBlueprintSchema = z.strictObject({
     entityType: z.literal(CONSTS.ENTITY_TYPE_CREATURE).describe('fields.CreatureField.entityType'),
@@ -30,7 +31,9 @@ export const CreatureBlueprintSchema = z.strictObject({
     equipment: z
         .array(z.union([ItemBlueprintSchema, z.string()]))
         .describe('fields.CreatureField.equipment'),
-    proficiencies: z.array(ProficiencySchema).describe('fields.CreatureField.proficiencies'),
+    proficiencies: z
+        .array(z.union([ProficiencySchema, SkillProficiencySchema]))
+        .describe('fields.CreatureField.proficiencies'),
     actions: z.array(ActionSchema).describe('fields.CreatureField.actions'),
     spells: z.array(z.string()).optional().describe('fields.CreatureField.spells'),
     extends: z.array(z.string()).optional(),
