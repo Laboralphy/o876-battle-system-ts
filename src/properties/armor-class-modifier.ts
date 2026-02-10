@@ -9,6 +9,8 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  * The AC modifier can be limited to a certain type of attack (melee, ranged)
  * a certain type of damage (usually physical, but modern of futuristic weapon can use force damage, or electric damage),
  * and a certain type of species
+ *
+ *
  */
 export const PropertyArmorClassModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ARMOR_CLASS_MODIFIER).describe('fields.propertyType'),

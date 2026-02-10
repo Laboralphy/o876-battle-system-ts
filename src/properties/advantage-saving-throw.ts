@@ -5,6 +5,8 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 
 /**
  * Schema for advantage on saving throws.
+ *
+ * when : rolling a saving throw
  */
 export const PropertyAdvantageSavingThrow = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_SAVING_THROW).describe('fields.propertyType'),

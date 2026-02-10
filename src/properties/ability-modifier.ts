@@ -7,6 +7,8 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  * On the specified ability :
  * - if amp is positive this property grants a bonus
  * - if amp is negative this property imposes a malus
+ *
+ * when : computing an ability score or modifier
  */
 export const PropertyAbilityModifier = z
     .strictObject({

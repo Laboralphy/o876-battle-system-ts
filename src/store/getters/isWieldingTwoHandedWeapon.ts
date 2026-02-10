@@ -12,7 +12,7 @@ import { CONSTS } from '../../consts';
  * @param {GetterRegistry} getters - A registry of getter functions to access derived state.
  * @return {boolean} True if the selected weapon is two-handed or versatile without a shield; otherwise, false.
  */
-export function isWeildingTwoHandedWeapon(state: State, getters: GetterRegistry): boolean {
+export function isWieldingTwoHandedWeapon(state: State, getters: GetterRegistry): boolean {
     const wa = getters.getSelectedWeaponAttributeSet;
     return (
         wa.has(CONSTS.WEAPON_ATTRIBUTE_TWO_HANDED) ||

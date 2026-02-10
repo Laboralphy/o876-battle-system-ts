@@ -38,6 +38,7 @@ generateFile Condition conditions
 generateFile DamageType damage-types
 generateFile Disease diseases
 generateFile EffectSubtype effect-subtypes
+generateFile EffectType effect-types
 generateFile EntityType entity-types
 generateFile Environment environments
 generateFile EquipItemOutcome equip-item-outcomes

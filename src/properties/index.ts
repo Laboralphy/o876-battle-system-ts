@@ -38,6 +38,7 @@ import { PropertySpikeDamage } from './spike-damage';
 import { PropertyThinker } from './thinker';
 import { PropertyUnidentified } from './unidentified';
 import { PropertyVampyre } from './vampyre';
+import { PropertyWeaponDamageModifier } from './weapon-damage-modifier';
 
 export const PropertySchema = z.discriminatedUnion('type', [
     PropertyAbilityCheckModifier,
@@ -78,6 +79,7 @@ export const PropertySchema = z.discriminatedUnion('type', [
     PropertyThinker,
     PropertyUnidentified,
     PropertyVampyre,
+    PropertyWeaponDamageModifier,
 ]);
 
 export type Property = z.infer<typeof PropertySchema>;

@@ -30,6 +30,17 @@ for this_file in "$getter_folder"/*.ts; do
 done
 echo "" >> "$define_getters_ts"
 
+echo "export type GetterReturnType = {" >> "$define_getters_ts"
+for this_file in "$getter_folder"/*.ts; do
+    # Ignore index.ts
+    if [ "$(basename "$this_file")" != "index.ts" ]; then
+        functionName=$(basename "$this_file" .ts)
+        echo "    $functionName: ReturnType<typeof $functionName>;" >> $define_getters_ts
+    fi
+done
+echo "};" >> "$define_getters_ts"
+echo "" >> "$define_getters_ts"
+
 echo "export function defineGetters(store: ReactiveStore<State>) {" >> $define_getters_ts
 
 for this_file in "$getter_folder"/*.ts; do

@@ -2,7 +2,6 @@ import z from 'zod';
 import { CONSTS } from '../consts';
 import { OnAttackHitSchema } from '../schemas/enums/OnAttackHit';
 import { AbilitySchema } from '../schemas/enums/Ability';
-import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 import { EffectSubtypeSchema } from '../schemas/enums/EffectSubtype';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { AttackTypeSchema } from '../schemas/enums/AttackType';

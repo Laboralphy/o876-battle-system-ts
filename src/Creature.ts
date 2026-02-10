@@ -4,21 +4,30 @@ import { buildStore } from './store';
 import { Property, PropertySchema } from './properties';
 import { PropertyType } from './schemas/enums/PropertyType';
 import { aggregateProperties, AggregatorFunc, AggregatorOptions } from './libs/aggregator';
-import { CreatureBlueprint } from './schemas/CreatureBlueprint';
-import { Item, ItemBlueprintSchema, ItemSchema } from './schemas/Item';
+import { Item } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
 import { CONSTS } from './consts';
 import { EquipmentSlot } from './schemas/enums/EquipmentSlot';
+import { Effect, EffectDefinition, EffectSchema } from './effects';
+import { EffectSubtype } from './schemas/enums/EffectSubtype';
+import { randomUUID } from 'node:crypto';
+import Events from 'node:events';
+import { GetterReturnType } from './store/define-getters';
 
 export class Creature {
     private readonly _store: ReactiveStore<State>;
+    public readonly events = new Events();
 
     constructor(private readonly _id: string = '') {
         this._store = buildStore();
     }
 
-    get getters() {
-        return this._store.getters;
+    get id(): string {
+        return this._id;
+    }
+
+    get getters(): GetterReturnType {
+        return this._store.getters as GetterReturnType;
     }
 
     get state() {
@@ -59,7 +68,7 @@ export class Creature {
         oFunctions: AggregatorFunc<Property> = {},
         options: AggregatorOptions = {}
     ) {
-        return aggregateProperties(aPropertyTypes, this, oFunctions, options);
+        return aggregateProperties(aPropertyTypes, this.getters, oFunctions, options);
     }
 
     /**
@@ -166,5 +175,94 @@ export class Creature {
                 unequippedItem: null,
             };
         }
+    }
+
+    applyEffect(
+        effectDefinition: EffectDefinition,
+        source: string,
+        duration: number,
+        subtype: EffectSubtype = CONSTS.EFFECT_SUBTYPE_MAGICAL,
+        tag: string = ''
+    ): Effect {
+        const effect: Effect = EffectSchema.parse({
+            ...effectDefinition,
+            id: randomUUID(),
+            source,
+            target: this.id,
+            duration,
+            subtype,
+            tag,
+            siblings: [],
+        });
+        let immune: boolean = false;
+        this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
+            creature: this,
+            effect,
+            immune: () => {
+                immune = true;
+            },
+        });
+        if (!immune) {
+            this.state.effects.push(effect);
+            this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
+                creature: this,
+                effect,
+            });
+        }
+        return effect;
+    }
+
+    removeEffect(effect: Effect) {
+        const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
+        if (effIndex >= 0) {
+            const effect = this.state.effects[effIndex];
+            this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_DISPOSED, {
+                creature: this,
+                effect,
+            });
+            this.state.effects.splice(effIndex, 1);
+        }
+    }
+
+    setEffectDuration(effect: Effect, duration: number) {
+        const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
+        if (effIndex >= 0) {
+            this.state.effects[effIndex].duration = duration;
+        }
+    }
+
+    depleteEffects() {
+        // for (const effect of this.state.effects) {
+        for (const effect of this.state.effects) {
+            --effect.duration;
+        }
+        this.removeDeadEffects();
+    }
+
+    dispelEffect(effect: Effect) {
+        this.setEffectDuration(effect, 0);
+    }
+
+    removeDeadEffects() {
+        let i = this.state.effects.length - 1;
+        while (i >= 0) {
+            if (this.state.effects[i].duration <= 0) {
+                this.state.effects.splice(i, 1);
+            }
+            --i;
+        }
+    }
+
+    // ▗▖   ▗▖   ▄▖                     ▄▖
+    // ▐▌   ▄▖  ▟▙▖▗▛▜▖    ▗▛▀ ▐▌▐▌▗▛▀  ▐▌ ▗▛▜▖
+    // ▐▌   ▐▌  ▐▌ ▐▛▀▘    ▐▌  ▝▙▟▌▐▌   ▐▌ ▐▛▀▘
+    // ▝▀▀▘ ▀▀  ▝▘  ▀▀      ▀▀ ▗▄▛  ▀▀  ▀▀  ▀▀
+    // Life cycle
+
+    /**
+     * This methode is called each round, the creature state is mutated by applied effects and properties
+     */
+    mutate() {
+        // Regeneration
     }
 }

@@ -2,24 +2,45 @@
 import { ReactiveStore } from '@laboralphy/reactor';
 import { State } from './state';
 
+import { getAbilityModifiers } from './getters/getAbilityModifiers';
+import { getAbilityScores } from './getters/getAbilityScores';
 import { getDefensiveSlots } from './getters/getDefensiveSlots';
+import { getEffects } from './getters/getEffects';
 import { getEquipmentProperties } from './getters/getEquipmentProperties';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
 import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
-import { isWeildingShield } from './getters/isWeildingShield';
-import { isWeildingTwoHandedWeapon } from './getters/isWeildingTwoHandedWeapon';
+import { isWieldingShield } from './getters/isWieldingShield';
+import { isWieldingTwoHandedWeapon } from './getters/isWieldingTwoHandedWeapon';
+
+export type GetterReturnType = {
+    getAbilityModifiers: ReturnType<typeof getAbilityModifiers>;
+    getAbilityScores: ReturnType<typeof getAbilityScores>;
+    getDefensiveSlots: ReturnType<typeof getDefensiveSlots>;
+    getEffects: ReturnType<typeof getEffects>;
+    getEquipmentProperties: ReturnType<typeof getEquipmentProperties>;
+    getEquipmentSlotProperties: ReturnType<typeof getEquipmentSlotProperties>;
+    getInnateProperties: ReturnType<typeof getInnateProperties>;
+    getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
+    getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
+    isRangedWeaponLoaded: ReturnType<typeof isRangedWeaponLoaded>;
+    isWieldingShield: ReturnType<typeof isWieldingShield>;
+    isWieldingTwoHandedWeapon: ReturnType<typeof isWieldingTwoHandedWeapon>;
+};
 
 export function defineGetters(store: ReactiveStore<State>) {
+    store.defineGetter('getAbilityModifiers', getAbilityModifiers);
+    store.defineGetter('getAbilityScores', getAbilityScores);
     store.defineGetter('getDefensiveSlots', getDefensiveSlots);
+    store.defineGetter('getEffects', getEffects);
     store.defineGetter('getEquipmentProperties', getEquipmentProperties);
     store.defineGetter('getEquipmentSlotProperties', getEquipmentSlotProperties);
     store.defineGetter('getInnateProperties', getInnateProperties);
     store.defineGetter('getOffensiveSlots', getOffensiveSlots);
     store.defineGetter('getSelectedWeaponAttributeSet', getSelectedWeaponAttributeSet);
     store.defineGetter('isRangedWeaponLoaded', isRangedWeaponLoaded);
-    store.defineGetter('isWeildingShield', isWeildingShield);
-    store.defineGetter('isWeildingTwoHandedWeapon', isWeildingTwoHandedWeapon);
+    store.defineGetter('isWieldingShield', isWieldingShield);
+    store.defineGetter('isWieldingTwoHandedWeapon', isWieldingTwoHandedWeapon);
 }

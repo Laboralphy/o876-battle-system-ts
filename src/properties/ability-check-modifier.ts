@@ -8,6 +8,8 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  *
  * When applied to a creature as innate property or on an item equipped by a creature
  * This will hook each ability check of the creature to the specified ability
+ *
+ * When : throwing an ability check
  */
 export const PropertyAbilityCheckModifier = z
     .strictObject({

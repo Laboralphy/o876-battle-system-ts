@@ -4,8 +4,9 @@
     "description": "",
     "main": "eslint.config.js",
     "scripts": {
-        "test": "vitest",
-        "build-data": "./bin/build-data"
+        "test": "vitest run",
+        "build-data:all": "./bin/build-data",
+        "build-data:local": "./bin/build-data-local"
     },
     "keywords": [],
     "author": "",

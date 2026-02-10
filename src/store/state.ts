@@ -8,6 +8,7 @@ import { SpellSlotSchema } from '../schemas/SpellSlot';
 import { EquipmentSchema } from '../schemas/Equipment';
 import { EquipmentSlotSchema } from '../schemas/enums/EquipmentSlot';
 import { PropertySchema } from '../properties';
+import { EffectSchema } from '../effects';
 
 export const CreatureStateSchema = z.strictObject({
     specie: SpecieSchema,
@@ -29,7 +30,7 @@ export const CreatureStateSchema = z.strictObject({
     proficiencies: z.array(ProficiencySchema),
     equipment: EquipmentSchema,
     selectedOffensiveSlot: EquipmentSlotSchema,
-    effect: z.array(z.number()),
+    effects: z.array(EffectSchema),
     encumbrance: z.number(),
     environment: z.strictObject({
         [CONSTS.ENVIRONMENT_DARKNESS]: z.boolean(),

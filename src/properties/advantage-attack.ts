@@ -8,6 +8,8 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
  * Advantage can be restricted to a certain type of attack.
  * - `attackType`: An optional field defining the type of attack. This field must conform
  *   to the `AttackTypeSchema` if provided.
+ *
+ * when : trying to hit a target
  */
 export const PropertyAdvantageAttack = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_ATTACK).describe('fields.propertyType'),
