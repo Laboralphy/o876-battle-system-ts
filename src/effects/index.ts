@@ -13,7 +13,6 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectRegenerationSchema,
 ]);
 
-
 export const EffectSchema = EffectDefinitionSchema.and(BaseEffectSchema);
 
 export type EffectDefinition = z.infer<typeof EffectSchema>;

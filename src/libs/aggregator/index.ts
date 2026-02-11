@@ -131,8 +131,7 @@ export function aggregateEffects(
     const aFilteredEffects: Effect[] = getters.getEffects
         .filter(
             (eff: Effect): boolean =>
-                aTypeSet.has(eff.type as EffectType) &&
-                (oFunctions?.filter ? oFunctions.filter(eff) : true)
+                aTypeSet.has(eff.type) && (oFunctions?.filter ? oFunctions.filter(eff) : true)
         )
         .map((eff: Effect): Effect => {
             if ('amp' in eff) {

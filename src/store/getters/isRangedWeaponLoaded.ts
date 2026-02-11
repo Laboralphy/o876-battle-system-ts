@@ -17,7 +17,7 @@ export function isRangedWeaponLoaded(state: State): boolean {
         if (wa.includes(CONSTS.WEAPON_ATTRIBUTE_AMMUNITION)) {
             const sAmmoType = weapon.ammoType;
             const oAmmo = state.equipment[CONSTS.EQUIPMENT_SLOT_AMMO];
-            return !!oAmmo && oAmmo.ammoType === sAmmoType;
+            return !!oAmmo && 'ammoType' in oAmmo && oAmmo.ammoType === sAmmoType;
         }
     }
     return false;
