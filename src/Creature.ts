@@ -15,7 +15,7 @@ import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
 
 export class Creature {
-    private readonly _store: ReactiveStore<State>;
+    private readonly _store: ReactiveStore<State, GetterReturnType>;
     public readonly events = new Events();
 
     constructor(private readonly _id: string = '') {
