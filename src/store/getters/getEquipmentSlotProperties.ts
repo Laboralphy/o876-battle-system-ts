@@ -1,9 +1,8 @@
 import { State } from '../state';
 import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
-import { PropertyType } from '../../schemas/enums/PropertyType';
-import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { Property } from '../../properties';
 import { Item } from '../../schemas/Item';
+import { GetterReturnType } from '../define-getters';
 
 /**
  * Retrieves the properties associated with equipment slots
@@ -14,7 +13,7 @@ import { Item } from '../../schemas/Item';
  */
 export function getEquipmentSlotProperties(
     state: State,
-    getters: GetterRegistry
+    getters: GetterReturnType
 ): Record<EquipmentSlot, Property[]> {
     const ds = getters.getDefensiveSlots as EquipmentSlot[];
     const os = getters.getOffensiveSlots as EquipmentSlot[];

@@ -30,17 +30,17 @@ export type GetterReturnType = {
     isWieldingTwoHandedWeapon: ReturnType<typeof isWieldingTwoHandedWeapon>;
 };
 
-export function defineGetters(store: ReactiveStore<State>) {
-    store.defineGetter('getAbilityModifiers', getAbilityModifiers);
-    store.defineGetter('getAbilityScores', getAbilityScores);
-    store.defineGetter('getDefensiveSlots', getDefensiveSlots);
-    store.defineGetter('getEffects', getEffects);
-    store.defineGetter('getEquipmentProperties', getEquipmentProperties);
-    store.defineGetter('getEquipmentSlotProperties', getEquipmentSlotProperties);
-    store.defineGetter('getInnateProperties', getInnateProperties);
-    store.defineGetter('getOffensiveSlots', getOffensiveSlots);
-    store.defineGetter('getSelectedWeaponAttributeSet', getSelectedWeaponAttributeSet);
-    store.defineGetter('isRangedWeaponLoaded', isRangedWeaponLoaded);
-    store.defineGetter('isWieldingShield', isWieldingShield);
-    store.defineGetter('isWieldingTwoHandedWeapon', isWieldingTwoHandedWeapon);
-}
+export const Getters = {
+    getAbilityModifiers,
+    getAbilityScores,
+    getDefensiveSlots,
+    getEffects,
+    getEquipmentProperties,
+    getEquipmentSlotProperties,
+    getInnateProperties,
+    getOffensiveSlots,
+    getSelectedWeaponAttributeSet,
+    isRangedWeaponLoaded,
+    isWieldingShield,
+    isWieldingTwoHandedWeapon,
+};

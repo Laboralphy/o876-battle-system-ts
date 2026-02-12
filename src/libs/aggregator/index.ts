@@ -12,7 +12,7 @@ export interface AggregatorFunc<T extends Property | Effect> {
     forEach?(pe: T): void;
 }
 
-export type AggregatorOptions = {
+export type PropertyAggregatorOptions = {
     excludeInnate?: boolean;
     restrictSlots?: EquipmentSlot[];
 };
@@ -24,12 +24,18 @@ export type AggregatorAccumulator = {
     count: number;
 };
 
+export type Discriminator = Record<string, AggregatorAccumulator>;
+
+export type AggregatorResult = AggregatorAccumulator & {
+    discriminator: Discriminator;
+};
+
 export function aggregateProperties(
     aWantedProperties: PropertyType[],
     getters: GetterReturnType,
     oFunctions: AggregatorFunc<Property>,
-    options: AggregatorOptions
-): AggregatorAccumulator & { discriminator: Record<string, AggregatorAccumulator> } {
+    options: PropertyAggregatorOptions
+): AggregatorResult {
     const restrictSlots: EquipmentSlot[] = options?.restrictSlots ?? [];
     const excludeInnate = options?.excludeInnate ?? false;
     const aTypeSet = new Set<PropertyType>(aWantedProperties);
@@ -126,7 +132,7 @@ export function aggregateEffects(
     aWantedEffects: EffectType[],
     getters: GetterReturnType,
     oFunctions: AggregatorFunc<Effect>
-): AggregatorAccumulator & { discriminator: Record<string, AggregatorAccumulator> } {
+): AggregatorResult {
     const aTypeSet = new Set<EffectType>(aWantedEffects);
     const aFilteredEffects: Effect[] = getters.getEffects
         .filter(
@@ -174,12 +180,12 @@ export function aggregateEffects(
     let nAccumulator = 0,
         nMin = Infinity,
         nMax = -Infinity;
-    aFilteredEffects.forEach((pe: Property) => {
-        if ('amp' in pe) {
-            if (typeof pe.amp === 'number') {
-                nAccumulator += pe.amp;
-                nMax = Math.max(nMax, pe.amp);
-                nMin = Math.min(nMin, pe.amp);
+    aFilteredEffects.forEach((eff: Effect) => {
+        if ('amp' in eff) {
+            if (typeof eff.amp === 'number') {
+                nAccumulator += eff.amp;
+                nMax = Math.max(nMax, eff.amp);
+                nMin = Math.min(nMin, eff.amp);
             }
         }
     });
@@ -190,4 +196,50 @@ export function aggregateEffects(
         count: aFilteredEffects.length,
         discriminator: oSorter,
     };
+}
+
+export function mergeAccumulators(
+    a1: AggregatorAccumulator,
+    a2: AggregatorAccumulator
+): AggregatorAccumulator {
+    a1.sum += a2.sum;
+    a1.min = Math.min(a1.min, a2.min);
+    a1.max = Math.max(a1.max, a2.max);
+    a1.count += a2.count;
+    return a1;
+}
+
+export function mergeResults(a1: AggregatorResult, a2: AggregatorResult) {
+    const discriminator: Discriminator = a1.discriminator;
+    for (const [name, value] of Object.entries(a2.discriminator)) {
+        if (!(name in discriminator)) {
+            discriminator[name] = value;
+        } else {
+            discriminator[name] = mergeAccumulators(discriminator[name], value);
+        }
+    }
+    mergeAccumulators(a1, a2);
+    a1.discriminator = discriminator;
+    return a1;
+}
+
+export type AggregateOptions = {
+    effects: {
+        types: EffectType[];
+        functions: AggregatorFunc<Effect>;
+    };
+    properties: {
+        types: PropertyType[];
+        functions: AggregatorFunc<Property>;
+        options: PropertyAggregatorOptions;
+    };
+};
+
+export function aggregate(options: AggregateOptions, getters: GetterReturnType) {
+    const op = options.properties;
+    const oe = options.effects;
+    return mergeResults(
+        aggregateEffects(oe.types, getters, oe.functions),
+        aggregateProperties(op.types, getters, op.functions, op.options)
+    );
 }

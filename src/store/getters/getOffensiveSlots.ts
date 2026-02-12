@@ -1,9 +1,9 @@
 import { State } from '../state';
 import { CONSTS } from '../../consts';
-import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
+import { GetterReturnType } from '../define-getters';
 
-export function getOffensiveSlots(state: State, getters: GetterRegistry): EquipmentSlot[] {
+export function getOffensiveSlots(state: State, getters: GetterReturnType): EquipmentSlot[] {
     const sOffensiveSlot = state.selectedOffensiveSlot;
     const aSlots = [sOffensiveSlot];
     if (sOffensiveSlot === CONSTS.EQUIPMENT_SLOT_WEAPON_RANGED && getters.isRangedWeaponLoaded) {

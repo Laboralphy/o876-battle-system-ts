@@ -1,6 +1,6 @@
 import { CreatureStateSchema, State } from './state';
 import { CONSTS } from '../consts';
-import { defineGetters } from './define-getters';
+import { GetterReturnType, Getters } from './define-getters';
 import { ReactiveStore } from '@laboralphy/reactor';
 
 export function buildState(): State {
@@ -117,8 +117,6 @@ export function buildState(): State {
     });
 }
 
-export function buildStore(): ReactiveStore<State> {
-    const oStore = new ReactiveStore(buildState());
-    defineGetters(oStore);
-    return oStore;
+export function buildStore(): ReactiveStore<State, GetterReturnType> {
+    return new ReactiveStore<State, GetterReturnType>(buildState(), Getters);
 }

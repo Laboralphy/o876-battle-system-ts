@@ -2,6 +2,7 @@ import { State } from '../state';
 import { CONSTS } from '../../consts';
 import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
+import { GetterReturnType } from '../define-getters';
 
 /**
  * Retrieves the list of defensive equipment slots that are currently occupied.
@@ -13,7 +14,7 @@ import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
  *                                   specific conditions such as whether a two-handed weapon is equipped.
  * @return {EquipmentSlot[]} An array of defensive equipment slots that are occupied.
  */
-export function getDefensiveSlots(state: State, getters: GetterRegistry): EquipmentSlot[] {
+export function getDefensiveSlots(state: State, getters: GetterReturnType): EquipmentSlot[] {
     const aSlots: string[] = [
         CONSTS.EQUIPMENT_SLOT_HEAD,
         CONSTS.EQUIPMENT_SLOT_NECK,
@@ -25,7 +26,7 @@ export function getDefensiveSlots(state: State, getters: GetterRegistry): Equipm
         CONSTS.EQUIPMENT_SLOT_WAIST,
         CONSTS.EQUIPMENT_SLOT_FEET,
     ];
-    if (!getters.isWeildingTwoHandedWeapon) {
+    if (!getters.isWieldingTwoHandedWeapon) {
         aSlots.push(CONSTS.EQUIPMENT_SLOT_SHIELD);
     }
     const eq = state.equipment;

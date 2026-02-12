@@ -1,6 +1,6 @@
 import { State } from '../state';
-import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { CONSTS } from '../../consts';
+import { GetterReturnType } from '../define-getters';
 
 /**
  * Determines if the character is currently wielding a shield.
@@ -11,7 +11,7 @@ import { CONSTS } from '../../consts';
  * @param {GetterRegistry} getters - The registry of getter functions for accessing additional state-derived values.
  * @return {boolean} True if the character is wielding a shield and not using a two-handed weapon; otherwise, false.
  */
-export function isWieldingShield(state: State, getters: GetterRegistry): boolean {
+export function isWieldingShield(state: State, getters: GetterReturnType): boolean {
     return (
         state.equipment[CONSTS.EQUIPMENT_SLOT_SHIELD] != null &&
         !getters.getSelectedWeaponAttributeSet.has(CONSTS.WEAPON_ATTRIBUTE_TWO_HANDED)

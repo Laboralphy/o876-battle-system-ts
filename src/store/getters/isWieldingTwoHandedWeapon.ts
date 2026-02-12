@@ -1,6 +1,6 @@
 import { State } from '../state';
-import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { CONSTS } from '../../consts';
+import { GetterReturnType } from '../define-getters';
 
 /**
  * Determines if the character is currently using a two-handed weapon.
@@ -9,10 +9,9 @@ import { CONSTS } from '../../consts';
  * should return false. If the character switches to bow for a ranged attack, the getter should return true.
  *
  * @param {State} state - The current state of the application.
- * @param {GetterRegistry} getters - A registry of getter functions to access derived state.
  * @return {boolean} True if the selected weapon is two-handed or versatile without a shield; otherwise, false.
  */
-export function isWieldingTwoHandedWeapon(state: State, getters: GetterRegistry): boolean {
+export function isWieldingTwoHandedWeapon(state: State, getters: GetterReturnType): boolean {
     const wa = getters.getSelectedWeaponAttributeSet;
     return (
         wa.has(CONSTS.WEAPON_ATTRIBUTE_TWO_HANDED) ||

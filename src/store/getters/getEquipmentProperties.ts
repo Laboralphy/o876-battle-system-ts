@@ -1,7 +1,7 @@
 import { State } from '../state';
-import { GetterRegistry } from '@laboralphy/reactor/src/Getter';
 import { Property } from '../../properties';
+import { GetterReturnType } from '../define-getters';
 
-export function getEquipmentProperties(state: State, getters: GetterRegistry): Property[] {
-    return Object.values(getters.getEquipmentSlotProperties as Property[]).flat();
+export function getEquipmentProperties(state: State, getters: GetterReturnType): Property[] {
+    return Object.values(getters.getEquipmentSlotProperties).flat();
 }

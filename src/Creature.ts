@@ -3,7 +3,7 @@ import { State } from './store/state';
 import { buildStore } from './store';
 import { Property, PropertySchema } from './properties';
 import { PropertyType } from './schemas/enums/PropertyType';
-import { aggregateProperties, AggregatorFunc, AggregatorOptions } from './libs/aggregator';
+import { aggregateProperties, AggregatorFunc, PropertyAggregatorOptions } from './libs/aggregator';
 import { Item } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
 import { CONSTS } from './consts';
@@ -66,7 +66,7 @@ export class Creature {
     aggregateProperties(
         aPropertyTypes: PropertyType[],
         oFunctions: AggregatorFunc<Property> = {},
-        options: AggregatorOptions = {}
+        options: PropertyAggregatorOptions = {}
     ) {
         return aggregateProperties(aPropertyTypes, this.getters, oFunctions, options);
     }

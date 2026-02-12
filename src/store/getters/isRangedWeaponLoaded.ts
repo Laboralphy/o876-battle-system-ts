@@ -1,6 +1,6 @@
 import { State } from '../state';
 import { CONSTS } from '../../consts';
-import { isWeapon } from '../type-guards';
+import { isAmmo, isWeapon } from '../type-guards';
 
 /**
  * Determines if the ranged weapon equipped is loaded with the correct type of ammunition.
@@ -17,7 +17,7 @@ export function isRangedWeaponLoaded(state: State): boolean {
         if (wa.includes(CONSTS.WEAPON_ATTRIBUTE_AMMUNITION)) {
             const sAmmoType = weapon.ammoType;
             const oAmmo = state.equipment[CONSTS.EQUIPMENT_SLOT_AMMO];
-            return !!oAmmo && 'ammoType' in oAmmo && oAmmo.ammoType === sAmmoType;
+            return isAmmo(oAmmo) && oAmmo.ammoType === sAmmoType;
         }
     }
     return false;
