@@ -12,7 +12,11 @@ import MODULE_CLASSIC from './modules/classic';
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
     private readonly creatureBlueprints = new Map<string, CreatureBlueprint>();
-    private readonly extendResolver = new ExtendResolver();
+    public readonly extendResolver = new ExtendResolver();
+
+    constructor() {
+        this.loadModules();
+    }
 
     loadModules() {
         for (const [key, blueprint] of Object.entries(MODULE_CLASSIC.blueprints)) {
@@ -107,7 +111,7 @@ export class EntityFactory {
         return creature;
     }
 
-    createEntity(ref: string, id: string = '') {
+    createEntity(ref: string, id: string = ''): Creature | Item {
         const entityType = this.extendResolver.getEntityType(ref);
         switch (entityType) {
             case CONSTS.ENTITY_TYPE_CREATURE: {

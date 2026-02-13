@@ -1,15 +1,12 @@
 import { CONSTS } from '../consts';
 import { AbilitySchema } from '../schemas/enums/Ability';
 import z from 'zod';
-import { BaseEffectSchema } from '../schemas/BaseEffect';
 
 /**
  * This effect increase the bonus applied to an ability check
  */
-export const EffectAbilityCheckModifier = z
-    .strictObject({
-        type: z.literal(CONSTS.PROPERTY_ABILITY_CHECK_MODIFIER).describe('fields.propertyType'),
-        amp: z.number().int().describe('fields.amp'),
-        ability: AbilitySchema,
-    })
-    .extend(BaseEffectSchema);
+export const EffectAbilityCheckModifier = z.strictObject({
+    type: z.literal(CONSTS.EFFECT_ABILITY_CHECK_MODIFIER).describe('fields.propertyType'),
+    amp: z.number().int().describe('fields.amp'),
+    ability: AbilitySchema,
+});

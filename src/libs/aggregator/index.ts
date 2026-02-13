@@ -30,6 +30,18 @@ export type AggregatorResult = AggregatorAccumulator & {
     discriminator: Discriminator;
 };
 
+function getDiscriminatorRegistry(oSorter: Discriminator, sKey: string) {
+    if (!(sKey in oSorter)) {
+        oSorter[sKey] = {
+            sum: 0,
+            min: Infinity,
+            max: -Infinity,
+            count: 0,
+        };
+    }
+    return oSorter[sKey];
+}
+
 export function aggregateProperties(
     aWantedProperties: PropertyType[],
     getters: GetterReturnType,
@@ -83,22 +95,11 @@ export function aggregateProperties(
         // Applies a forEach function to all properties
         aFilteredProperties.forEach(oFunctions.forEach);
     }
-    const oSorter: Record<string, AggregatorAccumulator> = {};
-    const getDiscriminatorRegistry = (sDisc: string) => {
-        if (!(sDisc in oSorter)) {
-            oSorter[sDisc] = {
-                sum: 0,
-                min: Infinity,
-                max: -Infinity,
-                count: 0,
-            };
-        }
-        return oSorter[sDisc];
-    };
+    const oDiscriminator: Record<string, AggregatorAccumulator> = {};
     if (typeof oFunctions?.discriminator === 'function') {
         aFilteredProperties.forEach((pe: Property) => {
             if (typeof oFunctions?.discriminator === 'function') {
-                const sd = getDiscriminatorRegistry(oFunctions.discriminator(pe));
+                const sd = getDiscriminatorRegistry(oDiscriminator, oFunctions.discriminator(pe));
                 const amp: number = 'amp' in pe && typeof pe.amp === 'number' ? pe.amp : 0;
                 sd.max = Math.max(sd.max, amp);
                 sd.min = Math.min(sd.min, amp);
@@ -124,7 +125,7 @@ export function aggregateProperties(
         max: nMax,
         min: nMin,
         count: aFilteredProperties.length,
-        discriminator: oSorter,
+        discriminator: oDiscriminator,
     };
 }
 
@@ -153,22 +154,11 @@ export function aggregateEffects(
         // Applies a forEach function to all properties
         aFilteredEffects.forEach(oFunctions.forEach);
     }
-    const oSorter: Record<string, AggregatorAccumulator> = {};
-    const getDiscriminatorRegistry = (sDisc: string) => {
-        if (!(sDisc in oSorter)) {
-            oSorter[sDisc] = {
-                sum: 0,
-                min: Infinity,
-                max: -Infinity,
-                count: 0,
-            };
-        }
-        return oSorter[sDisc];
-    };
+    const oDiscriminator: Record<string, AggregatorAccumulator> = {};
     if (typeof oFunctions?.discriminator === 'function') {
         aFilteredEffects.forEach((eff: Effect) => {
             if (typeof oFunctions?.discriminator === 'function') {
-                const sd = getDiscriminatorRegistry(oFunctions.discriminator(eff));
+                const sd = getDiscriminatorRegistry(oDiscriminator, oFunctions.discriminator(eff));
                 const amp: number = 'amp' in eff && typeof eff.amp === 'number' ? eff.amp : 0;
                 sd.max = Math.max(sd.max, amp);
                 sd.min = Math.min(sd.min, amp);
@@ -194,7 +184,7 @@ export function aggregateEffects(
         max: nMax,
         min: nMin,
         count: aFilteredEffects.length,
-        discriminator: oSorter,
+        discriminator: oDiscriminator,
     };
 }
 
@@ -212,10 +202,10 @@ export function mergeAccumulators(
 export function mergeResults(a1: AggregatorResult, a2: AggregatorResult) {
     const discriminator: Discriminator = a1.discriminator;
     for (const [name, value] of Object.entries(a2.discriminator)) {
-        if (!(name in discriminator)) {
-            discriminator[name] = value;
-        } else {
+        if (name in discriminator) {
             discriminator[name] = mergeAccumulators(discriminator[name], value);
+        } else {
+            discriminator[name] = value;
         }
     }
     mergeAccumulators(a1, a2);
@@ -224,22 +214,27 @@ export function mergeResults(a1: AggregatorResult, a2: AggregatorResult) {
 }
 
 export type AggregateOptions = {
-    effects: {
+    effects?: {
         types: EffectType[];
-        functions: AggregatorFunc<Effect>;
+        functions?: AggregatorFunc<Effect>;
     };
-    properties: {
+    properties?: {
         types: PropertyType[];
-        functions: AggregatorFunc<Property>;
-        options: PropertyAggregatorOptions;
+        functions?: AggregatorFunc<Property>;
+        options?: PropertyAggregatorOptions;
     };
 };
 
 export function aggregate(options: AggregateOptions, getters: GetterReturnType) {
-    const op = options.properties;
-    const oe = options.effects;
+    const op = options.properties ?? { types: [], functions: {} };
+    const oe = options.effects ?? {
+        types: [],
+        functions: {},
+        options: { excludeInnate: false, restrictSlots: [] },
+    };
+
     return mergeResults(
-        aggregateEffects(oe.types, getters, oe.functions),
-        aggregateProperties(op.types, getters, op.functions, op.options)
+        aggregateEffects(oe.types, getters, oe?.functions ?? {}),
+        aggregateProperties(op.types, getters, op?.functions ?? {}, op?.options ?? {})
     );
 }

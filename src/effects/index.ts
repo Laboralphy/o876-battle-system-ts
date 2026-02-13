@@ -5,13 +5,82 @@ import { BaseEffectSchema } from '../schemas/BaseEffect';
 import z from 'zod';
 import { EffectAbilityCheckModifier } from './ability-check-modifier';
 import { EffectAbilityModifier } from './ability-modifier';
+import { EffectAdvantageAttack } from './advantage-attack';
+import { EffectAdvantageSavingThrow } from './advantage-saving-throw';
+import { EffectArmorClassModifier } from './armor-class-modifier';
+import { EffectAttackCountModifier } from './attack-count-modifier';
+import { EffectAttackModifier } from './attack-modifier';
+import { EffectBlindness } from './blindness';
+import { EffectBreaker } from './breaker';
+import { EffectCharm } from './charm';
+import { EffectConcentration } from './concentration';
+import { EffectCriticalRangeModifier } from './critical-range-modifier';
+import { EffectDamageImmunity } from './damage-immunity';
+import { EffectDamageModifier } from './damage-modifier';
+import { EffectDamageReduction } from './damage-reduction';
+import { EffectDamageResistance } from './damage-resistance';
+import { EffectDamageVulnerability } from './damage-vulnerability';
+import { EffectDarkvision } from './darkvision';
+import { EffectDisadvantageAttack } from './disadvantage-attack';
+import { EffectDisadvantageSavingThrow } from './disadvantage-saving-throw';
+import { EffectDisease } from './disease';
+import { EffectEnfeeblement } from './enfeeblement';
+import { EffectEnvironment } from './environment';
+import { EffectExtraHitpoints } from './extra-hitpoints';
+import { EffectFear } from './fear';
+import { EffectHealingFactor } from './healing-factor';
+import { EffectHealingModifier } from './healing-modifier';
+import { EffectHeal } from './heal';
+import { EffectImmunity } from './immunity';
+import { EffectLight } from './light';
 import { EffectRegenerationSchema } from './regeneration';
+import { EffectSavingThrowModifier } from './saving-throw-modifier';
+import { EffectSkillModifier } from './skill-modifier';
+import { EffectSpeedFactor } from './speed-factor';
+import { EffectSpellPower } from './spell-power';
+import { EffectSpikeDamage } from './spike-damage';
+import { EffectWeaponDamageModifier } from './weapon-damage-modifier';
 
 export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectAbilityCheckModifier,
     EffectAbilityModifier,
+    EffectAdvantageAttack,
+    EffectAdvantageSavingThrow,
+    EffectArmorClassModifier,
+    EffectAttackCountModifier,
+    EffectAttackModifier,
+    EffectBlindness,
+    EffectBreaker,
+    EffectCharm,
+    EffectConcentration,
+    EffectCriticalRangeModifier,
+    EffectDamageImmunity,
+    EffectDamageModifier,
+    EffectDamageReduction,
+    EffectDamageResistance,
+    EffectDamageVulnerability,
+    EffectDarkvision,
+    EffectDisadvantageAttack,
+    EffectDisadvantageSavingThrow,
+    EffectDisease,
+    EffectEnfeeblement,
+    EffectEnvironment,
+    EffectExtraHitpoints,
+    EffectFear,
+    EffectHealingFactor,
+    EffectHealingModifier,
+    EffectHeal,
+    EffectImmunity,
+    EffectLight,
     EffectRegenerationSchema,
+    EffectSavingThrowModifier,
+    EffectSkillModifier,
+    EffectSpeedFactor,
+    EffectSpellPower,
+    EffectSpikeDamage,
+    EffectWeaponDamageModifier,
 ]);
+
 
 export const EffectSchema = EffectDefinitionSchema.and(BaseEffectSchema);
 

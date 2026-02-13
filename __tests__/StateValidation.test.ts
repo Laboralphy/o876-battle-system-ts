@@ -41,7 +41,7 @@ describe('State Validation', () => {
                 [CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_3]: null,
             },
             selectedOffensiveSlot: CONSTS.EQUIPMENT_SLOT_WEAPON_MELEE,
-            effect: [],
+            effects: [],
             encumbrance: 0,
             environment: {
                 [CONSTS.ENVIRONMENT_DARKNESS]: false,
@@ -116,10 +116,9 @@ describe('State Validation', () => {
             ],
         };
 
-        const result = CreatureStateSchema.safeParse(state);
-        if (!result.success) {
-            console.error(result);
-        }
-        expect(result.success).toBe(true);
+        expect(() => {
+            const result = CreatureStateSchema.parse(state);
+            expect(result).toBeDefined();
+        }).not.toThrow();
     });
 });

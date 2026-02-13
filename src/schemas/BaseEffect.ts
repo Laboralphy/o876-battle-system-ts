@@ -1,5 +1,6 @@
 import z from 'zod';
 import { EffectSubtypeSchema } from './enums/EffectSubtype';
+import { EffectTypeSchema } from './enums/EffectType';
 
 /**
  * This schema define the base structure of an effect in order to manager these effects
@@ -8,6 +9,7 @@ import { EffectSubtypeSchema } from './enums/EffectSubtype';
  */
 export const BaseEffectSchema = z.object({
     id: z.string(),
+    type: EffectTypeSchema,
     subtype: EffectSubtypeSchema,
     duration: z.number().int().positive(),
     target: z.string(),

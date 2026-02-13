@@ -2,8 +2,7 @@ import { ReactiveStore } from '@laboralphy/reactor';
 import { State } from './store/state';
 import { buildStore } from './store';
 import { Property, PropertySchema } from './properties';
-import { PropertyType } from './schemas/enums/PropertyType';
-import { aggregateProperties, AggregatorFunc, PropertyAggregatorOptions } from './libs/aggregator';
+import { aggregate, AggregateOptions } from './libs/aggregator';
 import { Item } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
 import { CONSTS } from './consts';
@@ -36,11 +35,8 @@ export class Creature {
 
     /**
      * Adds a new innate property to the properties list in the state.
-     *
-     * @param {Property} property - The property to be added to the innate properties list.
-     * @return {Property} The property that was added to the list.
      */
-    addInnateProperty(property: Property) {
+    addInnateProperty(property: Property): Property {
         const nNewLength = this._store.state.properties.push(PropertySchema.parse(property));
         return this._store.state.properties[nNewLength - 1];
     }
@@ -58,22 +54,13 @@ export class Creature {
 
     /**
      * Will aggregate properties and return sum, min, max, and count
-     * @param aPropertyTypes
-     * @param oFunctions
-     * @param options
-     * @return {AggregatorAccumulator & { discriminator: Record<string, AggregatorAccumulator> }}
      */
-    aggregateProperties(
-        aPropertyTypes: PropertyType[],
-        oFunctions: AggregatorFunc<Property> = {},
-        options: PropertyAggregatorOptions = {}
-    ) {
-        return aggregateProperties(aPropertyTypes, this.getters, oFunctions, options);
+    aggregate(options: AggregateOptions) {
+        return aggregate(options, this.getters);
     }
 
     /**
      * Returns the slot where the item is equipped
-     * @param item
      */
     findEquippedItemSlot(item: Item): EquipmentSlot | undefined {
         for (const slot in this._store.state.equipment) {
@@ -93,8 +80,12 @@ export class Creature {
         }
         // Check if item is cursed
         if (
-            this.aggregateProperties([CONSTS.PROPERTY_CURSED], {}, { restrictSlots: [slot] })
-                .count > 0
+            this.aggregate({
+                properties: {
+                    types: [CONSTS.PROPERTY_CURSED],
+                    options: { restrictSlots: [slot] },
+                },
+            }).count > 0
         ) {
             // Item is cursed and cannot be removed
             return CONSTS.EQUIP_ITEM_FAILURE_REASON_CURSED_SLOT;
@@ -106,7 +97,6 @@ export class Creature {
 
     /**
      * Remove item currently equipped in the given slot. If no item is equipped in this slot, exit.
-     * @param slot
      */
     unequipSlot(slot: EquipmentSlot): {
         unequippedItem: Item | null;

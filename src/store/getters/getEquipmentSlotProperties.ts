@@ -6,17 +6,13 @@ import { GetterReturnType } from '../define-getters';
 
 /**
  * Retrieves the properties associated with equipment slots
- *
- * @param {State} state - The application's state object, containing the current equipment configuration.
- * @param {GetterRegistry} getters - The registry of getter functions used to retrieve slot-related data.
- * @return {Record<EquipmentSlot, Property[]>} An object mapping each equipment slot to a list of its associated properties.
  */
 export function getEquipmentSlotProperties(
     state: State,
     getters: GetterReturnType
 ): Record<EquipmentSlot, Property[]> {
-    const ds = getters.getDefensiveSlots as EquipmentSlot[];
-    const os = getters.getOffensiveSlots as EquipmentSlot[];
+    const ds = getters.getDefensiveSlots;
+    const os = getters.getOffensiveSlots;
     const aSlots: EquipmentSlot[] = [...ds, ...os];
     const oProperties: Record<EquipmentSlot, Property[]> = {};
     const eq = state.equipment;
