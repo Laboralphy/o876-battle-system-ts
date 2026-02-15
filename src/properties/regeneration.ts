@@ -1,6 +1,6 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 
 /**
@@ -22,7 +22,7 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
  */
 export const PropertyRegeneration = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_REGENERATION).describe('fields.propertyType'),
-    amp: DiceExpression.or(z.number().int()).describe('fields.amp'),
+    amp: AmpExpression.describe('fields.amp'),
     vulnerabilities: z.array(DamageTypeSchema).optional().describe('fields.regenVulnerabilities'),
     useConstitutionModifier: z
         .boolean()

@@ -10,7 +10,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  * and a certain type of species
  */
 export const EffectAttackModifier = z.strictObject({
-    type: z.literal(CONSTS.EFFECT_ATTACK_MODIFIER).describe('fields.propertyType'),
+    type: z.literal(CONSTS.EFFECT_ATTACK_MODIFIER).describe('fields.EffectType'),
     amp: z.number().int().describe('fields.amp'),
     attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
     specieType: SpecieSchema.optional(),

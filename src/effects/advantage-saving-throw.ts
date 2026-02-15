@@ -10,7 +10,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  * when : rolling a saving throw
  */
 export const EffectAdvantageSavingThrow = z.strictObject({
-    type: z.literal(CONSTS.EFFECT_ADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
+    type: z.literal(CONSTS.EFFECT_ADVANTAGE_SAVING_THROW).describe('fields.EffectType'),
     ability: AbilitySchema,
     threat: ThreatTypeSchema.optional(),
     specie: SpecieSchema.optional(),

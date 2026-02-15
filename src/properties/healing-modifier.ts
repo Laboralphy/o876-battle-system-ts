@@ -1,6 +1,6 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 
 /**
  * Represents the configuration for a healing modifier property.
@@ -14,5 +14,5 @@ import { DiceExpression } from '../schemas/DiceExpression';
  */
 export const PropertyHealingModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_HEALING_MODIFIER),
-    amp: DiceExpression.or(z.number().int()).describe('fields.amp'),
+    amp: AmpExpression.describe('fields.amp'),
 });

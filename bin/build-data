@@ -5,3 +5,4 @@ script_folder=$(dirname "$(realpath "$0")")
 $script_folder/build-data-local
 $script_folder/build-module-blueprints
 $script_folder/build-module-index classic
+$script_folder/build-module-index base

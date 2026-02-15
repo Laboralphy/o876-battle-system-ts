@@ -40,7 +40,7 @@ export class DiceRoll {
      * @param {boolean} value - True to enable advantage.
      */
     set advantage(value: boolean) {
-        if (value) {
+        if (value && this.#altRoll === 0) {
             this.#altRoll = this.doRoll();
         }
         this.#advantage = value;
@@ -60,7 +60,7 @@ export class DiceRoll {
      * @param {boolean} value - True to enable disadvantage.
      */
     set disadvantage(value: boolean) {
-        if (value) {
+        if (value && this.#altRoll === 0) {
             this.#altRoll = this.doRoll();
         }
         this.#disadvantage = value;

@@ -34,8 +34,11 @@ generateFile Ability abilities
 generateFile AmmoType ammo-types
 generateFile AttackType attack-types
 generateFile ActionType action-types
+generateFile Advantage advantages
+generateFile CreatureVisibility creature-visibility
 generateFile Condition conditions
 generateFile DamageType damage-types
+generateFile Disadvantage disadvantages
 generateFile Disease diseases
 generateFile EffectSubtype effect-subtypes
 generateFile EffectType effect-types

@@ -1,7 +1,7 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 
 /**
  * When applied on a weapon, the property grants the creature the ability to convert dealt damage into health
@@ -9,6 +9,6 @@ import { DiceExpression } from '../schemas/DiceExpression';
  */
 export const PropertyVampyre = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_VAMPYRE),
-    amp: DiceExpression.or(z.number().int()),
+    amp: AmpExpression,
     damageType: DamageTypeSchema,
 });

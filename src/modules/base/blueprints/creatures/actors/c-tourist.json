@@ -1,0 +1,23 @@
+{
+    "entityType": "ENTITY_TYPE_CREATURE",
+    "specie": "SPECIE_HUMANOID",
+    "race": "RACE_HUMAN",
+    "armorClass": 0,
+    "proficiencies": [],
+    "speed": 30,
+    "classType": "CLASS_TYPE_TOURIST",
+    "level": 1,
+    "hitDie": 6,
+    "actions": [],
+    "equipment": [],
+    "feats": [],
+    "properties": [],
+    "abilities": {
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10
+    }
+}

@@ -7,6 +7,6 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  * ability are halved in efficiency.
  */
 export const EffectEnfeeblement = z.strictObject({
-    type: z.literal(CONSTS.EFFECT_ENFEEBLEMENT).describe('fields.propertyType'),
+    type: z.literal(CONSTS.EFFECT_ENFEEBLEMENT).describe('fields.EffectType'),
     ability: AbilitySchema,
 });

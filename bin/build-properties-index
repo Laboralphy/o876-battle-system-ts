@@ -52,6 +52,11 @@ for this_file in "$target_folder"/*.ts; do
 done
 echo "]);" >> "$index_ts"
 echo "" >> "$index_ts"
+
+echo "export const PropertySchema = PropertyDefinitionSchema.and(BasePropertySchema);" >> "$index_ts"
+echo "" >> "$index_ts"
+
+echo "export type PropertyDefinition = z.infer<typeof PropertyDefinitionSchema>;" >> "$index_ts"
 echo "export type Property = z.infer<typeof PropertySchema>;" >> "$index_ts"
 
 echo "generated: $index_ts"

@@ -1,6 +1,7 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
 import { AttackTypeSchema } from '../schemas/enums/AttackType';
+import { SpecieSchema } from '../schemas/enums/Specie';
 
 /**
  * Schema definition for AdvantageAttack.
@@ -14,4 +15,5 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
 export const PropertyAdvantageAttack = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_ATTACK).describe('fields.propertyType'),
     attackType: AttackTypeSchema.optional(),
+    specie: SpecieSchema.optional(),
 });

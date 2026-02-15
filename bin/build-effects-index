@@ -56,11 +56,10 @@ done
 echo "]);" >> "$index_ts"
 echo "" >> "$index_ts"
 
-echo "" >> "$index_ts"
 echo "export const EffectSchema = EffectDefinitionSchema.and(BaseEffectSchema);" >> "$index_ts"
 echo "" >> "$index_ts"
 
-echo "export type EffectDefinition = z.infer<typeof EffectSchema>;" >> "$index_ts"
+echo "export type EffectDefinition = z.infer<typeof EffectDefinitionSchema>;" >> "$index_ts"
 echo "export type Effect = z.infer<typeof EffectSchema>;" >> "$index_ts"
 
 echo "generated: $index_ts"

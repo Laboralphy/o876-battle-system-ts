@@ -6,9 +6,11 @@ import { EffectSubtypeSchema } from '../schemas/enums/EffectSubtype';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { AttackTypeSchema } from '../schemas/enums/AttackType';
 import { DiseaseSchema } from '../schemas/enums/Disease';
+import { AmpExpression } from '../schemas/AmpExpression';
 
 export const PropertyOnAttackHit = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ON_ATTACK_HIT).describe('fields.propertyType'),
+    amp: AmpExpression.optional().default(0),
     ailment: OnAttackHitSchema,
     savingThrow: AbilitySchema.optional(),
     subType: EffectSubtypeSchema.optional().default(CONSTS.EFFECT_SUBTYPE_MAGICAL),

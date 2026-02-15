@@ -1,6 +1,6 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { AbilitySchema } from '../schemas/enums/Ability';
 import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
@@ -14,7 +14,7 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
  */
 export const PropertySpikeDamage = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SPIKE_DAMAGE),
-    amp: DiceExpression.or(z.number()),
+    amp: AmpExpression,
     damageType: DamageTypeSchema.optional(),
     savingThrow: AbilitySchema.optional(),
     threat: ThreatTypeSchema.optional(),

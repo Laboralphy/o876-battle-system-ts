@@ -5,8 +5,9 @@
     "main": "eslint.config.js",
     "scripts": {
         "test": "vitest run",
+        "build-data:local": "./bin/build-data-local",
         "build-data:all": "./bin/build-data",
-        "build-data:local": "./bin/build-data-local"
+        "build-data:module:blueprints": "./bin/build-module-blueprints"
     },
     "keywords": [],
     "author": "",

@@ -10,6 +10,6 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
  *   to the `AttackTypeSchema` if provided.
  */
 export const EffectDisadvantageAttack = z.strictObject({
-    type: z.literal(CONSTS.EFFECT_DISADVANTAGE_ATTACK).describe('fields.propertyType'),
+    type: z.literal(CONSTS.EFFECT_DISADVANTAGE_ATTACK).describe('fields.EffectType'),
     attackType: AttackTypeSchema.optional(),
 });

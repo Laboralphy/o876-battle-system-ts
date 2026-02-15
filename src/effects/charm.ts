@@ -8,5 +8,5 @@ import { CONSTS } from '../consts';
  * this effect is
  */
 export const EffectCharm = z.strictObject({
-    type: CONSTS.EFFECT_CHARM,
+    type: z.literal(CONSTS.EFFECT_CHARM),
 });

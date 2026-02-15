@@ -28,6 +28,7 @@ import { PropertyImmunity } from './immunity';
 import { PropertyLight } from './light';
 import { PropertyMaxDexterityBonus } from './max-dexterity-bonus';
 import { PropertyOnAttackHit } from './on-attack-hit';
+import { PropertyProtectionFromSpecie } from './protection-from-specie';
 import { PropertyRegeneration } from './regeneration';
 import { PropertySavingThrowModifier } from './saving-throw-modifier';
 import { PropertySkillModifier } from './skill-modifier';
@@ -69,6 +70,7 @@ export const PropertySchema = z.discriminatedUnion('type', [
     PropertyLight,
     PropertyMaxDexterityBonus,
     PropertyOnAttackHit,
+    PropertyProtectionFromSpecie,
     PropertyRegeneration,
     PropertySavingThrowModifier,
     PropertySkillModifier,

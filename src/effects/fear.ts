@@ -7,5 +7,5 @@ import { CONSTS } from '../consts';
  * The target can be protected according to the attacker's specie
  */
 export const EffectFear = z.strictObject({
-    type: CONSTS.EFFECT_FEAR,
+    type: z.literal(CONSTS.EFFECT_FEAR),
 });

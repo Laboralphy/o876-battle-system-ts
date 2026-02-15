@@ -1,10 +1,10 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 
 /**
- * Represents the configuration for a healing modifier property.
- * A healing modifier property modifies the healing output value of a creature.
+ * Represents the configuration for a healing modifier Effect.
+ * A healing modifier Effect modifies the healing output value of a creature.
  * example : 1d6 will increase the healing output by 1 to 6 points
  *
  * The amp field may be either a fixed int or a dice expression.
@@ -14,5 +14,5 @@ import { DiceExpression } from '../schemas/DiceExpression';
  */
 export const EffectHealingModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_HEALING_MODIFIER),
-    amp: DiceExpression.or(z.number().int()).describe('fields.amp'),
+    amp: AmpExpression.describe('fields.amp'),
 });

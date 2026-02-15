@@ -36,8 +36,15 @@ export class Creature {
     /**
      * Adds a new innate property to the properties list in the state.
      */
-    addInnateProperty(property: Property): Property {
-        const nNewLength = this._store.state.properties.push(PropertySchema.parse(property));
+    addInnateProperty(propDef: PropertyDefinition): Property {
+        const property: Property = PropertySchema.parse({
+            ...propDef,
+            temporary: false, // All innate properties are non-temporary
+            duration: 0,
+            id: randomUUID(),
+            tag: '',
+        });
+        const nNewLength = this._store.state.properties.push(property);
         return this._store.state.properties[nNewLength - 1];
     }
 

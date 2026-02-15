@@ -19,7 +19,7 @@ describe('Creature', () => {
             ability: CONSTS.ABILITY_STRENGTH,
             amp: 1,
         });
-        const o = creature.aggregateProperties([CONSTS.PROPERTY_ABILITY_MODIFIER]);
+        const o = creature.aggregate({ properties: { types: [CONSTS.PROPERTY_ABILITY_MODIFIER] } });
         expect(o.sum).toBe(2);
         expect(o.min).toBe(1);
         expect(o.max).toBe(1);

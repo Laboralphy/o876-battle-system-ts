@@ -3,7 +3,7 @@ import { CONSTS } from '../consts';
 import { ImmunitySchema } from '../schemas/enums/Immunity';
 
 /**
- * This property makes the creature immune to a certain type of conditions or ailments.
+ * This Effect makes the creature immune to a certain type of conditions or ailments.
  * see IMMUNITY_TYPES constants
  */
 export const EffectImmunity = z.strictObject({

@@ -28,17 +28,26 @@ import { EffectEnfeeblement } from './enfeeblement';
 import { EffectEnvironment } from './environment';
 import { EffectExtraHitpoints } from './extra-hitpoints';
 import { EffectFear } from './fear';
+import { EffectHeal } from './heal';
 import { EffectHealingFactor } from './healing-factor';
 import { EffectHealingModifier } from './healing-modifier';
-import { EffectHeal } from './heal';
 import { EffectImmunity } from './immunity';
+import { EffectIncapacity } from './incapacity';
+import { EffectInvisibility } from './invisibility';
 import { EffectLight } from './light';
+import { EffectNegativeLevel } from './negative-level';
+import { EffectParalysis } from './paralysis';
+import { EffectPetrification } from './petrification';
+import { EffectProtectionFromSpecie } from './protection-from-specie';
 import { EffectRegenerationSchema } from './regeneration';
 import { EffectSavingThrowModifier } from './saving-throw-modifier';
+import { EffectSeeInvisibility } from './see-invisibility';
 import { EffectSkillModifier } from './skill-modifier';
 import { EffectSpeedFactor } from './speed-factor';
 import { EffectSpellPower } from './spell-power';
 import { EffectSpikeDamage } from './spike-damage';
+import { EffectStealth } from './stealth';
+import { EffectStun } from './stun';
 import { EffectWeaponDamageModifier } from './weapon-damage-modifier';
 
 export const EffectDefinitionSchema = z.discriminatedUnion('type', [
@@ -67,22 +76,30 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectEnvironment,
     EffectExtraHitpoints,
     EffectFear,
+    EffectHeal,
     EffectHealingFactor,
     EffectHealingModifier,
-    EffectHeal,
     EffectImmunity,
+    EffectIncapacity,
+    EffectInvisibility,
     EffectLight,
+    EffectNegativeLevel,
+    EffectParalysis,
+    EffectPetrification,
+    EffectProtectionFromSpecie,
     EffectRegenerationSchema,
     EffectSavingThrowModifier,
+    EffectSeeInvisibility,
     EffectSkillModifier,
     EffectSpeedFactor,
     EffectSpellPower,
     EffectSpikeDamage,
+    EffectStealth,
+    EffectStun,
     EffectWeaponDamageModifier,
 ]);
 
-
 export const EffectSchema = EffectDefinitionSchema.and(BaseEffectSchema);
 
-export type EffectDefinition = z.infer<typeof EffectSchema>;
+export type EffectDefinition = z.infer<typeof EffectDefinitionSchema>;
 export type Effect = z.infer<typeof EffectSchema>;

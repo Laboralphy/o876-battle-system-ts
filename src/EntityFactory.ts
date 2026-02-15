@@ -8,6 +8,8 @@ import { CONSTS } from './consts';
 import { EntityType } from './schemas/enums/EntityType';
 
 import MODULE_CLASSIC from './modules/classic';
+import MODULE_BASE from './modules/base';
+import { Property, PropertySchema } from './properties';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
@@ -19,8 +21,10 @@ export class EntityFactory {
     }
 
     loadModules() {
-        for (const [key, blueprint] of Object.entries(MODULE_CLASSIC.blueprints)) {
-            this.declareBlueprint(key, blueprint);
+        for (const m of [MODULE_BASE, MODULE_CLASSIC]) {
+            for (const [key, blueprint] of Object.entries(m.blueprints)) {
+                this.declareBlueprint(key, blueprint);
+            }
         }
     }
 
@@ -41,6 +45,24 @@ export class EntityFactory {
     getAssetEntityType(ref: string): EntityType {
         return this.extendResolver.getEntityType(ref);
     }
+
+    // getAllInvalidRefs(): string[] {
+    //     const invalidRefs = [];
+    //     const itemRefs = this.refs.filter((ref) => {
+    //         return this.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_ITEM;
+    //     });
+    //     const creatureRefs = this.refs.filter((ref) => {
+    //         return this.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_CREATURE;
+    //     });
+    //     for (const ref of creatureRefs) {
+    //         const oProto = this.extendResolver.resolveEntity(ref);
+    //         const bp = CreatureBlueprintSchema.safeParse(oProto);
+    //         if (!bp.success) {
+    //             invalidRefs.push(ref);
+    //             consol
+    //         }
+    //     }
+    // }
 
     /**
      * Create an item from a blueprint.
@@ -111,18 +133,37 @@ export class EntityFactory {
         return creature;
     }
 
+    isCreatureRef(entity: object): entity is Creature {
+        return 'entityType' in entity && entity.entityType === CONSTS.ENTITY_TYPE_CREATURE;
+    }
+
+    isItemRef(entity: object): entity is Item {
+        return 'entityType' in entity && entity.entityType === CONSTS.ENTITY_TYPE_ITEM;
+    }
+
+    createEntity<T extends Creature | Item>(ref: string, id?: string): T;
+
+    // Implémentation
     createEntity(ref: string, id: string = ''): Creature | Item {
-        const entityType = this.extendResolver.getEntityType(ref);
-        switch (entityType) {
-            case CONSTS.ENTITY_TYPE_CREATURE: {
-                return this.createCreature(ref, id);
-            }
-            case CONSTS.ENTITY_TYPE_ITEM: {
-                return this.createItem(ref, id);
-            }
-            default: {
-                throw new Error(`Entity type ${entityType} not supported`);
-            }
+        const entity = this.extendResolver.resolveEntity(ref);
+        if (this.isCreatureRef(entity)) {
+            return this.createCreature(ref, id);
+        } else if (this.isItemRef(entity)) {
+            return this.createItem(ref, id);
+        } else {
+            throw new Error(`Entity type ${(entity as any).entityType} not supported`);
+        }
+    }
+
+    addItemProperty(item: Item, property: Property) {
+        item.properties.push(PropertySchema.parse(property));
+        return item.properties[item.properties.length - 1] as Property;
+    }
+
+    removeItemProperty(item: Item, property: Property) {
+        const nIndex = item.properties.indexOf(property);
+        if (nIndex !== -1) {
+            item.properties.splice(nIndex, 1);
         }
     }
 }

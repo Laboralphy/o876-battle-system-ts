@@ -1,14 +1,14 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
-import { DiceExpression } from '../schemas/DiceExpression';
+import { AmpExpression } from '../schemas/AmpExpression';
 
 /**
- * This property reduce damage of a certain type
+ * This Effect reduce damage of a certain type
  * The amp may be a dice expression
  */
 export const EffectDamageReduction = z.strictObject({
     type: z.literal(CONSTS.EFFECT_DAMAGE_REDUCTION),
-    amp: DiceExpression.or(z.number().int()),
+    amp: AmpExpression,
     damageType: DamageTypeSchema,
 });

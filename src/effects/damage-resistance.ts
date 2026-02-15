@@ -3,7 +3,7 @@ import { CONSTS } from '../consts';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 
 /**
- * This property makes the creature resistant (50%) to a certain type of damage
+ * This Effect makes the creature resistant (50%) to a certain type of damage
  */
 export const EffectDamageResistance = z.strictObject({
     type: z.literal(CONSTS.EFFECT_DAMAGE_RESISTANCE),
