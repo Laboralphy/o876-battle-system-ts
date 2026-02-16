@@ -6,7 +6,7 @@ import z from 'zod';
  */
 export const BasePropertySchema = z.object({
     id: z.string(),
-    duration: z.number().int().positive(),
+    duration: z.number().int().min(0),
     temporary: z.boolean(),
     tag: z.string(),
 });

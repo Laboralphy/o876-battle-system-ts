@@ -1,7 +1,7 @@
 import { ReactiveStore } from '@laboralphy/reactor';
 import { State } from './store/state';
 import { buildStore } from './store';
-import { Property, PropertySchema } from './properties';
+import { Property, PropertyDefinition } from './properties';
 import { aggregate, AggregateOptions } from './libs/aggregator';
 import { Item } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
@@ -12,6 +12,7 @@ import { EffectSubtype } from './schemas/enums/EffectSubtype';
 import { randomUUID } from 'node:crypto';
 import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
+import { PropertyBuilder } from './PropertyBuilder';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -37,13 +38,7 @@ export class Creature {
      * Adds a new innate property to the properties list in the state.
      */
     addInnateProperty(propDef: PropertyDefinition): Property {
-        const property: Property = PropertySchema.parse({
-            ...propDef,
-            temporary: false, // All innate properties are non-temporary
-            duration: 0,
-            id: randomUUID(),
-            tag: '',
-        });
+        const property: Property = PropertyBuilder.buildProperty(propDef);
         const nNewLength = this._store.state.properties.push(property);
         return this._store.state.properties[nNewLength - 1];
     }

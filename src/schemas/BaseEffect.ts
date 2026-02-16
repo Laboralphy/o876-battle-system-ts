@@ -11,7 +11,7 @@ export const BaseEffectSchema = z.object({
     id: z.string(),
     type: EffectTypeSchema,
     subtype: EffectSubtypeSchema,
-    duration: z.number().int().positive(),
+    duration: z.number().int().min(0),
     target: z.string(),
     source: z.string(),
     siblings: z.array(z.string()),

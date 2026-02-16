@@ -17,6 +17,8 @@ if ! command -v jq &> /dev/null; then
 fi
 
 echo "import z from 'zod';" >> "$index_ts"
+echo "import { BasePropertySchema } from '../schemas/BaseProperty';" >> "$index_ts"
+
 echo '{' > "$const_ts"
 b_first=1
 for this_file in "$target_folder"/*.ts; do
@@ -40,7 +42,7 @@ echo "" >> "$const_ts"
 echo "}" >> "$const_ts"
 
 echo "" >> "$index_ts"
-echo "export const PropertySchema = z.discriminatedUnion('type', [" >> "$index_ts"
+echo "export const PropertyDefinitionSchema = z.discriminatedUnion('type', [" >> "$index_ts"
 # Iterate each .ts file
 for this_file in "$target_folder"/*.ts; do
     # Ignore index.ts

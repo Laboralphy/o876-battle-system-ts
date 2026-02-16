@@ -6,7 +6,6 @@ import z from 'zod';
 describe('EntityValidity', () => {
     it('all entities should be valid', () => {
         const ef = new EntityFactory();
-        ef.loadModules();
         const itemRefs = ef.refs.filter(
             (ref) => ef.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_ITEM
         );

@@ -6,10 +6,10 @@ import { CreatureBlueprint, CreatureBlueprintSchema } from './schemas/CreatureBl
 import { ExtendableEntity, ExtendResolver } from './ExtendResolver';
 import { CONSTS } from './consts';
 import { EntityType } from './schemas/enums/EntityType';
-
 import MODULE_CLASSIC from './modules/classic';
 import MODULE_BASE from './modules/base';
-import { Property, PropertySchema } from './properties';
+import { Property, PropertyDefinition } from './properties';
+import { PropertyBuilder } from './PropertyBuilder';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
@@ -119,7 +119,9 @@ export class EntityFactory {
         cs.hitPoints = 1;
 
         // Innate Properties
-        bpCreature.properties.forEach((property) => creature.addInnateProperty(property));
+        bpCreature.properties.forEach((property: PropertyDefinition) =>
+            creature.addInnateProperty(property)
+        );
         cs.proficiencies.push(...bpCreature.proficiencies);
 
         bpCreature.equipment.forEach((eq: ItemBlueprint | string) => {
@@ -151,13 +153,14 @@ export class EntityFactory {
         } else if (this.isItemRef(entity)) {
             return this.createItem(ref, id);
         } else {
-            throw new Error(`Entity type ${(entity as any).entityType} not supported`);
+            throw new Error(`Entity type ${entity.entityType} not supported`);
         }
     }
 
-    addItemProperty(item: Item, property: Property) {
-        item.properties.push(PropertySchema.parse(property));
-        return item.properties[item.properties.length - 1] as Property;
+    addItemProperty(item: Item, propDef: PropertyDefinition): Property {
+        const property = PropertyBuilder.buildProperty(propDef);
+        const nNewLength = item.properties.push(property);
+        return item.properties[nNewLength - 1];
     }
 
     removeItemProperty(item: Item, property: Property) {

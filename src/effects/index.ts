@@ -28,9 +28,9 @@ import { EffectEnfeeblement } from './enfeeblement';
 import { EffectEnvironment } from './environment';
 import { EffectExtraHitpoints } from './extra-hitpoints';
 import { EffectFear } from './fear';
-import { EffectHeal } from './heal';
 import { EffectHealingFactor } from './healing-factor';
 import { EffectHealingModifier } from './healing-modifier';
+import { EffectHeal } from './heal';
 import { EffectImmunity } from './immunity';
 import { EffectIncapacity } from './incapacity';
 import { EffectInvisibility } from './invisibility';
@@ -76,9 +76,9 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectEnvironment,
     EffectExtraHitpoints,
     EffectFear,
-    EffectHeal,
     EffectHealingFactor,
     EffectHealingModifier,
+    EffectHeal,
     EffectImmunity,
     EffectIncapacity,
     EffectInvisibility,

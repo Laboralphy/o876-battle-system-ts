@@ -7,7 +7,8 @@
         "test": "vitest run",
         "build-data:local": "./bin/build-data-local",
         "build-data:all": "./bin/build-data",
-        "build-data:module:blueprints": "./bin/build-module-blueprints"
+        "build-data:module:blueprints": "./bin/build-module-blueprints",
+        "check-entities": "tsx ./bin/check-all-entities.js"
     },
     "keywords": [],
     "author": "",

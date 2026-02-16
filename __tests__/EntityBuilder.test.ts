@@ -12,10 +12,13 @@ describe('EntityBuilder item creation', () => {
             amp: '1d6',
             damageType: CONSTS.DAMAGE_TYPE_PIERCING,
         });
-        expect(shortsword.properties[0]).toEqual({
+        expect(shortsword.properties[0]).toMatchObject({
             amp: '1d6',
             damageType: 'DAMAGE_TYPE_PIERCING',
             type: 'PROPERTY_DAMAGE_MODIFIER',
+            duration: 0,
+            temporary: false,
+            tag: ''
         });
     });
 });

@@ -16,7 +16,7 @@ export type Damage = {
 };
 
 export class Attack {
-    private _id = randomUUID();
+    private readonly _id = randomUUID();
     public readonly damages: Damage[] = []; // List of dealt damages with amount and type,
     public readonly diceRoll: DiceRoll = new DiceRoll('1d20');
     public attacker: Creature | null = null; // attacker creature reference
