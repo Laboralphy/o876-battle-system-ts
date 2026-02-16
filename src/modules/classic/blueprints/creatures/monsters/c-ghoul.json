@@ -48,8 +48,8 @@
       "damageType": "DAMAGE_TYPE_SLASHING",
       "properties": [
         {
-          "type": "PROPERTY_ON_ATTACK_HIT",
-          "ailment": "ON_ATTACK_HIT_PARALYSIS",
+          "type": "PROPERTY_AILMENT",
+          "ailment": "AILMENT_PARALYSIS",
           "savingThrow": "ABILITY_CONSTITUTION",
           "duration": 3
         }

@@ -31,9 +31,9 @@
       "damageType": "DAMAGE_TYPE_PIERCING",
       "properties": [
         {
-          "type": "PROPERTY_ON_ATTACK_HIT",
+          "type": "PROPERTY_AILMENT",
           "disease": "DISEASE_RAT_SICKNESS",
-          "ailment": "ON_ATTACK_HIT_DISEASE"
+          "ailment": "AILMENT_DISEASE"
         }
       ],
       "equipmentSlots": [

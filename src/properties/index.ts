@@ -5,6 +5,7 @@ import { PropertyAbilityCheckModifier } from './ability-check-modifier';
 import { PropertyAbilityModifier } from './ability-modifier';
 import { PropertyAdvantageAttack } from './advantage-attack';
 import { PropertyAdvantageSavingThrow } from './advantage-saving-throw';
+import { PropertyAilment } from './ailment';
 import { PropertyArmorClassModifier } from './armor-class-modifier';
 import { PropertyAttackCountModifier } from './attack-count-modifier';
 import { PropertyAttackModifier } from './attack-modifier';
@@ -28,7 +29,6 @@ import { PropertyHealingModifier } from './healing-modifier';
 import { PropertyImmunity } from './immunity';
 import { PropertyLight } from './light';
 import { PropertyMaxDexterityBonus } from './max-dexterity-bonus';
-import { PropertyOnAttackHit } from './on-attack-hit';
 import { PropertyProtectionFromSpecie } from './protection-from-specie';
 import { PropertyRegeneration } from './regeneration';
 import { PropertySavingThrowModifier } from './saving-throw-modifier';
@@ -47,6 +47,7 @@ export const PropertyDefinitionSchema = z.discriminatedUnion('type', [
     PropertyAbilityModifier,
     PropertyAdvantageAttack,
     PropertyAdvantageSavingThrow,
+    PropertyAilment,
     PropertyArmorClassModifier,
     PropertyAttackCountModifier,
     PropertyAttackModifier,
@@ -70,7 +71,6 @@ export const PropertyDefinitionSchema = z.discriminatedUnion('type', [
     PropertyImmunity,
     PropertyLight,
     PropertyMaxDexterityBonus,
-    PropertyOnAttackHit,
     PropertyProtectionFromSpecie,
     PropertyRegeneration,
     PropertySavingThrowModifier,

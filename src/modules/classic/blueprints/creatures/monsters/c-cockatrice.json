@@ -31,8 +31,8 @@
       "damageType": "DAMAGE_TYPE_PIERCING",
       "properties": [
         {
-          "type": "PROPERTY_ON_ATTACK_HIT",
-          "ailment": "ON_ATTACK_HIT_PETRIFICATION",
+          "type": "PROPERTY_AILMENT",
+          "ailment": "AILMENT_PETRIFICATION",
           "savingThrow": "ABILITY_CONSTITUTION"
         }
       ],

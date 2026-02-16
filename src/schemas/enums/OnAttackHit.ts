@@ -3,23 +3,23 @@
 import z from 'zod';
 import { CONSTS } from '../../consts';
 
-export const OnAttackHitSchema = z
+export const AilmentSchema = z
     .enum([
-        CONSTS.ON_ATTACK_HIT_ABILITY_DRAIN,
-        CONSTS.ON_ATTACK_HIT_ATTACK_DRAIN,
-        CONSTS.ON_ATTACK_HIT_ARMOR_CLASS_DRAIN,
-        CONSTS.ON_ATTACK_HIT_BLINDNESS,
-        CONSTS.ON_ATTACK_HIT_DISEASE,
-        CONSTS.ON_ATTACK_HIT_DOOM,
-        CONSTS.ON_ATTACK_HIT_FEAR,
-        CONSTS.ON_ATTACK_HIT_LEVEL_DRAIN,
-        CONSTS.ON_ATTACK_HIT_POISON,
-        CONSTS.ON_ATTACK_HIT_PARALYSIS,
-        CONSTS.ON_ATTACK_HIT_PETRIFICATION,
-        CONSTS.ON_ATTACK_HIT_SILENCE,
-        CONSTS.ON_ATTACK_HIT_SLOW,
-        CONSTS.ON_ATTACK_HIT_STUN,
+        CONSTS.AILMENT_ABILITY_DRAIN,
+        CONSTS.AILMENT_ATTACK_DRAIN,
+        CONSTS.AILMENT_ARMOR_CLASS_DRAIN,
+        CONSTS.AILMENT_BLINDNESS,
+        CONSTS.AILMENT_DISEASE,
+        CONSTS.AILMENT_DOOM,
+        CONSTS.AILMENT_FEAR,
+        CONSTS.AILMENT_LEVEL_DRAIN,
+        CONSTS.AILMENT_POISON,
+        CONSTS.AILMENT_PARALYSIS,
+        CONSTS.AILMENT_PETRIFICATION,
+        CONSTS.AILMENT_SILENCE,
+        CONSTS.AILMENT_SLOW,
+        CONSTS.AILMENT_STUN,
     ])
-    .describe('fields.onAttackHit');
+    .describe('fields.ailment');
 
-export type OnAttackHit = z.infer<typeof OnAttackHitSchema>;
+export type Ailment = z.infer<typeof AilmentSchema>;

@@ -65,9 +65,9 @@
       "damageType": "DAMAGE_TYPE_PIERCING",
       "properties": [
         {
-          "type": "PROPERTY_ON_ATTACK_HIT",
+          "type": "PROPERTY_AILMENT",
           "amp": "7d6",
-          "ailment": "ON_ATTACK_HIT_POISON",
+          "ailment": "AILMENT_POISON",
           "savingThrow": "ABILITY_CONSTITUTION",
           "duration": 3
         }

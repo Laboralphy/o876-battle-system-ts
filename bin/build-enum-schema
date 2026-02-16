@@ -48,7 +48,7 @@ generateFile EquipItemOutcome equip-item-outcomes
 generateFile EquipmentSlot equipment-slots
 generateFile FeatType feat-types
 generateFile Immunity immunities
-generateFile OnAttackHit on-attack-hit
+generateFile Ailment on-attack-hit
 generateFile Proficiency proficiencies
 generateFile PropertyType property-types
 generateFile Race races

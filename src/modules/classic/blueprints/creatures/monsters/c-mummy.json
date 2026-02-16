@@ -36,9 +36,9 @@
           "damageType": "DAMAGE_TYPE_WITHERING"
         },
         {
-          "type": "PROPERTY_ON_ATTACK_HIT",
+          "type": "PROPERTY_AILMENT",
           "disease": "DISEASE_MUMMY_ROT",
-          "ailment": "ON_ATTACK_HIT_DISEASE",
+          "ailment": "AILMENT_DISEASE",
           "savingThrow": "ABILITY_CONSTITUTION"
         }
       ],
