@@ -4,6 +4,6 @@ import { CONSTS } from '../consts';
 /**
  * Makes the creature able to see in dark environments
  */
-export const PropertyDarkvision = z.strictObject({
+export const PropertyDefinitionDarkvision = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_DARKVISION),
 });

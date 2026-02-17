@@ -11,7 +11,7 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  *
  * When : throwing an ability check
  */
-export const PropertyAbilityCheckModifier = z
+export const PropertyDefinitionAbilityCheckModifier = z
     .strictObject({
         type: z.literal(CONSTS.PROPERTY_ABILITY_CHECK_MODIFIER).describe('fields.propertyType'),
         amp: z.number().int().describe('fields.amp'),

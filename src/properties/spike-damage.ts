@@ -12,7 +12,7 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
  * If amp is a Dice expression, the amount of damage is rolled and applied to the attacker
  *
  */
-export const PropertySpikeDamage = z.strictObject({
+export const PropertyDefinitionSpikeDamage = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SPIKE_DAMAGE),
     amp: AmpExpression,
     damageType: DamageTypeSchema.optional(),

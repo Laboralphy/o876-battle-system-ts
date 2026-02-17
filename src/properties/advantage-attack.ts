@@ -12,7 +12,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  *
  * when : trying to hit a target
  */
-export const PropertyAdvantageAttack = z.strictObject({
+export const PropertyDefinitionAdvantageAttack = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_ATTACK).describe('fields.propertyType'),
     attackType: AttackTypeSchema.optional(),
     specie: SpecieSchema.optional(),

@@ -2,48 +2,47 @@ import { State } from '../state';
 import { aggregate } from '../../libs/aggregator';
 import { CONSTS } from '../../consts';
 import { Property } from '../../properties';
-import { Ability } from '../../schemas/enums/Ability';
-import z from 'zod';
-import { PropertyAbilityModifier } from '../../properties/ability-modifier';
+import { Effect } from '../../effects';
+import { GetterReturnType } from '../define-getters';
 
-type PropertyAbilityModifierType = z.infer<typeof PropertyAbilityModifier>;
-
-function isPropertyAbilityModifier(prop: object): prop is PropertyAbilityModifierType {
-    return 'type' in prop && prop.type === CONSTS.PROPERTY_ABILITY_MODIFIER;
-}
-
-function getAbilityScore(state: State, ability: Ability) {
-    return aggregate({
-        properties: {
-            types: [CONSTS.PROPERTY_ABILITY_MODIFIER],
-            functions: {
-                discriminator: (prop: Property): boolean => {
-                    return isPropertyAbilityModifier(prop) && prop.ability === ability;
-                }
-            }
-}
-
-export function getAbilityScores(state: State) {
-    const x = aggregate({
-        properties: {
-            types: [CONSTS.PROPERTY_ABILITY_MODIFIER],
-            functions: {
-                discriminator: (prop: Property) => {
-                    return 'type' in prop && prop.type === CONSTS.PROPERTY_ABILITY_MODIFIER && prop.ability === ;
-                }
-            }
-
-        }
-        }
-        [CONSTS.EFFECT_ABILITY_MODIFIER, CONSTS.PROPERTY_ABILITY_MODIFIER],
-        getters,
+export function getAbilityScores(state: State, getters: GetterReturnType) {
+    const { discriminator } = aggregate(
         {
-            effectSorter: filterAbility,
-            propSorter: filterAbility,
-        }
+            properties: {
+                types: [CONSTS.PROPERTY_ABILITY_MODIFIER],
+                functions: {
+                    discriminator: (prop: Property): string =>
+                        'ability' in prop && typeof prop.ability === 'string' ? prop.ability : '',
+                },
+            },
+            effects: {
+                types: [CONSTS.EFFECT_ABILITY_MODIFIER],
+                functions: {
+                    discriminator: (eff: Effect): string =>
+                        'ability' in eff && typeof eff.ability === 'string' ? eff.ability : '',
+                },
+            },
+        },
+        getters
     );
-    return shallowMap(state.abilities, (nValue, sAbility) => {
-        const nModifier = sAbility in sorter ? sorter[sAbility].sum : 0;
-        return Math.max(1, nValue + nModifier);
-    });
+    return {
+        [CONSTS.ABILITY_STRENGTH]:
+            state.abilities[CONSTS.ABILITY_STRENGTH] +
+            (discriminator[CONSTS.ABILITY_STRENGTH]?.sum ?? 0),
+        [CONSTS.ABILITY_DEXTERITY]:
+            state.abilities[CONSTS.ABILITY_DEXTERITY] +
+            (discriminator[CONSTS.ABILITY_DEXTERITY]?.sum ?? 0),
+        [CONSTS.ABILITY_CONSTITUTION]:
+            state.abilities[CONSTS.ABILITY_CONSTITUTION] +
+            (discriminator[CONSTS.ABILITY_CONSTITUTION]?.sum ?? 0),
+        [CONSTS.ABILITY_INTELLIGENCE]:
+            state.abilities[CONSTS.ABILITY_INTELLIGENCE] +
+            (discriminator[CONSTS.ABILITY_INTELLIGENCE]?.sum ?? 0),
+        [CONSTS.ABILITY_WISDOM]:
+            state.abilities[CONSTS.ABILITY_WISDOM] +
+            (discriminator[CONSTS.ABILITY_WISDOM]?.sum ?? 0),
+        [CONSTS.ABILITY_CHARISMA]:
+            state.abilities[CONSTS.ABILITY_CHARISMA] +
+            (discriminator[CONSTS.ABILITY_CHARISMA]?.sum ?? 0),
+    };
 }

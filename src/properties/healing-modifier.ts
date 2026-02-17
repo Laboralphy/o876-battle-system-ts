@@ -12,7 +12,7 @@ import { AmpExpression } from '../schemas/AmpExpression';
  * This variable defines the structure of a healing modifier object
  * using a schema validation library.
  */
-export const PropertyHealingModifier = z.strictObject({
+export const PropertyDefinitionHealingModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_HEALING_MODIFIER),
     amp: AmpExpression.describe('fields.amp'),
 });

@@ -6,7 +6,7 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  * This property modifies the spell power : The caster level of a spell cast with the specified ability score
  * is increased by the specified amount
  */
-export const PropertySpellPower = z
+export const PropertyDefinitionSpellPower = z
     .strictObject({
         type: z.literal(CONSTS.PROPERTY_SPELL_POWER).describe('fields.propertyType'),
         amp: z.number().int().describe('fields.amp'),

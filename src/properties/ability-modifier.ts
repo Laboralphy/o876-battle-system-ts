@@ -10,7 +10,7 @@ import { AbilitySchema } from '../schemas/enums/Ability';
  *
  * when : computing an ability score or modifier
  */
-export const PropertyAbilityModifier = z
+export const PropertyDefinitionAbilityModifier = z
     .strictObject({
         type: z.literal(CONSTS.PROPERTY_ABILITY_MODIFIER).describe('fields.propertyType'),
         amp: z.number().int().describe('fields.amp'),

@@ -6,7 +6,7 @@ import { CONSTS } from '../consts';
  * A healing factor property modifies the healing output value of a creature by multiplying it by a factor.
  * example : 0.5 will halve the healing output
  */
-export const PropertyHealingFactor = z.strictObject({
+export const PropertyDefinitionHealingFactor = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_HEALING_FACTOR),
     amp: z.number().describe('fields.amp'),
 });

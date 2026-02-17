@@ -7,7 +7,7 @@ import { CONSTS } from '../consts';
  * Intermediate armor has usually this property set with an amp of 4
  * A light armor has usually this property set with an amp of 8 or more for uncommon flexible armors.
  */
-export const PropertyMaxDexterityBonus = z
+export const PropertyDefinitionMaxDexterityBonus = z
     .strictObject({
         type: z.literal(CONSTS.PROPERTY_MAX_DEXTERITY_BONUS).describe('fields.propertyType'),
         amp: z.number().int().describe('fields.amp'),

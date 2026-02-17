@@ -20,7 +20,7 @@ describe('aggregate', () => {
             amp: 1,
             ability: CONSTS.ABILITY_DEXTERITY,
         });
-        gob.applyEffect(ed, gob.id, 10, CONSTS.EFFECT_SUBTYPE_MAGICAL, '');
+        gob.applyEffect(ed, gob, 10, CONSTS.EFFECT_SUBTYPE_MAGICAL, '');
         expect(
             gob.aggregate({
                 properties: { types: [CONSTS.PROPERTY_ABILITY_MODIFIER] },

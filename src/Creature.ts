@@ -235,7 +235,7 @@ export class Creature {
      */
     applyEffect(
         effectDefinition: EffectDefinition,
-        source: string,
+        source: Creature,
         duration: number,
         subtype: EffectSubtype = CONSTS.EFFECT_SUBTYPE_MAGICAL,
         tag: string = ''
@@ -243,7 +243,7 @@ export class Creature {
         const effect: Effect = EffectSchema.parse({
             ...effectDefinition,
             id: randomUUID(),
-            source,
+            source: source.id,
             target: this.id,
             duration,
             subtype,

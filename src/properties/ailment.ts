@@ -8,7 +8,7 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
 import { DiseaseSchema } from '../schemas/enums/Disease';
 import { AmpExpression } from '../schemas/AmpExpression';
 
-export const PropertyAilment = z.strictObject({
+export const PropertyDefinitionAilment = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_AILMENT).describe('fields.propertyType'),
     amp: AmpExpression.optional().default(0),
     ailment: AilmentSchema,
