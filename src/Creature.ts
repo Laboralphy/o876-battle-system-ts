@@ -22,47 +22,39 @@ export class Creature {
         this._store = buildStore();
     }
 
+    /**
+     * The id of the creature.
+     * @returns The id of the creature.
+     */
     get id(): string {
         return this._id;
     }
 
+    /**
+     * The getters of the creature.
+     * @returns The getters of the creature.
+     */
     get getters(): GetterReturnType {
         return this._store.getters as GetterReturnType;
     }
 
+    /**
+     * The state of the creature.
+     * @returns The state of the creature.
+     */
     get state() {
         return this._store.state;
     }
 
-    /**
-     * Adds a new innate property to the properties list in the state.
-     */
-    addInnateProperty(propDef: PropertyDefinition): Property {
-        const property: Property = PropertyBuilder.buildProperty(propDef);
-        const nNewLength = this._store.state.properties.push(property);
-        return this._store.state.properties[nNewLength - 1];
-    }
-
-    /**
-     * Removes a property from the innate properties list.
-     * @param {Property} property - The property to be removed from the innate properties list.
-     */
-    removeInnateProperty(property: Property) {
-        const index = this._store.state.properties.indexOf(property);
-        if (index > -1) {
-            this._store.state.properties.splice(index, 1);
-        }
-    }
-
-    /**
-     * Will aggregate properties and return sum, min, max, and count
-     */
-    aggregate(options: AggregateOptions) {
-        return aggregate(options, this.getters);
-    }
+    // ▗▄▄▖ ▗▖              ▟▜▖                 ▗▖                  ▗▖                                          ▗▖
+    //  ▐▌ ▝▜▛▘▗▛▜▖▐▙▟▙     ▟▛     ▗▛▜▖▗▛▜▌▐▌▐▌ ▄▖ ▐▛▜▖▐▙▟▙▗▛▜▖▐▛▜▖▝▜▛▘    ▐▙▟▙ ▀▜▖▐▛▜▖ ▀▜▖▗▛▜▌▗▛▜▖▐▙▟▙▗▛▜▖▐▛▜▖▝▜▛▘
+    //  ▐▌  ▐▌ ▐▛▀▘▐▛▛█    ▐▌▜▛    ▐▛▀▘▝▙▟▌▐▌▐▌ ▐▌ ▐▙▟▘▐▛▛█▐▛▀▘▐▌▐▌ ▐▌     ▐▛▛█▗▛▜▌▐▌▐▌▗▛▜▌▝▙▟▌▐▛▀▘▐▛▛█▐▛▀▘▐▌▐▌ ▐▌
+    // ▝▀▀▘  ▀▘ ▀▀ ▝▘ ▀     ▀▘▀     ▀▀   ▐▌ ▀▀▘ ▀▀ ▐▌  ▝▘ ▀ ▀▀ ▝▘▝▘  ▀▘    ▝▘ ▀ ▀▀▘▝▘▝▘ ▀▀▘▗▄▟▘ ▀▀ ▝▘ ▀ ▀▀ ▝▘▝▘  ▀▘
 
     /**
      * Returns the slot where the item is equipped
+     * @param item - The item to find the slot of.
+     * @returns The slot where the item is equipped, or undefined if the item is not equipped.
      */
     findEquippedItemSlot(item: Item): EquipmentSlot | undefined {
         for (const slot in this._store.state.equipment) {
@@ -73,6 +65,12 @@ export class Creature {
         return undefined;
     }
 
+    /**
+     * Remove the item from the equipment list.
+     * If the item is not equipped, exit.
+     * @param item - The item to remove from the equipment list.
+     * @returns The outcome of the operation. @see constant group EQUI_ITEM_*
+     */
     unequipItem(item: Item): EquipItemOutcome {
         const slot = this.findEquippedItemSlot(item);
         // Check if item is really equipped
@@ -99,6 +97,9 @@ export class Creature {
 
     /**
      * Remove item currently equipped in the given slot. If no item is equipped in this slot, exit.
+     * @param slot - The slot to remove the item from.
+     * @returns An object containing the outcome of the operation and the item that has been removed from the slot.
+     * The operation may failed if the item in the specified slot is cursed
      */
     unequipSlot(slot: EquipmentSlot): {
         unequippedItem: Item | null;
@@ -119,6 +120,14 @@ export class Creature {
         };
     }
 
+    /**
+     * Equip the item in the first available slot.
+     * If no slot is available, unequip items in other slots until an available slot is found.
+     * @param item - The item to equip.
+     * @returns An object containing the outcome of the operation and the item that has been equipped.
+     * The operation may fail if the item currently equipped in the slot is cursed
+     * and cannot be replaced by the new item.
+     */
     equipItem(item: Item): {
         unequippedItem: Item | null;
         outcome: EquipItemOutcome;
@@ -169,6 +178,61 @@ export class Creature {
         }
     }
 
+    // ▗▄▄                      ▗▖                                              ▗▖
+    // ▐▌▐▌▐▛▜▖▗▛▜▖▐▛▜▖▗▛▜▖▐▛▜▖▝▜▛▘▐▌▐▌    ▐▙▟▙ ▀▜▖▐▛▜▖ ▀▜▖▗▛▜▌▗▛▜▖▐▙▟▙▗▛▜▖▐▛▜▖▝▜▛▘
+    // ▐▛▀ ▐▌  ▐▌▐▌▐▙▟▘▐▛▀▘▐▌   ▐▌ ▝▙▟▌    ▐▛▛█▗▛▜▌▐▌▐▌▗▛▜▌▝▙▟▌▐▛▀▘▐▛▛█▐▛▀▘▐▌▐▌ ▐▌
+    // ▝▘  ▝▘   ▀▀ ▐▌   ▀▀ ▝▘    ▀▘▗▄▛     ▝▘ ▀ ▀▀▘▝▘▝▘ ▀▀▘▗▄▟▘ ▀▀ ▝▘ ▀ ▀▀ ▝▘▝▘  ▀▘
+
+    /**
+     * Adds a new innate property to the properties list in the state.
+     * @param propDef - The property definition to be added to the innate properties list.
+     * @returns The newly created property.
+     */
+    addInnateProperty(propDef: PropertyDefinition): Property {
+        const property: Property = PropertyBuilder.buildProperty(propDef);
+        const nNewLength = this._store.state.properties.push(property);
+        return this._store.state.properties[nNewLength - 1];
+    }
+
+    /**
+     * Removes a property from the innate properties list.
+     * @param property - The property to be removed from the innate properties list.
+     */
+    removeInnateProperty(property: Property) {
+        const index = this._store.state.properties.indexOf(property);
+        if (index > -1) {
+            this._store.state.properties.splice(index, 1);
+        }
+    }
+
+    /**
+     * Will aggregate properties and return sum, min, max, and count
+     * @param options - Options to filter the properties to aggregate.
+     * @returns An object containing aggregated values. @see AggregatorResult
+     */
+    aggregate(options: AggregateOptions) {
+        return aggregate(options, this.getters);
+    }
+
+    // ▗▄▄▖  ▄▖  ▄▖         ▗▖                                          ▗▖
+    // ▐▙▄  ▟▙▖ ▟▙▖▗▛▜▖▗▛▀ ▝▜▛▘    ▐▙▟▙ ▀▜▖▐▛▜▖ ▀▜▖▗▛▜▌▗▛▜▖▐▙▟▙▗▛▜▖▐▛▜▖▝▜▛▘
+    // ▐▌   ▐▌  ▐▌ ▐▛▀▘▐▌   ▐▌     ▐▛▛█▗▛▜▌▐▌▐▌▗▛▜▌▝▙▟▌▐▛▀▘▐▛▛█▐▛▀▘▐▌▐▌ ▐▌
+    // ▝▀▀▘ ▝▘  ▝▘  ▀▀  ▀▀   ▀▘    ▝▘ ▀ ▀▀▘▝▘▝▘ ▀▀▘▗▄▟▘ ▀▀ ▝▘ ▀ ▀▀ ▝▘▝▘  ▀▘
+
+    /**
+     * Apply an effect to the creature.
+     * The effect will be added to the creature's effects list.
+     * The effect will be triggered each round.
+     * The effect will be removed from the creature's effects list when it expires.
+     * @param effectDefinition - The definition of the effect to apply.
+     * @param source - The source of the effect.
+     * @param duration - The duration of the effect in rounds.
+     * @param subtype - The subtype of the effect.
+     * @param tag - A tag to identify the effect.
+     * @returns The newly created effect.
+     * The newly created effect may be modified to adding siblings, setting effect subtype, etc.
+     * See EffectSchema for more details.
+     */
     applyEffect(
         effectDefinition: EffectDefinition,
         source: string,
@@ -204,6 +268,11 @@ export class Creature {
         return effect;
     }
 
+    /**
+     * Remove an effect from the creature's effects list.
+     * If the effect is not found in the creature's effects list, exit.
+     * @param effect - The effect to remove from the creature's effects list.
+     */
     removeEffect(effect: Effect) {
         const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
         if (effIndex >= 0) {
@@ -216,6 +285,12 @@ export class Creature {
         }
     }
 
+    /**
+     * Set the duration of an effect.
+     * If the effect is not found in the creature's effects list, exit.
+     * @param effect - The effect to modify.
+     * @param duration - The new duration of the effect.
+     */
     setEffectDuration(effect: Effect, duration: number) {
         const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
         if (effIndex >= 0) {
@@ -223,14 +298,23 @@ export class Creature {
         }
     }
 
+    /**
+     * Decrease each effect duration by 1.
+     * Effects that expire will be removed from the creature's effects list.
+     * This method should be called each round.
+     */
     depleteEffects() {
-        // for (const effect of this.state.effects) {
         for (const effect of this.state.effects) {
             --effect.duration;
         }
         this.removeDeadEffects();
     }
 
+    /**
+     * Dispel an effect. Actually set the duration of the effect to 0.
+     * The effect will be removed from the creature's effects list.'
+     * @param effect - effect to be dispelled
+     */
     dispelEffect(effect: Effect) {
         this.setEffectDuration(effect, 0);
     }
@@ -254,7 +338,35 @@ export class Creature {
     /**
      * This methode is called each round, the creature state is mutated by applied effects and properties
      */
-    mutate() {
+    triggerMutate() {
         // Regeneration
+    }
+
+    /**
+     * Method called each time the creature is attacking
+     */
+    triggerAttack() {
+        // Ailment
+    }
+
+    /**
+     * Triggered each time the creature is physically attacked
+     */
+    triggerAttacked() {
+        //
+    }
+
+    /**
+     * Triggered each time the creature is inflicting damage to another target
+     */
+    triggerDamageInflicted() {
+        //
+    }
+
+    /**
+     * Triggered each time the creature is damaged by another target
+     */
+    triggerDamageReceived() {
+        //
     }
 }

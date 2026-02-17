@@ -1,6 +1,6 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { PropertyDefinitionSchema, PropertySchema } from '../properties';
+import { PropertySchema, PropertySchema } from '../properties';
 import { ItemBlueprintSchema } from './Item';
 import { ActionSchema } from './Action';
 import { SpecieSchema } from './enums/Specie';
@@ -27,7 +27,7 @@ export const CreatureBlueprintSchema = z.strictObject({
     race: RaceSchema.optional().describe('fields.CreatureField.race'),
     speed: z.number().int().min(0).describe('fields.CreatureField.speed'),
     feats: z.array(FeatTypeSchema).describe('fields.CreatureField.feats'),
-    properties: z.array(PropertyDefinitionSchema).describe('fields.CreatureField.properties'),
+    properties: z.array(PropertySchema).describe('fields.CreatureField.properties'),
     equipment: z
         .array(z.union([ItemBlueprintSchema, z.string()]))
         .describe('fields.CreatureField.equipment'),
