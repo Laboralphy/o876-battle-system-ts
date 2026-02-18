@@ -18,7 +18,6 @@ export type ItemBlueprint = z.infer<typeof ItemBlueprintSchema>;
 export const ItemSchema = z
     .object({
         id: z.string(),
-        ref: z.string(),
     })
     .and(ItemBlueprintSchema);
 

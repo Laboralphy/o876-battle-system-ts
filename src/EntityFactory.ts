@@ -46,23 +46,18 @@ export class EntityFactory {
         return this.extendResolver.getEntityType(ref);
     }
 
-    // getAllInvalidRefs(): string[] {
-    //     const invalidRefs = [];
-    //     const itemRefs = this.refs.filter((ref) => {
-    //         return this.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_ITEM;
-    //     });
-    //     const creatureRefs = this.refs.filter((ref) => {
-    //         return this.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_CREATURE;
-    //     });
-    //     for (const ref of creatureRefs) {
-    //         const oProto = this.extendResolver.resolveEntity(ref);
-    //         const bp = CreatureBlueprintSchema.safeParse(oProto);
-    //         if (!bp.success) {
-    //             invalidRefs.push(ref);
-    //             consol
-    //         }
-    //     }
-    // }
+    /**
+     * Build an item from a blueprint.
+     * If id is not provided, a random id will be generated.
+     * @param blueprint blueprint
+     * @param id identifier. If not provided, a random id will be generated.
+     */
+    static buildItemFromBlueprint(blueprint: ItemBlueprint, id: string = ''): Item {
+        return {
+            ...deepClone(blueprint),
+            id: id === '' ? crypto.randomUUID() : id,
+        };
+    }
 
     /**
      * Create an item from a blueprint.
@@ -71,11 +66,10 @@ export class EntityFactory {
     createItem(refOrBlueprint: string | ItemBlueprint, id: string = ''): Item {
         if (typeof refOrBlueprint === 'string' && this.itemBlueprints.has(refOrBlueprint)) {
             // there is an ItemBlueprint registrered with this ref
-            return {
-                ...deepClone(this.itemBlueprints.get(refOrBlueprint)!),
-                ref: refOrBlueprint,
-                id: id === '' ? crypto.randomUUID() : id,
-            };
+            return EntityFactory.buildItemFromBlueprint(
+                this.itemBlueprints.get(refOrBlueprint)!,
+                id
+            );
         }
         if (typeof refOrBlueprint === 'string') {
             // no item blueprint registered with this ref
