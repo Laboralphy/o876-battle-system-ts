@@ -16,9 +16,6 @@ describe('EntityBuilder item creation', () => {
             amp: '1d6',
             damageType: 'DAMAGE_TYPE_PIERCING',
             type: 'PROPERTY_DAMAGE_MODIFIER',
-            duration: 0,
-            temporary: false,
-            tag: ''
         });
     });
 });

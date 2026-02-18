@@ -1,7 +1,7 @@
 import { ReactiveStore } from '@laboralphy/reactor';
 import { State } from './store/state';
 import { buildStore } from './store';
-import { Property, PropertyDefinition } from './properties';
+import { Property } from './properties';
 import { aggregate, AggregateOptions } from './libs/aggregator';
 import { Item } from './schemas/Item';
 import { EquipItemOutcome } from './schemas/enums/EquipItemOutcome';
@@ -188,7 +188,7 @@ export class Creature {
      * @param propDef - The property definition to be added to the innate properties list.
      * @returns The newly created property.
      */
-    addInnateProperty(propDef: PropertyDefinition): Property {
+    addInnateProperty(propDef: Property): Property {
         const property: Property = PropertyBuilder.buildProperty(propDef);
         const nNewLength = this._store.state.properties.push(property);
         return this._store.state.properties[nNewLength - 1];

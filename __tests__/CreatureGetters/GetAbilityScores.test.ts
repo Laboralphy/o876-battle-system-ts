@@ -1,8 +1,8 @@
-import {it, describe, expect} from 'vitest';
-import {Creature} from '../../src/Creature';
-import {CONSTS} from '../../src/consts';
-import {ItemBlueprint, ItemBlueprintSchema} from "../../src/schemas/Item";
-import {EntityFactory} from "../../src/EntityFactory";
+import { it, describe, expect } from 'vitest';
+import { Creature } from '../../src/Creature';
+import { CONSTS } from '../../src/consts';
+import { ItemBlueprint, ItemBlueprintSchema } from '../../src/schemas/Item';
+import { EntityFactory } from '../../src/EntityFactory';
 
 describe(`getAbilityScore`, () => {
     it('should return 10 to all abilities', () => {
@@ -61,15 +61,16 @@ describe(`getAbilityScore`, () => {
                     type: CONSTS.PROPERTY_ABILITY_MODIFIER,
                     ability: CONSTS.ABILITY_INTELLIGENCE,
                     amp: 4,
-                }
+                },
             ],
             equipmentSlots: [CONSTS.EQUIPMENT_SLOT_HEAD],
-        })
+        });
         const crown = EntityFactory.buildItemFromBlueprint(crownBlueprint, '');
         const c = new Creature();
         expect(crown.entityType).toBe(CONSTS.ENTITY_TYPE_ITEM);
-        expect(crown.equipmentSlots).toBeDefined()
+        expect(crown.equipmentSlots).toBeDefined();
         c.equipItem(crown);
+        // If this test passes, then equiping an item is working
         expect(c.getters.getAbilityScores[CONSTS.ABILITY_INTELLIGENCE]).toBe(14);
-    })
+    });
 });

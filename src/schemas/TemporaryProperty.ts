@@ -1,14 +1,15 @@
 import z from 'zod';
+import { PropertyDefinitionSchema } from '../properties';
 
 /**
  * This schema define the base structure of a property in order to manage temporary properties
  * applied on items.
  */
-export const BasePropertySchema = z.object({
+export const TemporaryPropertySchema = z.object({
     id: z.string(),
     duration: z.number().int().min(0),
-    temporary: z.boolean(),
     tag: z.string(),
+    property: PropertyDefinitionSchema,
 });
 
-export type BaseProperty = z.infer<typeof BasePropertySchema>;
+export type TemporaryProperty = z.infer<typeof TemporaryPropertySchema>;

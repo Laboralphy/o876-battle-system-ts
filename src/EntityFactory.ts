@@ -8,8 +8,9 @@ import { CONSTS } from './consts';
 import { EntityType } from './schemas/enums/EntityType';
 import MODULE_CLASSIC from './modules/classic';
 import MODULE_BASE from './modules/base';
-import { Property, PropertyDefinition } from './properties';
+import { Property } from './properties';
 import { PropertyBuilder } from './PropertyBuilder';
+import { TemporaryProperty } from './schemas/TemporaryProperty';
 
 export class EntityFactory {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
@@ -56,6 +57,7 @@ export class EntityFactory {
         return {
             ...deepClone(blueprint),
             id: id === '' ? crypto.randomUUID() : id,
+            temporaryProperties: [],
         };
     }
 
@@ -113,9 +115,7 @@ export class EntityFactory {
         cs.hitPoints = 1;
 
         // Innate Properties
-        bpCreature.properties.forEach((property: PropertyDefinition) =>
-            creature.addInnateProperty(property)
-        );
+        bpCreature.properties.forEach((property: Property) => creature.addInnateProperty(property));
         cs.proficiencies.push(...bpCreature.proficiencies);
 
         bpCreature.equipment.forEach((eq: ItemBlueprint | string) => {
@@ -138,8 +138,6 @@ export class EntityFactory {
     }
 
     createEntity<T extends Creature | Item>(ref: string, id?: string): T;
-
-    // Implémentation
     createEntity(ref: string, id: string = ''): Creature | Item {
         const entity = this.extendResolver.resolveEntity(ref);
         if (this.isCreatureRef(entity)) {
@@ -151,10 +149,25 @@ export class EntityFactory {
         }
     }
 
-    addItemProperty(item: Item, propDef: PropertyDefinition): Property {
-        const property = PropertyBuilder.buildProperty(propDef);
+    addItemProperty(item: Item, propDef: Property): Property {
+        const property: Property = PropertyBuilder.buildProperty(propDef);
         const nNewLength = item.properties.push(property);
         return item.properties[nNewLength - 1];
+    }
+
+    addItemTemporaryProperty(
+        item: Item,
+        propDef: Property,
+        duration: number,
+        tag: string = ''
+    ): Property {
+        const tp: TemporaryProperty = PropertyBuilder.buildTemporaryProperty(
+            propDef,
+            duration,
+            tag
+        );
+        const nNewLength = item.temporaryProperties.push(tp);
+        return item.temporaryProperties[nNewLength - 1].property;
     }
 
     removeItemProperty(item: Item, property: Property) {
