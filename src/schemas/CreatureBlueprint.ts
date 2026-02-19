@@ -2,7 +2,7 @@ import z from 'zod';
 import { CONSTS } from '../consts';
 import { PropertySchema } from '../properties';
 import { ItemBlueprintSchema } from './Item';
-import { ActionSchema } from './Action';
+import { ActionDefinitionSchema } from './Action';
 import { SpecieSchema } from './enums/Specie';
 import { RaceSchema } from './enums/Race';
 import { FeatTypeSchema } from './enums/FeatType';
@@ -34,7 +34,7 @@ export const CreatureBlueprintSchema = z.strictObject({
     proficiencies: z
         .array(z.union([ProficiencySchema, SkillProficiencySchema]))
         .describe('fields.CreatureField.proficiencies'),
-    actions: z.array(ActionSchema).describe('fields.CreatureField.actions'),
+    actions: z.array(ActionDefinitionSchema).describe('fields.CreatureField.actions'),
     spells: z.array(z.string()).optional().describe('fields.CreatureField.spells'),
     extends: z.array(z.string()).optional(),
 });

@@ -24,7 +24,7 @@ export class Attack {
     public weapon: Item | null = null; // weapon used
     public ammo: Item | null = null; // ammo used
     public ac: number = 0; // target armor class
-    public distance: number = 0; // distance beetween attacker and target
+    public distance: number = 0; // distance between attacker and target
     public range: number = 0; // maximum distance of attack (weapon)
     public sneak: boolean = false; // this was a sneak attack : damage will be doubled
     public opportunity: boolean = false; // this was an attack of opportunity
@@ -37,8 +37,8 @@ export class Attack {
     public ability: Ability = CONSTS.ABILITY_STRENGTH; // ability used in attack
     public readonly advantages: Set<Advantage> = new Set<Advantage>(); // list of advantages
     public readonly disadvantages: Set<Disadvantage> = new Set<Disadvantage>(); // list of disadvantages
-    public cancelAdvantage: boolean = false; // when true all advantages are cancelled
-    public cancelDisadvantage: boolean = false; // when true all disadvantages are cancelled
+    public cancelAdvantage: boolean = false; // when true all advantages are canceled
+    public cancelDisadvantage: boolean = false; // when true all disadvantages are canceled
     public attackType: AttackType = CONSTS.ATTACK_TYPE_ANY; // attack type (ranged, melee)
     // action ?  // action used in the attack
     public lethal: boolean = false; // true when the target is killed during the attack

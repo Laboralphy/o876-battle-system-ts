@@ -13,7 +13,6 @@ import { randomUUID } from 'node:crypto';
 import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
 import { PropertyManager } from './PropertyManager';
-import { TemporaryProperty } from './schemas/TemporaryProperty';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;

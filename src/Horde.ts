@@ -71,8 +71,14 @@ export class Horde {
      * @see setCreatureActive to know what an active creature is.
      * if the function returns false, then the creature should be kicked out of active creature registry soon
      * as it does no longer satisfies active criteria.
+     * An active creature is a creature with one of the following traits :
+     * - Has an effect with non-null duration
+     * - Is equipped with an item having a mutating property, or a temporary effect
+     * - Has at least one of its actions cooling down
      */
     isCreatureActive(creature: Creature): boolean {
+        // Is there an active effect ?
+
         return false;
     }
 

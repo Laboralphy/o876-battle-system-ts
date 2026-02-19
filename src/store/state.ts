@@ -3,7 +3,7 @@ import { CONSTS } from '../consts';
 import { SpecieSchema } from '../schemas/enums/Specie';
 import { RaceSchema } from '../schemas/enums/Race';
 import { ProficiencySchema } from '../schemas/enums/Proficiency';
-import { ActionSchema } from '../schemas/Action';
+import { ActionDefinitionSchema, ActionSchema } from '../schemas/Action';
 import { SpellSlotSchema } from '../schemas/SpellSlot';
 import { EquipmentSchema } from '../schemas/Equipment';
 import { EquipmentSlotSchema } from '../schemas/enums/EquipmentSlot';

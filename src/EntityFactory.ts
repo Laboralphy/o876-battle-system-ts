@@ -114,6 +114,20 @@ export class EntityFactory {
         cs.speed = bpCreature.speed;
         cs.hitPoints = 1;
 
+        bpCreature.actions.forEach((action) => {
+            const remainingCharges = action.charges;
+            const hasLimitedCharges = remainingCharges > 0;
+            const hasCooldown = action.cooldown > 0;
+            cs.actions.push({
+                blueprint: action,
+                remainingCharges,
+                cooldownTimer: 0,
+                rechargeDelayTimer: 0,
+                hasLimitedCharges,
+                hasCooldown,
+            });
+        });
+
         // Innate Properties
         bpCreature.properties.forEach((property: Property) => creature.addInnateProperty(property));
         cs.proficiencies.push(...bpCreature.proficiencies);

@@ -1,7 +1,7 @@
 import { Horde } from './Horde';
 import { Effect } from './effects';
 
-class Manager {
+export class Manager {
     private _time: number = 0;
     private readonly _horde = new Horde();
 
