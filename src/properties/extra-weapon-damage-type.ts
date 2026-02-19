@@ -12,7 +12,7 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
  * However when it comes to compute if a target is hit by a weapon, the best armor class is used against all damage types
  * provided by a weapon.
  */
-export const PropertyDefinitionExtraWeaponDamageType = z.strictObject({
+export const PropertyExtraWeaponDamageType = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_EXTRA_WEAPON_DAMAGE_TYPE).describe('fields.propertyType'),
     damageType: DamageTypeSchema,
 });

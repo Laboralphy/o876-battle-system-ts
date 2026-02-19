@@ -9,7 +9,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  * a certain type of damage (usually physical, but modern of futuristic weapon can use force damage, or electric damage),
  * and a certain type of species
  */
-export const PropertyDefinitionAttackModifier = z.strictObject({
+export const PropertyAttackModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ATTACK_MODIFIER).describe('fields.propertyType'),
     amp: z.number().int().describe('fields.amp'),
     attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),

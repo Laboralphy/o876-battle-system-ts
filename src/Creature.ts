@@ -12,7 +12,8 @@ import { EffectSubtype } from './schemas/enums/EffectSubtype';
 import { randomUUID } from 'node:crypto';
 import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
-import { PropertyBuilder } from './PropertyBuilder';
+import { PropertyManager } from './PropertyManager';
+import { TemporaryProperty } from './schemas/TemporaryProperty';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -131,6 +132,7 @@ export class Creature {
     equipItem(item: Item): {
         unequippedItem: Item | null;
         outcome: EquipItemOutcome;
+        equippedItem: Item | null;
     } {
         const slots = item.equipmentSlots;
         if (slots.length === 0) {
@@ -138,6 +140,7 @@ export class Creature {
             return {
                 outcome: CONSTS.EQUIP_ITEM_FAILURE_REASON_NO_SUITABLE_SLOT,
                 unequippedItem: null,
+                equippedItem: null,
             };
         }
         // get the first slot available
@@ -150,6 +153,7 @@ export class Creature {
             return {
                 unequippedItem,
                 outcome: CONSTS.EQUIP_ITEM_SUCCESS,
+                equippedItem: this._store.state.equipment[availableSlot],
             };
         } else {
             // No available slot: must remove item prior to equip the new one
@@ -165,6 +169,7 @@ export class Creature {
                     return {
                         unequippedItem,
                         outcome: CONSTS.EQUIP_ITEM_SUCCESS,
+                        equippedItem: this._store.state.equipment[slot],
                     };
                 }
                 lastOutcome = eqo.outcome;
@@ -174,6 +179,7 @@ export class Creature {
             return {
                 outcome: lastOutcome,
                 unequippedItem: null,
+                equippedItem: null,
             };
         }
     }
@@ -189,7 +195,7 @@ export class Creature {
      * @returns The newly created property.
      */
     addInnateProperty(propDef: Property): Property {
-        const property: Property = PropertyBuilder.buildProperty(propDef);
+        const property: Property = PropertyManager.buildProperty(propDef);
         const nNewLength = this._store.state.properties.push(property);
         return this._store.state.properties[nNewLength - 1];
     }

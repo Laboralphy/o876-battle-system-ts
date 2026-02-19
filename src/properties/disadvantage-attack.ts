@@ -9,7 +9,7 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
  * - `attackType`: An optional field defining the type of attack. This field must conform
  *   to the `AttackTypeSchema` if provided.
  */
-export const PropertyDefinitionDisadvantageAttack = z.strictObject({
+export const PropertyDisadvantageAttack = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_DISADVANTAGE_ATTACK).describe('fields.propertyType'),
     attackType: AttackTypeSchema.optional(),
 });

@@ -12,7 +12,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  *
  *
  */
-export const PropertyDefinitionArmorClassModifier = z.strictObject({
+export const PropertyArmorClassModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ARMOR_CLASS_MODIFIER).describe('fields.propertyType'),
     amp: z.number().int().describe('fields.amp'),
     attackType: AttackTypeSchema.optional(),

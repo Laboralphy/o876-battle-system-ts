@@ -9,7 +9,7 @@ import { EntityType } from './schemas/enums/EntityType';
 import MODULE_CLASSIC from './modules/classic';
 import MODULE_BASE from './modules/base';
 import { Property } from './properties';
-import { PropertyBuilder } from './PropertyBuilder';
+import { PropertyManager } from './PropertyManager';
 import { TemporaryProperty } from './schemas/TemporaryProperty';
 
 export class EntityFactory {
@@ -149,27 +149,54 @@ export class EntityFactory {
         }
     }
 
+    /**
+     * Add a property to an item.
+     * The property is cloned before being added to the item.
+     * The property is added at the end of the item.properties array.
+     * @param item Item to add the property to.
+     * @param propDef Property definition.
+     * @returns The added property. This is a reactive version of the newly created property.
+     */
     addItemProperty(item: Item, propDef: Property): Property {
-        const property: Property = PropertyBuilder.buildProperty(propDef);
+        const property: Property = PropertyManager.buildProperty(propDef);
         const nNewLength = item.properties.push(property);
         return item.properties[nNewLength - 1];
     }
 
+    /**
+     * Same as addItemProperty but the property is added to the item temporaryProperties array.
+     * The property is cloned before being added to the item temporaryProperties array.
+     * The property is added at the end of the item temporaryProperties array.
+     * This property is a temporary property that will be removed after a certain duration.
+     * This is used when a specific enhancement is cast on the item, that "bless" or "imbue" the item with a specific property.
+     * @param item Item to add the property to.
+     * @param propDef Property definition.
+     * @param duration Duration of the temporary property.
+     * @param tag Tag of the property. This is used to manage stackable temporary properties.
+     * @returns The added property. This is a reactive version of the newly created property.
+     */
     addItemTemporaryProperty(
         item: Item,
         propDef: Property,
         duration: number,
         tag: string = ''
-    ): Property {
-        const tp: TemporaryProperty = PropertyBuilder.buildTemporaryProperty(
+    ): TemporaryProperty {
+        const tp: TemporaryProperty = PropertyManager.buildTemporaryProperty(
             propDef,
             duration,
             tag
         );
         const nNewLength = item.temporaryProperties.push(tp);
-        return item.temporaryProperties[nNewLength - 1].property;
+        return item.temporaryProperties[nNewLength - 1];
     }
 
+    /**
+     * Remove a property from an item.
+     * The property is removed from the item.properties array.
+     * If the property is not found, nothing happens.
+     * @param item Item to remove the property from.
+     * @param property Property to remove.
+     */
     removeItemProperty(item: Item, property: Property) {
         const nIndex = item.properties.indexOf(property);
         if (nIndex !== -1) {

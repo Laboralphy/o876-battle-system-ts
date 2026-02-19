@@ -4,7 +4,7 @@ import { CONSTS } from '../consts';
 /**
  * The maximum hitpoints is increased to a fixed amount.
  */
-export const PropertyDefinitionExtraHitpoints = z.strictObject({
+export const PropertyExtraHitpoints = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_EXTRA_HITPOINTS).describe('fields.propertyType'),
     amp: z.number().int().describe('fields.amp'),
 });

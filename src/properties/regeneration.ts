@@ -20,7 +20,7 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
  * - `threshold`: An optional integer defining the threshold value for regeneration. When Hitpoints are below this value, the regeneration is triggered.
  * When the HP is above the threshold, the regeneration is canceled.
  */
-export const PropertyDefinitionRegeneration = z.strictObject({
+export const PropertyRegeneration = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_REGENERATION).describe('fields.propertyType'),
     amp: AmpExpression.describe('fields.amp'),
     vulnerabilities: z.array(DamageTypeSchema).optional().describe('fields.regenVulnerabilities'),

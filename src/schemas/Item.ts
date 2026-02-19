@@ -5,6 +5,7 @@ import { ArmorBlueprintSchema } from './ArmorBlueprint';
 import { ShieldBlueprintSchema } from './ShieldBlueprint';
 import { GearBlueprintSchema } from './GearBlueprint';
 import { PropertySchema } from '../properties';
+import { TemporaryPropertySchema } from './TemporaryProperty';
 
 export const ItemBlueprintSchema = z.discriminatedUnion('itemType', [
     AmmoBlueprintSchema,
@@ -17,15 +18,7 @@ export const ItemBlueprintSchema = z.discriminatedUnion('itemType', [
 export const ItemSchema = ItemBlueprintSchema.and(
     z.object({
         id: z.string(),
-        temporaryProperties: z.array(
-            // this is a temporary property
-            z.object({
-                id: z.string(),
-                property: PropertySchema,
-                duration: z.number().int(),
-                tag: z.string(),
-            })
-        ),
+        temporaryProperties: z.array(TemporaryPropertySchema),
     })
 );
 

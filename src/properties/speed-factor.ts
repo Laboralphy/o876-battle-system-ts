@@ -6,7 +6,7 @@ import { CONSTS } from '../consts';
  * A speed factor property modifies the speed output value of a creature by multiplying it by a factor.
  * example : 0.5 will halve the speed output ; 2 will double it ; 1.5 will add 50% to the creature's base speed
  */
-export const PropertyDefinitionSpeedFactor = z.strictObject({
+export const PropertySpeedFactor = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SPEED_FACTOR),
     amp: z.number().describe('fields.amp'),
 });

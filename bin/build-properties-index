@@ -41,7 +41,7 @@ echo "" >> "$const_ts"
 echo "}" >> "$const_ts"
 
 echo "" >> "$index_ts"
-echo "export const PropertyDefinitionSchema = z.discriminatedUnion('type', [" >> "$index_ts"
+echo "export const PropertySchema = z.discriminatedUnion('type', [" >> "$index_ts"
 # Iterate each .ts file
 for this_file in "$target_folder"/*.ts; do
     # Ignore index.ts
@@ -53,5 +53,5 @@ for this_file in "$target_folder"/*.ts; do
 done
 echo "]);" >> "$index_ts"
 echo "" >> "$index_ts"
-echo "export type Property = z.infer<typeof PropertyDefinitionSchema>;" >> "$index_ts"
+echo "export type Property = z.infer<typeof PropertySchema>;" >> "$index_ts"
 echo "generated: $index_ts"

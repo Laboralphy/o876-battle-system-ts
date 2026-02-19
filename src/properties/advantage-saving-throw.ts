@@ -9,7 +9,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
  *
  * when : rolling a saving throw
  */
-export const PropertyDefinitionAdvantageSavingThrow = z.strictObject({
+export const PropertyAdvantageSavingThrow = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
     ability: AbilitySchema,
     threat: ThreatTypeSchema.optional(),
