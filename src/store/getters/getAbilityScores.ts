@@ -4,8 +4,9 @@ import { CONSTS } from '../../consts';
 import { Property } from '../../properties';
 import { Effect } from '../../effects';
 import { GetterReturnType } from '../define-getters';
+import { Ability } from '../../schemas/enums/Ability';
 
-export function getAbilityScores(state: State, getters: GetterReturnType) {
+export function getAbilityScores(state: State, getters: GetterReturnType): Record<Ability, number> {
     const { discriminator } = aggregate(
         {
             properties: {

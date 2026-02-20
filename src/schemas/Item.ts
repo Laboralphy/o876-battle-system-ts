@@ -4,7 +4,6 @@ import { WeaponBlueprintSchema } from './WeaponBlueprint';
 import { ArmorBlueprintSchema } from './ArmorBlueprint';
 import { ShieldBlueprintSchema } from './ShieldBlueprint';
 import { GearBlueprintSchema } from './GearBlueprint';
-import { PropertySchema } from '../properties';
 import { TemporaryPropertySchema } from './TemporaryProperty';
 
 export const ItemBlueprintSchema = z.discriminatedUnion('itemType', [
