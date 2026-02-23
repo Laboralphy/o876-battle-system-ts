@@ -8,10 +8,16 @@ export const ActionDefinitionSchema = z.strictObject({
     hostile: z.boolean().describe('fields.ActionField.hostile'),
     script: z.string().describe('fields.ActionField.script'),
     parameters: z.object().optional().describe('fields.ActionField.parameters'),
-    cooldown: z.number().int().min(0).describe('fields.ActionField.cooldown'),
-    charges: z.number().int().min(0).describe('fields.ActionField.charges'),
     range: z.number().int().min(0).describe('fields.ActionField.range'),
-    rechargeDelay: z.number().int().min(0).describe('fields.ActionField.delay'),
+    cooldown: z.number().int().min(0).optional().default(0).describe('fields.ActionField.cooldown'),
+    charges: z.number().int().min(0).optional().default(0).describe('fields.ActionField.charges'),
+    rechargeDelay: z
+        .number()
+        .int()
+        .min(0)
+        .optional()
+        .default(0)
+        .describe('fields.ActionField.delay'),
 });
 
 export const ActionSchema = z.strictObject({

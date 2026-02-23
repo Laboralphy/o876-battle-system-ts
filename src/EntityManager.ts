@@ -1,6 +1,6 @@
 import { Item, ItemBlueprint, ItemBlueprintSchema } from './schemas/Item';
 import { deepClone } from './libs/deep-clone';
-import crypto from 'node:crypto';
+import crypto, { randomUUID } from 'node:crypto';
 import { Creature } from './Creature';
 import { CreatureBlueprint, CreatureBlueprintSchema } from './schemas/CreatureBlueprint';
 import { ExtendableEntity, ExtendResolver } from './ExtendResolver';
@@ -20,6 +20,8 @@ export class EntityManager {
         string,
         { item: Item; temporaryProperty: TemporaryProperty }
     >();
+    private readonly itemRegistry = new Map<string, Item>();
+    private readonly creatureRegistry = new Map<string, Creature>();
 
     constructor() {
         this.loadModules();
@@ -66,6 +68,26 @@ export class EntityManager {
     }
 
     /**
+     * Register an item blueprint.
+     * All parameters are mandatory. Registering an item twice with the same blueprint reference will throw an error.
+     * @param sRef blueprint reference
+     * @param bp blueprint
+     * @param sId item identifier. If not provided, a random id will be generated.
+     * @return An item instance
+     */
+    private registerItem(sRef: string, bp: object, sId: string): Item {
+        if (this.itemRegistry.has(sId)) {
+            throw new Error(`Item with the same ID ${sId} already exists`);
+        }
+        const oItemBlueprint: ItemBlueprint = ItemBlueprintSchema.parse(bp);
+        // We are pretty sure this blueprint does not already exist
+        this.itemBlueprints.set(sRef, oItemBlueprint);
+        const oItem = this.createItem(sRef, sId);
+        this.itemRegistry.set(oItem.id, oItem);
+        return oItem;
+    }
+
+    /**
      * Create an item from a blueprint.
      * If id is not provided, a random id will be generated.
      */
@@ -80,16 +102,22 @@ export class EntityManager {
         if (typeof refOrBlueprint === 'string') {
             // no item blueprint registered with this ref
             // create the blueprint with extendResolver
-            const oProto = this.extendResolver.resolveEntity(refOrBlueprint);
-            const oItemBlueprint = ItemBlueprintSchema.parse(oProto);
-            this.itemBlueprints.set(refOrBlueprint, oItemBlueprint);
-            return this.createItem(refOrBlueprint, id);
+            return this.registerItem(
+                refOrBlueprint,
+                this.extendResolver.resolveEntity(refOrBlueprint),
+                id
+            );
+        } else if (typeof refOrBlueprint === 'object' && !!refOrBlueprint) {
+            // refOrBlueprint should be an ItemBlueprint
+            // we should register it
+            const ref = crypto
+                .createHash('md5')
+                .update(JSON.stringify(refOrBlueprint))
+                .digest('hex');
+            return this.registerItem(ref, refOrBlueprint, id);
+        } else {
+            throw new Error(`Invalid item blueprint ${refOrBlueprint}`);
         }
-        // refOrBlueprint should be an ItemBlueprint
-        // we should register it
-        const ref = crypto.createHash('md5').update(JSON.stringify(refOrBlueprint)).digest('hex');
-        this.itemBlueprints.set(ref, ItemBlueprintSchema.parse(refOrBlueprint));
-        return this.createItem(ref, id);
     }
 
     createCreature(ref: string, id: string = ''): Creature {
@@ -99,7 +127,10 @@ export class EntityManager {
             bpCreature = CreatureBlueprintSchema.parse(this.extendResolver.resolveEntity(ref));
             this.creatureBlueprints.set(ref, bpCreature);
         }
-        const creature = new Creature(id);
+        const creature = new Creature(id === '' ? randomUUID() : id);
+        if (this.creatureRegistry.has(creature.id)) {
+            throw new Error(`Creature with the same ID ${creature.id} already exists`);
+        }
         const cs = creature.state;
         // specie and race
         cs.specie = bpCreature.specie;
@@ -144,6 +175,7 @@ export class EntityManager {
         cs.selectedOffensiveSlot = CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_1;
         // no effect at start
 
+        this.creatureRegistry.set(creature.id, creature);
         return creature;
     }
 

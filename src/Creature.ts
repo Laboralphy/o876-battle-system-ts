@@ -57,8 +57,10 @@ export class Creature {
      * @returns The slot where the item is equipped, or undefined if the item is not equipped.
      */
     findEquippedItemSlot(item: Item): EquipmentSlot | undefined {
+        const itemId = item.id;
         for (const slot in this._store.state.equipment) {
-            if (this._store.state.equipment[slot] === item) {
+            const slotItemId = this._store.state.equipment[slot]?.id ?? '';
+            if (slotItemId === itemId) {
                 return slot;
             }
         }
@@ -291,15 +293,31 @@ export class Creature {
     }
 
     /**
+     * Get an effect from the creature's effects list.
+     * If the effect is not found in the creature's effects list, returns undefined.
+     * The effect is the Reactive Version of the effect. That means that modifying effect will trigger reactive systeme
+     * Thus this function is private.
+     * This function works as a sort of type guard.
+     * The "Effect" management function set should not throw error when dealing with incorrect effect,
+     * to act like NWN : when trying to dispel an effect that does not exist, nothing happens.
+     * @param idEffect {string} - The id of the effect to retrieve.
+     * @return The instance of the effect with the specified id, or undefined if not found.
+     */
+    private findEffectById(idEffect: string): Effect | undefined {
+        const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === idEffect);
+        return effIndex >= 0 ? this.state.effects[effIndex] : undefined;
+    }
+
+    /**
      * Set the duration of an effect.
      * If the effect is not found in the creature's effects list, exit.
      * @param effect - The effect to modify.
      * @param duration - The new duration of the effect.
      */
     setEffectDuration(effect: Effect, duration: number) {
-        const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
-        if (effIndex >= 0) {
-            this.state.effects[effIndex].duration = duration;
+        const effFound = this.findEffectById(effect.id);
+        if (effFound) {
+            effFound.duration = duration;
         }
     }
 

@@ -17,5 +17,3 @@ export const BaseEffectSchema = z.object({
     siblings: z.array(z.string()),
     tag: z.string(),
 });
-
-export type BaseEffect = z.infer<typeof BaseEffectSchema>;
