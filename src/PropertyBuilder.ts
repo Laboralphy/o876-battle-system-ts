@@ -4,7 +4,7 @@ import { TemporaryProperty, TemporaryPropertySchema } from './schemas/TemporaryP
 import { Item } from './schemas/Item';
 import { deepClone } from './libs/deep-clone';
 
-export class PropertyManager {
+export class PropertyBuilder {
     /**
      * Build a property from its definition
      * @param propDef - Property definition
@@ -33,27 +33,5 @@ export class PropertyManager {
             duration,
             tag,
         });
-    }
-
-    /**
-     * All item temporary properties duration reduced by 1
-     * Temporary properties with duration 0 are removed
-     * @param item - Item to process temporary properties
-     * @returns List of properties that have been discarded
-     */
-    static depleteItemTemporaryProperties(item: Item): Property[] {
-        const tps = item.temporaryProperties;
-        let i = tps.length - 1;
-        const aDiscardedProperties: Property[] = [];
-        while (i >= 0) {
-            const tp = tps[i];
-            --tp.duration;
-            if (tp.duration <= 0) {
-                aDiscardedProperties.push(tp.property);
-                tps.splice(i, 1);
-            }
-            --i;
-        }
-        return aDiscardedProperties;
     }
 }

@@ -9,13 +9,17 @@ import { EntityType } from './schemas/enums/EntityType';
 import MODULE_CLASSIC from './modules/classic';
 import MODULE_BASE from './modules/base';
 import { Property } from './properties';
-import { PropertyManager } from './PropertyManager';
+import { PropertyBuilder } from './PropertyBuilder';
 import { TemporaryProperty } from './schemas/TemporaryProperty';
 
-export class EntityFactory {
+export class EntityManager {
     private readonly itemBlueprints = new Map<string, ItemBlueprint>();
     private readonly creatureBlueprints = new Map<string, CreatureBlueprint>();
     public readonly extendResolver = new ExtendResolver();
+    private readonly temporaryProperties = new Map<
+        string,
+        { item: Item; temporaryProperty: TemporaryProperty }
+    >();
 
     constructor() {
         this.loadModules();
@@ -68,7 +72,7 @@ export class EntityFactory {
     createItem(refOrBlueprint: string | ItemBlueprint, id: string = ''): Item {
         if (typeof refOrBlueprint === 'string' && this.itemBlueprints.has(refOrBlueprint)) {
             // there is an ItemBlueprint registrered with this ref
-            return EntityFactory.buildItemFromBlueprint(
+            return EntityManager.buildItemFromBlueprint(
                 this.itemBlueprints.get(refOrBlueprint)!,
                 id
             );
@@ -163,6 +167,11 @@ export class EntityFactory {
         }
     }
 
+    destroyItem(item: Item): void {
+        // destroy item and all temporary properties assigned to this item
+        // 1. get all temporary item properties
+    }
+
     /**
      * Add a property to an item.
      * The property is cloned before being added to the item.
@@ -172,7 +181,7 @@ export class EntityFactory {
      * @returns The added property. This is a reactive version of the newly created property.
      */
     addItemProperty(item: Item, propDef: Property): Property {
-        const property: Property = PropertyManager.buildProperty(propDef);
+        const property: Property = PropertyBuilder.buildProperty(propDef);
         const nNewLength = item.properties.push(property);
         return item.properties[nNewLength - 1];
     }
@@ -195,13 +204,16 @@ export class EntityFactory {
         duration: number,
         tag: string = ''
     ): TemporaryProperty {
-        const tp: TemporaryProperty = PropertyManager.buildTemporaryProperty(
+        const tp: TemporaryProperty = PropertyBuilder.buildTemporaryProperty(
             propDef,
             duration,
             tag
         );
         const nNewLength = item.temporaryProperties.push(tp);
-        return item.temporaryProperties[nNewLength - 1];
+        // keep tract of this property for duration depletion
+        const newTmpProp = item.temporaryProperties[nNewLength - 1];
+        this.temporaryProperties.set(newTmpProp.id, { item, temporaryProperty: newTmpProp });
+        return newTmpProp;
     }
 
     /**
@@ -216,5 +228,26 @@ export class EntityFactory {
         if (nIndex !== -1) {
             item.properties.splice(nIndex, 1);
         }
+    }
+
+    removeItemTemporaryProperty(item: Item, temporaryProperty: TemporaryProperty) {
+        const nIndex = item.temporaryProperties.indexOf(temporaryProperty);
+        if (nIndex !== -1) {
+            item.temporaryProperties.splice(nIndex, 1);
+        }
+        this.temporaryProperties.delete(temporaryProperty.id);
+    }
+
+    /**
+     * Decrease all temporary properties duration
+     * temporary properties whose duration reach 0 are removed from item
+     */
+    depleteItemTemporaryProperties() {
+        this.temporaryProperties.values().forEach(({ item, temporaryProperty: tp }) => {
+            if (--tp.duration <= 0) {
+                this.removeItemTemporaryProperty(item, tp);
+                this.temporaryProperties.delete(tp.id);
+            }
+        });
     }
 }

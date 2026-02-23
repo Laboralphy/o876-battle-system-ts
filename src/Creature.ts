@@ -12,7 +12,7 @@ import { EffectSubtype } from './schemas/enums/EffectSubtype';
 import { randomUUID } from 'node:crypto';
 import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
-import { PropertyManager } from './PropertyManager';
+import { PropertyBuilder } from './PropertyBuilder';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -194,7 +194,7 @@ export class Creature {
      * @returns The newly created property.
      */
     addInnateProperty(propDef: Property): Property {
-        const property: Property = PropertyManager.buildProperty(propDef);
+        const property: Property = PropertyBuilder.buildProperty(propDef);
         const nNewLength = this._store.state.properties.push(property);
         return this._store.state.properties[nNewLength - 1];
     }

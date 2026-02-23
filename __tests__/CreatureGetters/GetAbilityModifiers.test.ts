@@ -1,8 +1,8 @@
-import {Creature} from "../../src/Creature";
-import {CONSTS} from "../../src/consts";
-import {describe, expect, it} from "vitest";
-import {EntityFactory} from "../../src/EntityFactory";
-import {ItemBlueprint, ItemBlueprintSchema} from "../../src/schemas/Item";
+import { Creature } from '../../src/Creature';
+import { CONSTS } from '../../src/consts';
+import { describe, expect, it } from 'vitest';
+import { EntityManager } from '../../src/EntityManager';
+import { ItemBlueprint, ItemBlueprintSchema } from '../../src/schemas/Item';
 
 describe('GetAbilityModifiers', () => {
     it('Should return modifiers, 1, 0, 3, 0, 1, 2 when setting abilities str: 13, dex: 11, con: 16, int: 10, wis: 12, cha: 14', () => {
@@ -27,17 +27,19 @@ describe('GetAbilityModifiers', () => {
         c.state.abilities[CONSTS.ABILITY_DEXTERITY] = 11;
         const am = c.getters.getAbilityModifiers;
         expect(am[CONSTS.ABILITY_DEXTERITY]).toBe(0);
-        const ef = new EntityFactory();
+        const ef = new EntityManager();
         const bootsOfDexBlueprint: ItemBlueprint = ItemBlueprintSchema.parse({
             entityType: CONSTS.ENTITY_TYPE_ITEM,
             itemType: CONSTS.ITEM_TYPE_BOOTS,
-            properties: [{
-                type: CONSTS.PROPERTY_ABILITY_MODIFIER,
-                ability: CONSTS.ABILITY_DEXTERITY,
-                amp: 1,
-            }],
+            properties: [
+                {
+                    type: CONSTS.PROPERTY_ABILITY_MODIFIER,
+                    ability: CONSTS.ABILITY_DEXTERITY,
+                    amp: 1,
+                },
+            ],
             weight: 1,
-            equipmentSlots: [CONSTS.EQUIPMENT_SLOT_FEET]
+            equipmentSlots: [CONSTS.EQUIPMENT_SLOT_FEET],
         });
         const bootsOfDex = ef.createItem(bootsOfDexBlueprint);
         c.equipItem(bootsOfDex);

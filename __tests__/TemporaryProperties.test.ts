@@ -1,13 +1,13 @@
 import { Creature } from '../src/Creature';
-import { EntityFactory } from '../src/EntityFactory';
+import { EntityManager } from '../src/EntityManager';
 import { CONSTS } from '../src/consts';
-import { PropertyManager } from '../src/PropertyManager';
+import { PropertyBuilder } from '../src/PropertyBuilder';
 import { describe, expect, it } from 'vitest';
 
 describe('TemporaryProperties', () => {
     it('should return strength = 12 when temporary property has duration > 0', () => {
         const c = new Creature();
-        const ef = new EntityFactory();
+        const ef = new EntityManager();
         const ringOfStrength = ef.createItem({
             entityType: CONSTS.ENTITY_TYPE_ITEM,
             itemType: CONSTS.ITEM_TYPE_RING,
@@ -33,11 +33,11 @@ describe('TemporaryProperties', () => {
                 ''
             );
             expect(c.getters.getAbilityScores[CONSTS.ABILITY_STRENGTH]).toBe(12);
-            PropertyManager.depleteItemTemporaryProperties(eqo.equippedItem); // duration of temp prop : 2
+            ef.depleteItemTemporaryProperties();
             expect(c.getters.getAbilityScores[CONSTS.ABILITY_STRENGTH]).toBe(12);
-            PropertyManager.depleteItemTemporaryProperties(eqo.equippedItem); // duration of temp prop : 1
+            ef.depleteItemTemporaryProperties();
             expect(c.getters.getAbilityScores[CONSTS.ABILITY_STRENGTH]).toBe(12);
-            PropertyManager.depleteItemTemporaryProperties(eqo.equippedItem); // duration of temp prop : 0
+            ef.depleteItemTemporaryProperties();
             // temp prop is expired and removed
             expect(c.getters.getAbilityScores[CONSTS.ABILITY_STRENGTH]).toBe(10);
         }

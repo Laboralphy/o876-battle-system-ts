@@ -2,7 +2,7 @@ import { it, describe, expect } from 'vitest';
 import { Creature } from '../../src/Creature';
 import { CONSTS } from '../../src/consts';
 import { ItemBlueprint, ItemBlueprintSchema } from '../../src/schemas/Item';
-import { EntityFactory } from '../../src/EntityFactory';
+import { EntityManager } from '../../src/EntityManager';
 
 describe(`getAbilityScore`, () => {
     it('should return 10 to all abilities', () => {
@@ -65,7 +65,7 @@ describe(`getAbilityScore`, () => {
             ],
             equipmentSlots: [CONSTS.EQUIPMENT_SLOT_HEAD],
         });
-        const crown = EntityFactory.buildItemFromBlueprint(crownBlueprint, '');
+        const crown = EntityManager.buildItemFromBlueprint(crownBlueprint, '');
         const c = new Creature();
         expect(crown.entityType).toBe(CONSTS.ENTITY_TYPE_ITEM);
         expect(crown.equipmentSlots).toBeDefined();

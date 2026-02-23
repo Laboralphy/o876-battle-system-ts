@@ -1,9 +1,9 @@
-import { EntityFactory } from '../src/EntityFactory';
+import { EntityManager } from '../src/EntityManager';
 import { CONSTS } from '../src/consts';
 import z from 'zod';
 
 function doProcess() {
-    const ef = new EntityFactory();
+    const ef = new EntityManager();
     ef.loadModules();
     const itemRefs = ef.refs.filter(
         (ref) => ef.getAssetEntityType(ref) === CONSTS.ENTITY_TYPE_ITEM

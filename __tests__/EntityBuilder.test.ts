@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { EntityFactory } from '../src/EntityFactory';
+import { EntityManager } from '../src/EntityManager';
 import { CONSTS } from '../src/consts';
 import { Item } from '../src/schemas/Item';
 
 describe('EntityBuilder item creation', () => {
     it('should create short sword', () => {
-        const ef = new EntityFactory();
+        const ef = new EntityManager();
         const shortsword: Item = ef.createEntity('wpn-short-sword');
         ef.addItemProperty(shortsword, {
             type: CONSTS.PROPERTY_DAMAGE_MODIFIER,

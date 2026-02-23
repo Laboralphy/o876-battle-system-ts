@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EntityFactory } from '../src/EntityFactory';
+import { EntityManager } from '../src/EntityManager';
 import { Creature } from '../src/Creature';
 import { CONSTS } from '../src/consts';
 import { EffectDefinition, EffectDefinitionSchema } from '../src/effects';
@@ -7,7 +7,7 @@ import { Item } from '../src/schemas/Item';
 
 describe('aggregate', () => {
     it('should return 3 when adding 1 property of amp 2 and 1 effect of amp 1', () => {
-        const ef = new EntityFactory();
+        const ef = new EntityManager();
         const gob: Creature = ef.createEntity('c-goblin');
         expect(gob).toBeDefined();
         gob.addInnateProperty({
@@ -30,7 +30,7 @@ describe('aggregate', () => {
     });
 
     it('should equip tourist with ability modifier dagger', () => {
-        const ef = new EntityFactory();
+        const ef = new EntityManager();
         const tourist: Creature = ef.createEntity('c-tourist');
         const dagger: Item = ef.createEntity('wpn-dagger');
 
