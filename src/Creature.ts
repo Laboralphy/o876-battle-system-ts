@@ -13,6 +13,10 @@ import { randomUUID } from 'node:crypto';
 import Events from 'node:events';
 import { GetterReturnType } from './store/define-getters';
 import { PropertyBuilder } from './PropertyBuilder';
+import { EventCreatureRemoveItem } from './schemas/events/EventCreatureRemoveItem';
+import { EventCreatureRemoveItemFailed } from './schemas/events/EventCreatureRemoveItemFailed';
+import { EventEffectProcessorCreatureEffect } from './schemas/events/EventEffectProcessorCreatureEffect';
+import { EventEffectProcessorImmunity } from './schemas/events/EventEffectProcessorImmunity';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -44,6 +48,10 @@ export class Creature {
      */
     get state() {
         return this._store.state;
+    }
+
+    emit<T>(event: string, payload: T) {
+        this.events.emit(event, payload);
     }
 
     // ▗▄▄▖ ▗▖              ▟▜▖                 ▗▖                  ▗▖                                          ▗▖
@@ -78,6 +86,11 @@ export class Creature {
         // Check if item is really equipped
         if (!slot) {
             // Item not equipped : exit
+            this.emit<EventCreatureRemoveItemFailed>(CONSTS.EVENT_CREATURE_REMOVE_ITEM_FAILED, {
+                creature: this,
+                item,
+                reason: CONSTS.EQUIP_ITEM_FAILURE_REASON_NOT_EQUIPPED,
+            });
             return CONSTS.EQUIP_ITEM_FAILURE_REASON_NOT_EQUIPPED;
         }
         // Check if item is cursed
@@ -90,10 +103,21 @@ export class Creature {
             }).count > 0
         ) {
             // Item is cursed and cannot be removed
+            this.emit<EventCreatureRemoveItemFailed>(CONSTS.EVENT_CREATURE_REMOVE_ITEM_FAILED, {
+                creature: this,
+                item,
+                slot,
+                reason: CONSTS.EQUIP_ITEM_FAILURE_REASON_CURSED_SLOT,
+            });
             return CONSTS.EQUIP_ITEM_FAILURE_REASON_CURSED_SLOT;
         }
         // Item is equipped and not cursed: it can be safely removed
         this._store.state.equipment[slot] = null;
+        this.emit<EventCreatureRemoveItem>(CONSTS.EVENT_CREATURE_REMOVE_ITEM, {
+            creature: this,
+            item,
+            slot,
+        });
         return CONSTS.EQUIP_ITEM_SUCCESS;
     }
 
@@ -103,13 +127,14 @@ export class Creature {
      * @returns An object containing the outcome of the operation and the item that has been removed from the slot.
      * The operation may failed if the item in the specified slot is cursed
      */
-    unequipSlot(slot: EquipmentSlot): {
+    private unequipSlot(slot: EquipmentSlot): {
         unequippedItem: Item | null;
         outcome: EquipItemOutcome;
     } {
         const item = this._store.state.equipment[slot];
         if (!item) {
             // No item equipped in this slot
+            // Cannot fire Creature Remove Item Failed event because no referenced item (slot is empty)
             return {
                 unequippedItem: null,
                 outcome: CONSTS.EQUIP_ITEM_FAILURE_REASON_NOT_EQUIPPED,
@@ -258,7 +283,7 @@ export class Creature {
             siblings: [],
         });
         let immune: boolean = false;
-        this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
+        this.emit<EventEffectProcessorImmunity>(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
             creature: this,
             effect,
             immune: () => {
@@ -267,10 +292,13 @@ export class Creature {
         });
         if (!immune) {
             this.state.effects.push(effect);
-            this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
-                creature: this,
-                effect,
-            });
+            this.emit<EventEffectProcessorCreatureEffect>(
+                CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED,
+                {
+                    creature: this,
+                    effect,
+                }
+            );
         }
         return effect;
     }
@@ -284,10 +312,13 @@ export class Creature {
         const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
         if (effIndex >= 0) {
             const effect = this.state.effects[effIndex];
-            this.events.emit(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_DISPOSED, {
-                creature: this,
-                effect,
-            });
+            this.emit<EventEffectProcessorCreatureEffect>(
+                CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_DISPOSED,
+                {
+                    creature: this,
+                    effect,
+                }
+            );
             this.state.effects.splice(effIndex, 1);
         }
     }

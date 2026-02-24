@@ -21,6 +21,7 @@ export class EntityManager {
         { item: Item; temporaryProperty: TemporaryProperty }
     >();
     private readonly itemRegistry = new Map<string, Item>();
+    private readonly itemOwnerRegistry = new Map<string, Creature>();
     private readonly creatureRegistry = new Map<string, Creature>();
 
     constructor() {
@@ -202,6 +203,10 @@ export class EntityManager {
     destroyItem(item: Item): void {
         // destroy item and all temporary properties assigned to this item
         // 1. get all temporary item properties
+        item.temporaryProperties
+            .slice(0) // working on a copy of the array to avoid mutation while iterating
+            .forEach((tp) => this.removeItemTemporaryProperty(item, tp));
+        // Get item owner and unequip item even if item is cursed
     }
 
     /**
