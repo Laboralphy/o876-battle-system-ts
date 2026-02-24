@@ -17,6 +17,7 @@ import { EventCreatureRemoveItem } from './schemas/events/EventCreatureRemoveIte
 import { EventCreatureRemoveItemFailed } from './schemas/events/EventCreatureRemoveItemFailed';
 import { EventEffectProcessorCreatureEffect } from './schemas/events/EventEffectProcessorCreatureEffect';
 import { EventEffectProcessorImmunity } from './schemas/events/EventEffectProcessorImmunity';
+import { EventCreatureEquipItem } from './schemas/events/EventCreatureEquipItem';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -163,6 +164,11 @@ export class Creature {
         const slots = item.equipmentSlots;
         if (slots.length === 0) {
             // Cannot equip this item: fits in no slot
+            this.emit<EventCreatureRemoveItemFailed>(CONSTS.EVENT_CREATURE_REMOVE_ITEM_FAILED, {
+                creature: this,
+                item,
+                reason: CONSTS.EQUIP_ITEM_FAILURE_REASON_NO_SUITABLE_SLOT,
+            });
             return {
                 outcome: CONSTS.EQUIP_ITEM_FAILURE_REASON_NO_SUITABLE_SLOT,
                 unequippedItem: null,
@@ -176,6 +182,11 @@ export class Creature {
         if (availableSlot) {
             const unequippedItem = this._store.state.equipment[availableSlot];
             this._store.state.equipment[availableSlot] = item;
+            this.emit<EventCreatureEquipItem>(CONSTS.EVENT_CREATURE_EQUIP_ITEM, {
+                item: this._store.state.equipment[availableSlot],
+                creature: this,
+                slot: availableSlot,
+            });
             return {
                 unequippedItem,
                 outcome: CONSTS.EQUIP_ITEM_SUCCESS,
@@ -192,6 +203,11 @@ export class Creature {
                     // ann exit with success
                     const unequippedItem = this._store.state.equipment[slot];
                     this._store.state.equipment[slot] = item;
+                    this.emit<EventCreatureEquipItem>(CONSTS.EVENT_CREATURE_EQUIP_ITEM, {
+                        item: this._store.state.equipment[slot],
+                        creature: this,
+                        slot: slot,
+                    });
                     return {
                         unequippedItem,
                         outcome: CONSTS.EQUIP_ITEM_SUCCESS,
