@@ -151,15 +151,10 @@ export class EntityManager {
         cs.hitPoints = 1;
 
         bpCreature.actions.forEach((action) => {
-            const remainingCharges = action.charges;
-            const hasLimitedCharges = remainingCharges > 0;
-            const hasCooldown = action.cooldown > 0;
             cs.actions.push({
                 blueprint: action,
-                remainingCharges,
                 cooldownTimer: [],
-                hasLimitedCharges,
-                hasCooldown,
+                delayTimer: 0,
             });
         });
 

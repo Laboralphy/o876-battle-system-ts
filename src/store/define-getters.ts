@@ -3,6 +3,7 @@
 import { getAbilityBaseScores } from './getters/getAbilityBaseScores';
 import { getAbilityModifiers } from './getters/getAbilityModifiers';
 import { getAbilityScores } from './getters/getAbilityScores';
+import { getActions } from './getters/getActions';
 import { getDefensiveSlots } from './getters/getDefensiveSlots';
 import { getEffects } from './getters/getEffects';
 import { getEquipmentProperties } from './getters/getEquipmentProperties';
@@ -19,6 +20,7 @@ export type GetterReturnType = {
     getAbilityBaseScores: ReturnType<typeof getAbilityBaseScores>;
     getAbilityModifiers: ReturnType<typeof getAbilityModifiers>;
     getAbilityScores: ReturnType<typeof getAbilityScores>;
+    getActions: ReturnType<typeof getActions>;
     getDefensiveSlots: ReturnType<typeof getDefensiveSlots>;
     getEffects: ReturnType<typeof getEffects>;
     getEquipmentProperties: ReturnType<typeof getEquipmentProperties>;
@@ -36,6 +38,7 @@ export const Getters = {
     getAbilityBaseScores,
     getAbilityModifiers,
     getAbilityScores,
+    getActions,
     getDefensiveSlots,
     getEffects,
     getEquipmentProperties,

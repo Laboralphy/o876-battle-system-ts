@@ -1,7 +1,7 @@
 import { State } from '../state';
 import { GetterReturnType } from '../define-getters';
 
-export function isActive(state: State) {
+export function isActive(state: State, getters: GetterReturnType) {
     // check if there is at least one effect
     if (state.effects.length > 0) {
         return true;
@@ -9,20 +9,9 @@ export function isActive(state: State) {
 
     // check if one of its action is cooling down
     // or has charges that are resplenishing
-    if (
-        state.actions.some((action) => {
-            if (action.hasCooldown && action.cooldownTimer > 0) {
-                return true;
-            }
-            if (action.cooldownTimer.length > 0) {
-                return true;
-            }
-            const remainingCharges = action.blueprint.charges - ;
-            if (action.hasLimitedCharges && action.remainingCharges < action.blueprint.charges) {
-                return true;
-            }
-        })
-    ) {
-        return true;
+    for (const action of Object.values(getters.getActions)) {
+        if (action.recharging) {
+            return true;
+        }
     }
 }
