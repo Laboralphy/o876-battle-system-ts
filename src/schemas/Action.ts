@@ -11,20 +11,14 @@ export const ActionDefinitionSchema = z.strictObject({
     range: z.number().int().min(0).describe('fields.ActionField.range'),
     cooldown: z.number().int().min(0).optional().default(0).describe('fields.ActionField.cooldown'),
     charges: z.number().int().min(0).optional().default(0).describe('fields.ActionField.charges'),
-    rechargeDelay: z
-        .number()
-        .int()
-        .min(0)
-        .optional()
-        .default(0)
-        .describe('fields.ActionField.delay'),
+    delay: z.number().int().min(0).optional().default(0).describe('fields.ActionField.delay'),
 });
 
 export const ActionSchema = z.strictObject({
     blueprint: ActionDefinitionSchema,
     hasLimitedCharges: z.boolean(),
     hasCooldown: z.boolean(),
-    remainingCharges: z.number().int(),
-    cooldownTimer: z.number().int(),
-    rechargeDelayTimer: z.number().int(), // After the delay, one charge is regained
+    cooldownTimer: z.array(z.number().int()),
 });
+
+export type Action = z.infer<typeof ActionSchema>;

@@ -14,9 +14,10 @@ export function isActive(state: State) {
             if (action.hasCooldown && action.cooldownTimer > 0) {
                 return true;
             }
-            if (action.cooldownTimer > 0) {
+            if (action.cooldownTimer.length > 0) {
                 return true;
             }
+            const remainingCharges = action.blueprint.charges - ;
             if (action.hasLimitedCharges && action.remainingCharges < action.blueprint.charges) {
                 return true;
             }

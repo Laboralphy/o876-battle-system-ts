@@ -157,8 +157,7 @@ export class EntityManager {
             cs.actions.push({
                 blueprint: action,
                 remainingCharges,
-                cooldownTimer: 0,
-                rechargeDelayTimer: 0,
+                cooldownTimer: [],
                 hasLimitedCharges,
                 hasCooldown,
             });
