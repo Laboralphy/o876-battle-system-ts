@@ -4,14 +4,16 @@ import { getAbilityBaseScores } from './getters/getAbilityBaseScores';
 import { getAbilityModifiers } from './getters/getAbilityModifiers';
 import { getAbilityScores } from './getters/getAbilityScores';
 import { getActions } from './getters/getActions';
+import { getArmorClass } from './getters/getArmorClass';
+import { getConditionSet } from './getters/getConditionSet';
 import { getDefensiveSlots } from './getters/getDefensiveSlots';
+import { getEffectSet } from './getters/getEffectSet';
 import { getEffects } from './getters/getEffects';
 import { getEquipmentProperties } from './getters/getEquipmentProperties';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
-import { isActive } from './getters/isActive';
 import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
 import { isWieldingShield } from './getters/isWieldingShield';
 import { isWieldingTwoHandedWeapon } from './getters/isWieldingTwoHandedWeapon';
@@ -21,14 +23,16 @@ export type GetterReturnType = {
     getAbilityModifiers: ReturnType<typeof getAbilityModifiers>;
     getAbilityScores: ReturnType<typeof getAbilityScores>;
     getActions: ReturnType<typeof getActions>;
+    getArmorClass: ReturnType<typeof getArmorClass>;
+    getConditionSet: ReturnType<typeof getConditionSet>;
     getDefensiveSlots: ReturnType<typeof getDefensiveSlots>;
+    getEffectSet: ReturnType<typeof getEffectSet>;
     getEffects: ReturnType<typeof getEffects>;
     getEquipmentProperties: ReturnType<typeof getEquipmentProperties>;
     getEquipmentSlotProperties: ReturnType<typeof getEquipmentSlotProperties>;
     getInnateProperties: ReturnType<typeof getInnateProperties>;
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
-    isActive: ReturnType<typeof isActive>;
     isRangedWeaponLoaded: ReturnType<typeof isRangedWeaponLoaded>;
     isWieldingShield: ReturnType<typeof isWieldingShield>;
     isWieldingTwoHandedWeapon: ReturnType<typeof isWieldingTwoHandedWeapon>;
@@ -39,14 +43,16 @@ export const Getters = {
     getAbilityModifiers,
     getAbilityScores,
     getActions,
+    getArmorClass,
+    getConditionSet,
     getDefensiveSlots,
+    getEffectSet,
     getEffects,
     getEquipmentProperties,
     getEquipmentSlotProperties,
     getInnateProperties,
     getOffensiveSlots,
     getSelectedWeaponAttributeSet,
-    isActive,
     isRangedWeaponLoaded,
     isWieldingShield,
     isWieldingTwoHandedWeapon,

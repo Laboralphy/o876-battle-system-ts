@@ -399,6 +399,21 @@ export class Creature {
         }
     }
 
+    isActive(): boolean {
+        if (this.getters.getEffects.length > 0) {
+            return true;
+        }
+        // check if one of its action is cooling down
+        // or has charges that are resplenishing
+        for (const action of Object.values(this.getters.getActions)) {
+            if (action.recharging) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // ▗▖   ▗▖   ▄▖                     ▄▖
     // ▐▌   ▄▖  ▟▙▖▗▛▜▖    ▗▛▀ ▐▌▐▌▗▛▀  ▐▌ ▗▛▜▖
     // ▐▌   ▐▌  ▐▌ ▐▛▀▘    ▐▌  ▝▙▟▌▐▌   ▐▌ ▐▛▀▘
@@ -409,7 +424,8 @@ export class Creature {
      * This methode is called each round, the creature state is mutated by applied effects and properties
      */
     triggerMutate() {
-        // Regeneration
+        // For each effect and properties
+        // Call
     }
 
     /**

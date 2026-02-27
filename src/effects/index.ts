@@ -20,6 +20,7 @@ import { EffectDamageModifier } from './damage-modifier';
 import { EffectDamageReduction } from './damage-reduction';
 import { EffectDamageResistance } from './damage-resistance';
 import { EffectDamageVulnerability } from './damage-vulnerability';
+import { EffectDamage } from './damage';
 import { EffectDarkvision } from './darkvision';
 import { EffectDisadvantageAttack } from './disadvantage-attack';
 import { EffectDisadvantageSavingThrow } from './disadvantage-saving-throw';
@@ -68,6 +69,7 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectDamageReduction,
     EffectDamageResistance,
     EffectDamageVulnerability,
+    EffectDamage,
     EffectDarkvision,
     EffectDisadvantageAttack,
     EffectDisadvantageSavingThrow,

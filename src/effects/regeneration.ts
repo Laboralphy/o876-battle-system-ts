@@ -12,6 +12,6 @@ export const EffectRegenerationSchema = z.object({
         .optional()
         .default(false)
         .describe('fields.useConstitutionModifier'),
-    shutdown: z.number().int().optional().describe('fields.regenShutdown'),
-    threshold: z.number().int().optional().describe('fields.regenThreshold'),
+    shutdown: z.number().int().optional().default(0).describe('fields.regenShutdown'),
+    threshold: z.number().int().optional().default(1).describe('fields.regenThreshold'),
 });
