@@ -8,5 +8,5 @@ export const EffectSavingThrowModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_SAVING_THROW_MODIFIER).describe('fields.EffectType'),
     amp: AmpExpression.describe('fields.amp'),
     ability: AbilitySchema,
-    threat: ThreatTypeSchema.optional(),
+    threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
 });

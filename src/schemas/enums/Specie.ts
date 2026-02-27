@@ -5,6 +5,7 @@ import { CONSTS } from '../../consts';
 
 export const SpecieSchema = z
     .enum([
+        CONSTS.SPECIE_ANY,
         CONSTS.SPECIE_ABERRATION,
         CONSTS.SPECIE_BEAST,
         CONSTS.SPECIE_CELESTIAL,

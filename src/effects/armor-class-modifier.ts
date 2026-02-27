@@ -15,7 +15,7 @@ import { SpecieSchema } from '../schemas/enums/Specie';
 export const EffectArmorClassModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_ARMOR_CLASS_MODIFIER).describe('fields.EffectType'),
     amp: z.number().int().describe('fields.amp'),
-    attackType: AttackTypeSchema.optional(),
-    damageType: DamageTypeSchema.optional(),
-    specie: SpecieSchema.optional(),
+    attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
+    damageType: DamageTypeSchema.optional().default(CONSTS.DAMAGE_TYPE_ANY),
+    specie: SpecieSchema.optional().default(CONSTS.SPECIE_ANY),
 });

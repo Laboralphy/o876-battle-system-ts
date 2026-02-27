@@ -13,5 +13,5 @@ export const PropertyAttackModifier = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ATTACK_MODIFIER).describe('fields.propertyType'),
     amp: z.number().int().describe('fields.amp'),
     attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
-    specieType: SpecieSchema.optional(),
+    specie: SpecieSchema.optional().default(CONSTS.SPECIE_ANY),
 });

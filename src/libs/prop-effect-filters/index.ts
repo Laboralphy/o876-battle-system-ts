@@ -12,7 +12,7 @@ type HavingDamageType = {
 };
 
 type HavingAbility = {
-    ability: Ability;
+    ability?: Ability;
 };
 
 /**
@@ -59,5 +59,9 @@ export function filterCrushingDamageTypes(effectOrProp: HavingDamageType): boole
 }
 
 export function filterAbility(effectOrProp: HavingAbility): Ability {
-    return effectOrProp.ability;
+    if ('ability' in effectOrProp && effectOrProp.ability) {
+        return effectOrProp.ability;
+    } else {
+        throw new Error('effectOrProp must be an object with an ability property');
+    }
 }

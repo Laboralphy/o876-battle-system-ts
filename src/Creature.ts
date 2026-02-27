@@ -18,6 +18,8 @@ import { EventCreatureRemoveItemFailed } from './schemas/events/EventCreatureRem
 import { EventEffectProcessorCreatureEffect } from './schemas/events/EventEffectProcessorCreatureEffect';
 import { EventEffectProcessorImmunity } from './schemas/events/EventEffectProcessorImmunity';
 import { EventCreatureEquipItem } from './schemas/events/EventCreatureEquipItem';
+import { EffectType } from './schemas/enums/EffectType';
+import { PropertyType } from './schemas/enums/PropertyType';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -255,11 +257,12 @@ export class Creature {
 
     /**
      * Will aggregate properties and return sum, min, max, and count
+     * @param types - Types of properties or effects to aggregate.
      * @param options - Options to filter the properties to aggregate.
      * @returns An object containing aggregated values. @see AggregatorResult
      */
-    aggregate(options: AggregateOptions) {
-        return aggregate(options, this.getters);
+    aggregate(types: (EffectType | PropertyType)[], options: AggregateOptions) {
+        return aggregate(types, options, this.getters);
     }
 
     // ▗▄▄▖  ▄▖  ▄▖         ▗▖                                          ▗▖
@@ -412,6 +415,10 @@ export class Creature {
         }
 
         return false;
+    }
+
+    rollSavingThrow() {
+        // getSavingThrowBonus
     }
 
     // ▗▖   ▗▖   ▄▖                     ▄▖

@@ -9,5 +9,5 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
 export const EffectCriticalRangeModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_CRITICAL_RANGE_MODIFIER),
     amp: z.number().int().describe('fields.amp'),
-    attackType: AttackTypeSchema.optional(),
+    attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
 });

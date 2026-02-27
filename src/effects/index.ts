@@ -19,8 +19,8 @@ import { EffectDamageImmunity } from './damage-immunity';
 import { EffectDamageModifier } from './damage-modifier';
 import { EffectDamageReduction } from './damage-reduction';
 import { EffectDamageResistance } from './damage-resistance';
-import { EffectDamageVulnerability } from './damage-vulnerability';
 import { EffectDamage } from './damage';
+import { EffectDamageVulnerability } from './damage-vulnerability';
 import { EffectDarkvision } from './darkvision';
 import { EffectDisadvantageAttack } from './disadvantage-attack';
 import { EffectDisadvantageSavingThrow } from './disadvantage-saving-throw';
@@ -29,9 +29,9 @@ import { EffectEnfeeblement } from './enfeeblement';
 import { EffectEnvironment } from './environment';
 import { EffectExtraHitpoints } from './extra-hitpoints';
 import { EffectFear } from './fear';
-import { EffectHeal } from './heal';
 import { EffectHealingFactor } from './healing-factor';
 import { EffectHealingModifier } from './healing-modifier';
+import { EffectHeal } from './heal';
 import { EffectImmunity } from './immunity';
 import { EffectIncapacity } from './incapacity';
 import { EffectInvisibility } from './invisibility';
@@ -68,8 +68,8 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectDamageModifier,
     EffectDamageReduction,
     EffectDamageResistance,
-    EffectDamageVulnerability,
     EffectDamage,
+    EffectDamageVulnerability,
     EffectDarkvision,
     EffectDisadvantageAttack,
     EffectDisadvantageSavingThrow,
@@ -78,9 +78,9 @@ export const EffectDefinitionSchema = z.discriminatedUnion('type', [
     EffectEnvironment,
     EffectExtraHitpoints,
     EffectFear,
-    EffectHeal,
     EffectHealingFactor,
     EffectHealingModifier,
+    EffectHeal,
     EffectImmunity,
     EffectIncapacity,
     EffectInvisibility,

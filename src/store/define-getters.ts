@@ -13,6 +13,7 @@ import { getEquipmentProperties } from './getters/getEquipmentProperties';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
+import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
 import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
 import { isWieldingShield } from './getters/isWieldingShield';
@@ -32,6 +33,7 @@ export type GetterReturnType = {
     getEquipmentSlotProperties: ReturnType<typeof getEquipmentSlotProperties>;
     getInnateProperties: ReturnType<typeof getInnateProperties>;
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
+    getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
     isRangedWeaponLoaded: ReturnType<typeof isRangedWeaponLoaded>;
     isWieldingShield: ReturnType<typeof isWieldingShield>;
@@ -52,6 +54,7 @@ export const Getters = {
     getEquipmentSlotProperties,
     getInnateProperties,
     getOffensiveSlots,
+    getSavingThrowBonus,
     getSelectedWeaponAttributeSet,
     isRangedWeaponLoaded,
     isWieldingShield,

@@ -15,8 +15,8 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 export const EffectSpikeDamage = z.strictObject({
     type: z.literal(CONSTS.EFFECT_SPIKE_DAMAGE),
     amp: AmpExpression,
-    damageType: DamageTypeSchema.optional(),
+    damageType: DamageTypeSchema.optional().default(CONSTS.DAMAGE_TYPE_ANY),
     savingThrow: AbilitySchema.optional(),
-    threat: ThreatTypeSchema.optional(),
+    threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
     maxDistance: z.number().int().optional().default(Infinity),
 });

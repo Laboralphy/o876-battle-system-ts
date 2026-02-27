@@ -7,6 +7,6 @@ import { AttackTypeSchema } from '../schemas/enums/AttackType';
  */
 export const EffectAttackCountModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_ATTACK_COUNT_MODIFIER),
-    attackType: AttackTypeSchema.optional(),
+    attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
     amp: z.number().int().describe('fields.amp'),
 });

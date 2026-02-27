@@ -8,20 +8,13 @@ import { Ability } from '../../schemas/enums/Ability';
 
 export function getAbilityScores(state: State, getters: GetterReturnType): Record<Ability, number> {
     const { discriminator } = aggregate(
+        [CONSTS.PROPERTY_ABILITY_MODIFIER, CONSTS.EFFECT_ABILITY_MODIFIER],
         {
             properties: {
-                types: [CONSTS.PROPERTY_ABILITY_MODIFIER],
-                functions: {
-                    discriminator: (prop: Property): string =>
-                        'ability' in prop && typeof prop.ability === 'string' ? prop.ability : '',
-                },
+                discriminator: (prop: Property): string => ('ability' in prop ? prop.ability : ''),
             },
             effects: {
-                types: [CONSTS.EFFECT_ABILITY_MODIFIER],
-                functions: {
-                    discriminator: (eff: Effect): string =>
-                        'ability' in eff && typeof eff.ability === 'string' ? eff.ability : '',
-                },
+                discriminator: (eff: Effect): string => ('ability' in eff ? eff.ability : ''),
             },
         },
         getters

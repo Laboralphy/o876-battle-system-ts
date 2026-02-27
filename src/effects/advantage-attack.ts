@@ -5,6 +5,6 @@ import { SpecieSchema } from '../schemas/enums/Specie';
 
 export const EffectAdvantageAttack = z.strictObject({
     type: z.literal(CONSTS.EFFECT_ADVANTAGE_ATTACK).describe('fields.EffectType'),
-    attackType: AttackTypeSchema.optional(),
-    specie: SpecieSchema.optional(),
+    attackType: AttackTypeSchema.optional().default(CONSTS.ATTACK_TYPE_ANY),
+    specie: SpecieSchema.optional().default(CONSTS.SPECIE_ANY),
 });

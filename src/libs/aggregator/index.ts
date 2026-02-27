@@ -1,7 +1,7 @@
 import { Property } from '../../properties';
 import { EquipmentSlot } from '../../schemas/enums/EquipmentSlot';
-import { PropertyType } from '../../schemas/enums/PropertyType';
-import { EffectType } from '../../schemas/enums/EffectType';
+import { PropertyType, PropertyTypeSchema } from '../../schemas/enums/PropertyType';
+import { EffectType, EffectTypeSchema } from '../../schemas/enums/EffectType';
 import { Effect } from '../../effects';
 import { GetterReturnType } from '../../store/define-getters';
 
@@ -214,27 +214,26 @@ export function mergeResults(a1: AggregatorResult, a2: AggregatorResult) {
 }
 
 export type AggregateOptions = {
-    effects?: {
-        types: EffectType[];
-        functions?: AggregatorFunc<Effect>;
-    };
-    properties?: {
-        types: PropertyType[];
-        functions?: AggregatorFunc<Property>;
-        options?: PropertyAggregatorOptions;
-    };
+    effects?: AggregatorFunc<Effect>;
+    properties?: AggregatorFunc<Property>;
+    excludeInnate?: boolean;
+    restrictSlots?: EquipmentSlot[];
 };
 
-export function aggregate(options: AggregateOptions, getters: GetterReturnType) {
-    const op = options.properties ?? { types: [], functions: {} };
-    const oe = options.effects ?? {
-        types: [],
-        functions: {},
-        options: { excludeInnate: false, restrictSlots: [] },
+export function aggregate(
+    types: (EffectType | PropertyType)[],
+    options: AggregateOptions,
+    getters: GetterReturnType
+): AggregatorResult {
+    const effTypes = types.filter((t) => EffectTypeSchema.safeParse(t).success);
+    const propTypes = types.filter((t) => PropertyTypeSchema.safeParse(t).success);
+    const propOptions = {
+        excludeInnate: options.excludeInnate ?? false,
+        restrictSlots: options.restrictSlots ?? [],
     };
 
     return mergeResults(
-        aggregateEffects(oe.types, getters, oe?.functions ?? {}),
-        aggregateProperties(op.types, getters, op?.functions ?? {}, op?.options ?? {})
+        aggregateEffects(effTypes, getters, options.effects ?? {}),
+        aggregateProperties(propTypes, getters, options.properties ?? {}, propOptions)
     );
 }

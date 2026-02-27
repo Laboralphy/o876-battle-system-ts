@@ -5,6 +5,7 @@ import { CONSTS } from '../../consts';
 
 export const ThreatTypeSchema = z
     .enum([
+        CONSTS.THREAT_TYPE_ANY,
         CONSTS.THREAT_TYPE_DEATH,
         CONSTS.THREAT_TYPE_DISEASE,
         CONSTS.THREAT_TYPE_FEAR,
