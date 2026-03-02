@@ -5,6 +5,7 @@ import { GetterReturnType } from '../define-getters';
 import { aggregate } from '../../libs/aggregator';
 import { Property } from '../../properties';
 import { filterAbility } from '../../libs/prop-effect-filters';
+import { Effect } from '../../effects';
 
 function getAbilitySavingThrowProficiency(sAbility: Ability): string {
     switch (sAbility) {
@@ -34,6 +35,15 @@ function getAbilitySavingThrowProficiency(sAbility: Ability): string {
 
 export function getSavingThrowBonus(state: State, getters: GetterReturnType) {
     const { discriminator } = aggregate(
+        [CONSTS.PROPERTY_SAVING_THROW_MODIFIER, CONSTS.EFFECT_SAVING_THROW_MODIFIER],
+        {
+            properties: {
+                discriminator: (p: Property): string => ('ability' in p ? p.ability : ''),
+            },
+            effects: {
+                discriminator: (eff: Effect): string => ('ability' in eff ? eff.ability : '')
+            }
+        }
         {
             properties: {
                 types: [CONSTS.PROPERTY_SAVING_THROW_MODIFIER],

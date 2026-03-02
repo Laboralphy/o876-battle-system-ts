@@ -2,8 +2,6 @@ import z from 'zod';
 import { CONSTS } from '../consts';
 import { AmpExpression } from '../schemas/AmpExpression';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
-import { AbilitySchema } from '../schemas/enums/Ability';
-import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 import { SavingThrowSchema } from '../schemas/SavingThrow';
 
 /**

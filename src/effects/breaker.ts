@@ -1,7 +1,5 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { AbilitySchema } from '../schemas/enums/Ability';
-import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { IEffectProgram } from '../IEffectProgram';
 import { Creature } from '../Creature';
