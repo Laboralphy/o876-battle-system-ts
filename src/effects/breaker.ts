@@ -6,6 +6,7 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { IEffectProgram } from '../IEffectProgram';
 import { Creature } from '../Creature';
 import { Effect } from './index';
+import { SavingThrowSchema } from '../schemas/SavingThrow';
 
 export const EffectBreaker = z.strictObject({
     type: z.literal(CONSTS.EFFECT_BREAKER),
@@ -13,8 +14,7 @@ export const EffectBreaker = z.strictObject({
     attack: z.boolean().optional().default(false),
     // saving throw
     // when creature success in saving throw, it breaks the effects
-    ability: AbilitySchema.optional().default(CONSTS.ABILITY_STRENGTH), // ignored if dc is 0
-    threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
+    savingThrow: SavingThrowSchema.optional(), // saving throw to roll to break effect
     dc: z.number().int().positive().optional().default(0), // if zero then no saving throw required, ability is ignored
     // When creature receive this amount of cumulated damage : it breaks the effect
     damage: z.number().int().optional().default(Infinity),

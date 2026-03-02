@@ -15,6 +15,8 @@ import { getInnateProperties } from './getters/getInnateProperties';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
 import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
+import { getSpeed } from './getters/getSpeed';
+import { isDead } from './getters/isDead';
 import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
 import { isWieldingShield } from './getters/isWieldingShield';
 import { isWieldingTwoHandedWeapon } from './getters/isWieldingTwoHandedWeapon';
@@ -35,6 +37,8 @@ export type GetterReturnType = {
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
     getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
+    getSpeed: ReturnType<typeof getSpeed>;
+    isDead: ReturnType<typeof isDead>;
     isRangedWeaponLoaded: ReturnType<typeof isRangedWeaponLoaded>;
     isWieldingShield: ReturnType<typeof isWieldingShield>;
     isWieldingTwoHandedWeapon: ReturnType<typeof isWieldingTwoHandedWeapon>;
@@ -56,6 +60,8 @@ export const Getters = {
     getOffensiveSlots,
     getSavingThrowBonus,
     getSelectedWeaponAttributeSet,
+    getSpeed,
+    isDead,
     isRangedWeaponLoaded,
     isWieldingShield,
     isWieldingTwoHandedWeapon,

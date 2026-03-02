@@ -1,8 +1,9 @@
 import { State } from '../state';
 import { GetterReturnType } from '../define-getters';
 import { CONSTS } from '../../consts';
+import { Condition } from '../../schemas/enums/Condition';
 
-export function getConditionSet(state: State, getters: GetterReturnType) {
+export function getConditionSet(state: State, getters: GetterReturnType): Set<Condition> {
     const aEffectSet = getters.getEffectSet;
     const aConditions = {
         [CONSTS.CONDITION_BLINDED]: aEffectSet.has(CONSTS.EFFECT_BLINDNESS),
@@ -16,12 +17,13 @@ export function getConditionSet(state: State, getters: GetterReturnType) {
             getters.getEffects.some(
                 (eff) =>
                     eff.type === CONSTS.EFFECT_DAMAGE &&
-                    eff.data.damageType === CONSTS.DAMAGE_TYPE_POISON
+                    'damageType' in eff &&
+                    eff.damageType === CONSTS.DAMAGE_TYPE_POISON
             ),
         [CONSTS.CONDITION_RESTRAINED]: getters.getSpeed === 0,
         [CONSTS.CONDITION_STUNNED]: aEffectSet.has(CONSTS.EFFECT_STUN),
     };
     return Object.entries(aConditions)
         .filter(([, value]) => value)
-        .reduce((prev, [sCondition]) => prev.add(sCondition), new Set());
+        .reduce((prev, [sCondition]) => prev.add(sCondition), new Set<Condition>());
 }

@@ -50,7 +50,6 @@ export function getSavingThrowBonus(state: State, getters: GetterReturnType) {
         },
         getters
     );
-    const nUniversalBonus = UNIVERSAL in sorter ? sorter[UNIVERSAL].sum : 0;
     const results = {
         [CONSTS.ABILITY_STRENGTH]: nUniversalBonus,
         [CONSTS.ABILITY_DEXTERITY]: nUniversalBonus,
