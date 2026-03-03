@@ -98,11 +98,8 @@ export class Creature {
         }
         // Check if item is cursed
         if (
-            this.aggregate({
-                properties: {
-                    types: [CONSTS.PROPERTY_CURSED],
-                    options: { restrictSlots: [slot] },
-                },
+            this.aggregate([CONSTS.PROPERTY_CURSED], {
+                restrictSlots: [slot],
             }).count > 0
         ) {
             // Item is cursed and cannot be removed
@@ -392,6 +389,10 @@ export class Creature {
         this.setEffectDuration(effect, 0);
     }
 
+    /**
+     * Removes all effects with expired duration from the creature's state.
+     * Iterates backwards through the effects array to safely remove effects whose duration has reached or fallen below 0.
+     */
     removeDeadEffects() {
         let i = this.state.effects.length - 1;
         while (i >= 0) {
@@ -402,6 +403,11 @@ export class Creature {
         }
     }
 
+    /**
+     * Determines if the creature has any active ongoing processes.
+     * Returns true if the creature has any active effects or if any of its actions are recharging.
+     * @returns True if the creature has active effects or recharging actions, false otherwise.
+     */
     isActive(): boolean {
         if (this.getters.getEffects.length > 0) {
             return true;
@@ -413,7 +419,6 @@ export class Creature {
                 return true;
             }
         }
-
         return false;
     }
 

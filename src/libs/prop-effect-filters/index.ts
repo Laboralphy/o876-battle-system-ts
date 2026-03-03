@@ -2,6 +2,8 @@ import { AttackType } from '../../schemas/enums/AttackType';
 import { CONSTS } from '../../consts';
 import { DamageType } from '../../schemas/enums/DamageType';
 import { Ability } from '../../schemas/enums/Ability';
+import { Effect } from '../../effects';
+import { Property } from '../../properties';
 
 type HavingAttackType = {
     attackType: AttackType;
@@ -63,5 +65,18 @@ export function filterAbility(effectOrProp: HavingAbility): Ability {
         return effectOrProp.ability;
     } else {
         throw new Error('effectOrProp must be an object with an ability property');
+    }
+}
+
+export function discriminatorAbilityThreat(p: Effect | Property): string {
+    if ('ability' in p && p.ability) {
+        // if ability is specified, returns ability
+        return p.ability;
+    } else if ('threat' in p && p.threat) {
+        // if no specified ability, check threat type
+        return p.threat;
+    } else {
+        // neither ability, no threat type
+        return 'UNIVERSAL';
     }
 }

@@ -12,6 +12,6 @@ import { SpecieSchema } from '../schemas/enums/Specie';
 export const PropertyAdvantageSavingThrow = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_ADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
     specie: SpecieSchema.optional().default(CONSTS.SPECIE_ANY),
-    ability: AbilitySchema,
+    ability: AbilitySchema.optional(),
     threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
 });

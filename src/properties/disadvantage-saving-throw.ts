@@ -8,6 +8,6 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
  */
 export const PropertyDisadvantageSavingThrow = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_DISADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
-    ability: AbilitySchema,
+    ability: AbilitySchema.optional(),
     threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
 });

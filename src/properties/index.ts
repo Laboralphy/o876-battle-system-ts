@@ -28,6 +28,7 @@ import { PropertyHealingModifier } from './healing-modifier';
 import { PropertyImmunity } from './immunity';
 import { PropertyLight } from './light';
 import { PropertyMaxDexterityBonus } from './max-dexterity-bonus';
+import { PropertyNegativeLevel } from './negative-level';
 import { PropertyProtectionFromSpecie } from './protection-from-specie';
 import { PropertyRegeneration } from './regeneration';
 import { PropertySavingThrowModifier } from './saving-throw-modifier';
@@ -70,6 +71,7 @@ export const PropertySchema = z.discriminatedUnion('type', [
     PropertyImmunity,
     PropertyLight,
     PropertyMaxDexterityBonus,
+    PropertyNegativeLevel,
     PropertyProtectionFromSpecie,
     PropertyRegeneration,
     PropertySavingThrowModifier,

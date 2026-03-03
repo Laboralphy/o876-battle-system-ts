@@ -4,6 +4,7 @@ import { AmpExpression } from '../schemas/AmpExpression';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { AbilitySchema } from '../schemas/enums/Ability';
 import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
+import { SavingThrowSchema } from '../schemas/SavingThrow';
 
 /**
  * This property modifies the spike damage of an armor or shield.
@@ -16,7 +17,6 @@ export const PropertySpikeDamage = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_SPIKE_DAMAGE),
     amp: AmpExpression,
     damageType: DamageTypeSchema.optional(),
-    savingThrow: AbilitySchema.optional(),
-    threat: ThreatTypeSchema.optional(),
+    savingThrow: SavingThrowSchema.optional(),
     maxDistance: z.number().int().optional().default(Infinity),
 });

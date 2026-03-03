@@ -2,10 +2,10 @@ import { CONSTS } from '../../consts';
 import { Ability } from '../../schemas/enums/Ability';
 import { State } from '../state';
 import { GetterReturnType } from '../define-getters';
-import { aggregate } from '../../libs/aggregator';
-import { Property } from '../../properties';
-import { filterAbility } from '../../libs/prop-effect-filters';
-import { Effect } from '../../effects';
+import { aggregate, AggregateOptions } from '../../libs/aggregator';
+import { discriminatorAbilityThreat } from '../../libs/prop-effect-filters';
+
+const UNIVERSAL = 'UNIVERSAL';
 
 function getAbilitySavingThrowProficiency(sAbility: Ability): string {
     switch (sAbility) {
@@ -34,33 +34,21 @@ function getAbilitySavingThrowProficiency(sAbility: Ability): string {
 }
 
 export function getSavingThrowBonus(state: State, getters: GetterReturnType) {
-    const { discriminator } = aggregate(
-        [CONSTS.PROPERTY_SAVING_THROW_MODIFIER, CONSTS.EFFECT_SAVING_THROW_MODIFIER],
-        {
-            properties: {
-                discriminator: (p: Property): string => ('ability' in p ? p.ability : ''),
-            },
-            effects: {
-                discriminator: (eff: Effect): string => ('ability' in eff ? eff.ability : '')
-            }
-        }
-        {
-            properties: {
-                types: [CONSTS.PROPERTY_SAVING_THROW_MODIFIER],
-                functions: {
-                    discriminator: (p: Property): string => ('ability' in p ? p.ability : ''),
-                },
-            },
-            effects: {
-                types: [CONSTS.EFFECT_SAVING_THROW_MODIFIER],
-                functions: {
-                    discriminator: (e: Property): string => ('ability' in e ? e.ability : ''),
-                },
-            },
+    const aggopts: AggregateOptions = {
+        effects: {
+            discriminator: discriminatorAbilityThreat,
         },
+        properties: {
+            discriminator: discriminatorAbilityThreat,
+        },
+    };
+    const agg = aggregate(
+        [CONSTS.PROPERTY_SAVING_THROW_MODIFIER, CONSTS.EFFECT_SAVING_THROW_MODIFIER],
+        aggopts,
         getters
     );
-    const results = {
+    const nUniversalBonus = agg.discriminator[UNIVERSAL]?.sum ?? 0;
+    const results: Record<Ability, number> = {
         [CONSTS.ABILITY_STRENGTH]: nUniversalBonus,
         [CONSTS.ABILITY_DEXTERITY]: nUniversalBonus,
         [CONSTS.ABILITY_CONSTITUTION]: nUniversalBonus,
@@ -68,14 +56,16 @@ export function getSavingThrowBonus(state: State, getters: GetterReturnType) {
         [CONSTS.ABILITY_WISDOM]: nUniversalBonus,
         [CONSTS.ABILITY_CHARISMA]: nUniversalBonus,
     };
+    const proficiencySet = new Set(state.proficiencies);
+    const disc = agg.discriminator;
     for (const ability of Object.keys(results)) {
         const sProficiency = getAbilitySavingThrowProficiency(ability);
-        const bProficient = getters.getProficiencySet.has(sProficiency);
+        const bProficient = proficiencySet.has(sProficiency);
         const nProfBonus = bProficient ? getters.getProficiencyBonus : 0;
-        const nPropEffectBonus = ability in sorter ? sorter[ability].sum : 0;
+        const nPropEffectBonus = ability in disc ? disc[ability].sum : 0;
         results[ability] += nPropEffectBonus + nProfBonus;
     }
-    for (const [sThreat, { sum: nThreatBonus }] of Object.entries(sorter)) {
+    for (const [sThreat, { sum: nThreatBonus }] of Object.entries(disc)) {
         if (!(sThreat in results)) {
             results[sThreat] = nThreatBonus;
         }

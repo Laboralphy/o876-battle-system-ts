@@ -12,7 +12,9 @@ import { getEffects } from './getters/getEffects';
 import { getEquipmentProperties } from './getters/getEquipmentProperties';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
+import { getLevel } from './getters/getLevel';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
+import { getProficiencyBonus } from './getters/getProficiencyBonus';
 import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
 import { getSpeed } from './getters/getSpeed';
@@ -34,7 +36,9 @@ export type GetterReturnType = {
     getEquipmentProperties: ReturnType<typeof getEquipmentProperties>;
     getEquipmentSlotProperties: ReturnType<typeof getEquipmentSlotProperties>;
     getInnateProperties: ReturnType<typeof getInnateProperties>;
+    getLevel: ReturnType<typeof getLevel>;
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
+    getProficiencyBonus: ReturnType<typeof getProficiencyBonus>;
     getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
     getSpeed: ReturnType<typeof getSpeed>;
@@ -57,7 +61,9 @@ export const Getters = {
     getEquipmentProperties,
     getEquipmentSlotProperties,
     getInnateProperties,
+    getLevel,
     getOffensiveSlots,
+    getProficiencyBonus,
     getSavingThrowBonus,
     getSelectedWeaponAttributeSet,
     getSpeed,

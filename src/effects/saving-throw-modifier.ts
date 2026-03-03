@@ -7,6 +7,6 @@ import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 export const EffectSavingThrowModifier = z.strictObject({
     type: z.literal(CONSTS.EFFECT_SAVING_THROW_MODIFIER).describe('fields.EffectType'),
     amp: AmpExpression.describe('fields.amp'),
-    ability: AbilitySchema,
+    ability: AbilitySchema.optional(),
     threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
 });
