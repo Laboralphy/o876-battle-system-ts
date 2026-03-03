@@ -1,12 +1,13 @@
 import z from 'zod';
 import { CONSTS } from '../consts';
-import { SavingThrowSchema } from '../schemas/SavingThrow';
+import { AbilitySchema } from '../schemas/enums/Ability';
+import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 
 /**
  * Schema for disadvantage on saving throws.
  */
-export const PropertyDisadvantageSavingThrow = z
-    .strictObject({
-        type: z.literal(CONSTS.PROPERTY_DISADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
-    })
-    .and(SavingThrowSchema);
+export const PropertyDisadvantageSavingThrow = z.strictObject({
+    type: z.literal(CONSTS.PROPERTY_DISADVANTAGE_SAVING_THROW).describe('fields.propertyType'),
+    ability: AbilitySchema,
+    threat: ThreatTypeSchema.optional().default(CONSTS.THREAT_TYPE_ANY),
+});
