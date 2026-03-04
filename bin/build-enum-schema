@@ -35,6 +35,7 @@ generateFile AmmoType ammo-types
 generateFile AttackType attack-types
 generateFile ActionType action-types
 generateFile Advantage advantages
+generateFile Capability capabilities
 generateFile CreatureVisibility creature-visibility
 generateFile Condition conditions
 generateFile DamageType damage-types

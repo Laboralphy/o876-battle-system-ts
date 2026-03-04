@@ -1,7 +1,6 @@
 import { IPropertyProgram } from '../IPropertyProgram';
 import { Property } from '../properties';
 import { PropertyAilment } from '../properties/ailment';
-import { Creature } from '../Creature';
 import { CONSTS } from '../consts';
 import { Attack } from '../Attack';
 import z from 'zod';

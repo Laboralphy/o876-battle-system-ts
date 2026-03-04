@@ -5,18 +5,22 @@ import { getAbilityModifiers } from './getters/getAbilityModifiers';
 import { getAbilityScores } from './getters/getAbilityScores';
 import { getActions } from './getters/getActions';
 import { getArmorClass } from './getters/getArmorClass';
+import { getCapabilitySet } from './getters/getCapabilitySet';
 import { getConditionSet } from './getters/getConditionSet';
 import { getDefensiveSlots } from './getters/getDefensiveSlots';
 import { getEffectSet } from './getters/getEffectSet';
 import { getEffects } from './getters/getEffects';
+import { getEnvironments } from './getters/getEnvironments';
 import { getEquipmentProperties } from './getters/getEquipmentProperties';
 import { getEquipmentSlotProperties } from './getters/getEquipmentSlotProperties';
 import { getInnateProperties } from './getters/getInnateProperties';
 import { getLevel } from './getters/getLevel';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
 import { getProficiencyBonus } from './getters/getProficiencyBonus';
+import { getPropertySet } from './getters/getPropertySet';
 import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
+import { getSpecie } from './getters/getSpecie';
 import { getSpeed } from './getters/getSpeed';
 import { isDead } from './getters/isDead';
 import { isRangedWeaponLoaded } from './getters/isRangedWeaponLoaded';
@@ -29,18 +33,22 @@ export type GetterReturnType = {
     getAbilityScores: ReturnType<typeof getAbilityScores>;
     getActions: ReturnType<typeof getActions>;
     getArmorClass: ReturnType<typeof getArmorClass>;
+    getCapabilitySet: ReturnType<typeof getCapabilitySet>;
     getConditionSet: ReturnType<typeof getConditionSet>;
     getDefensiveSlots: ReturnType<typeof getDefensiveSlots>;
     getEffectSet: ReturnType<typeof getEffectSet>;
     getEffects: ReturnType<typeof getEffects>;
+    getEnvironments: ReturnType<typeof getEnvironments>;
     getEquipmentProperties: ReturnType<typeof getEquipmentProperties>;
     getEquipmentSlotProperties: ReturnType<typeof getEquipmentSlotProperties>;
     getInnateProperties: ReturnType<typeof getInnateProperties>;
     getLevel: ReturnType<typeof getLevel>;
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
     getProficiencyBonus: ReturnType<typeof getProficiencyBonus>;
+    getPropertySet: ReturnType<typeof getPropertySet>;
     getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
+    getSpecie: ReturnType<typeof getSpecie>;
     getSpeed: ReturnType<typeof getSpeed>;
     isDead: ReturnType<typeof isDead>;
     isRangedWeaponLoaded: ReturnType<typeof isRangedWeaponLoaded>;
@@ -54,18 +62,22 @@ export const Getters = {
     getAbilityScores,
     getActions,
     getArmorClass,
+    getCapabilitySet,
     getConditionSet,
     getDefensiveSlots,
     getEffectSet,
     getEffects,
+    getEnvironments,
     getEquipmentProperties,
     getEquipmentSlotProperties,
     getInnateProperties,
     getLevel,
     getOffensiveSlots,
     getProficiencyBonus,
+    getPropertySet,
     getSavingThrowBonus,
     getSelectedWeaponAttributeSet,
+    getSpecie,
     getSpeed,
     isDead,
     isRangedWeaponLoaded,

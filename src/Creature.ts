@@ -22,6 +22,7 @@ import { EffectType } from './schemas/enums/EffectType';
 import { PropertyType } from './schemas/enums/PropertyType';
 import { ThreatType } from './schemas/enums/ThreatType';
 import { Ability } from './schemas/enums/Ability';
+import { CreatureVisibility } from './schemas/enums/CreatureVisibility';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -442,6 +443,58 @@ export class Creature {
                 disadvantage: new Set(),
             },
         };
+    }
+
+    /**
+     * Returns true if this creature can detect its target
+     * @param oTarget {Creature}
+     * @return {string} CREATURE_VISIBILITY_*
+     */
+    getCreatureVisibility(oTarget: Creature): CreatureVisibility {
+        if (oTarget === this) {
+            return CONSTS.CREATURE_VISIBILITY_VISIBLE;
+        }
+        const mg = this.getters;
+        const tg = oTarget.getters;
+        const myConditions = mg.getConditionSet;
+        const myEffects = mg.getEffectSet;
+        const myProps = mg.getPropertySet;
+        const myEnv = mg.getEnvironments;
+        const targetEffects = tg.getEffectSet;
+        const targetProps = tg.getPropertySet;
+        if (myConditions.has(CONSTS.CONDITION_BLINDED) || myEnv.has(CONSTS.ENVIRONMENT_FOG)) {
+            // Blinded creatures, or creature in fog cannot see target
+            return CONSTS.CREATURE_VISIBILITY_BLINDED;
+        }
+        if (
+            targetEffects.has(CONSTS.EFFECT_INVISIBILITY) &&
+            !myEffects.has(CONSTS.EFFECT_SEE_INVISIBILITY)
+        ) {
+            // Invisibility effect prevents target detection unless creature has see invisibility effect
+            return CONSTS.CREATURE_VISIBILITY_INVISIBLE;
+        }
+        if (targetEffects.has(CONSTS.EFFECT_STEALTH)) {
+            // Stealth effect prevents target detection
+            return CONSTS.CREATURE_VISIBILITY_HIDDEN;
+        }
+        const bInDarkness = mg.getEnvironments.has(CONSTS.ENVIRONMENT_DARKNESS);
+        if (
+            bInDarkness &&
+            !myEffects.has(CONSTS.EFFECT_DARKVISION) &&
+            !myProps.has(CONSTS.PROPERTY_DARKVISION)
+        ) {
+            // if environment is dark, the creature cannot detect target
+            // unless:
+            // one of the two creatures has light source
+            // the creature has darkvision effect or property
+            return myProps.has(CONSTS.PROPERTY_LIGHT) ||
+                targetProps.has(CONSTS.PROPERTY_LIGHT) ||
+                myEffects.has(CONSTS.EFFECT_LIGHT) ||
+                targetEffects.has(CONSTS.EFFECT_LIGHT)
+                ? CONSTS.CREATURE_VISIBILITY_VISIBLE
+                : CONSTS.CREATURE_VISIBILITY_DARKNESS;
+        }
+        return CONSTS.CREATURE_VISIBILITY_VISIBLE;
     }
 
     // ▗▖   ▗▖   ▄▖                     ▄▖

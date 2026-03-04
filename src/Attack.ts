@@ -19,8 +19,6 @@ export class Attack {
     private readonly _id = randomUUID();
     public readonly damages: Damage[] = []; // List of dealt damages with amount and type,
     public readonly diceRoll: DiceRoll = new DiceRoll('1d20');
-    public attacker: Creature | null = null; // attacker creature reference
-    public target: Creature | null = null; // target creature reference
     public weapon: Item | null = null; // weapon used
     public ammo: Item | null = null; // ammo used
     public ac: number = 0; // target armor class
@@ -44,6 +42,11 @@ export class Attack {
     public lethal: boolean = false; // true when the target is killed during the attack
     public failed: boolean = false; // The attack failed
     public failure: string = ''; //
+
+    constructor(
+        public readonly attacker: Creature,
+        public readonly target: Creature
+    ) {}
 
     get id() {
         return this._id;

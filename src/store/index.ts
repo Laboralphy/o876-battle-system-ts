@@ -43,8 +43,9 @@ export function buildState(): State {
         selectedOffensiveSlot: CONSTS.EQUIPMENT_SLOT_NATURAL_WEAPON_1,
         effects: [],
         encumbrance: 0,
-        environment: {
+        environments: {
             [CONSTS.ENVIRONMENT_DARKNESS]: false,
+            [CONSTS.ENVIRONMENT_FOG]: false,
             [CONSTS.ENVIRONMENT_RAIN]: false,
             [CONSTS.ENVIRONMENT_WIND]: false,
             [CONSTS.ENVIRONMENT_DIFFICULT_TERRAIN]: false,

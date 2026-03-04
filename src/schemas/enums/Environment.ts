@@ -6,6 +6,7 @@ import { CONSTS } from '../../consts';
 export const EnvironmentSchema = z
     .enum([
         CONSTS.ENVIRONMENT_DARKNESS,
+        CONSTS.ENVIRONMENT_FOG,
         CONSTS.ENVIRONMENT_RAIN,
         CONSTS.ENVIRONMENT_UNDERWATER,
         CONSTS.ENVIRONMENT_WIND,

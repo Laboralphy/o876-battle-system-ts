@@ -32,8 +32,9 @@ export const CreatureStateSchema = z.strictObject({
     selectedOffensiveSlot: EquipmentSlotSchema,
     effects: z.array(EffectSchema),
     encumbrance: z.number(),
-    environment: z.strictObject({
+    environments: z.strictObject({
         [CONSTS.ENVIRONMENT_DARKNESS]: z.boolean(),
+        [CONSTS.ENVIRONMENT_FOG]: z.boolean(),
         [CONSTS.ENVIRONMENT_RAIN]: z.boolean(),
         [CONSTS.ENVIRONMENT_WIND]: z.boolean(),
         [CONSTS.ENVIRONMENT_DIFFICULT_TERRAIN]: z.boolean(),

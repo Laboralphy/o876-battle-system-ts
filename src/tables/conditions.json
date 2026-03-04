@@ -1,0 +1,73 @@
+[
+    {
+        "condition": "CONDITION_BLINDED",
+        "description": "Caused by spells, spits, Prevent from seeing and casting spell on target",
+        "prevents": ["CAPABILITY_CAST_TARGET", "CAPABILITY_SEE"]
+    },
+    {
+        "condition": "CONDITION_CHARMED",
+        "description": "Caused by spells and some supernatural abilities, the charmed creature cannot perform complex actions and hostile actions against creator of condition",
+        "prevents": ["CAPABILITY_CAST", "CAPABILITY_CAST_TARGET"]
+    },
+    {
+        "condition": "CONDITION_FRIGHTENED",
+        "description": "Caused by spells, and supernatural auras. Prevent from doing complex mental action like casting. And cannot approach creator of condition",
+        "prevents": ["CAPABILITY_CAST_SELF", "CAPABILITY_CAST_TARGET"]
+    },
+    {
+        "condition": "CONDITION_INCAPACITATED",
+        "description": "The result of having 0 HP. Being unable to do anything",
+        "prevents": [
+            "CAPABILITY_SEE",
+            "CAPABILITY_ACT",
+            "CAPABILITY_MOVE",
+            "CAPABILITY_CAST_SELF",
+            "CAPABILITY_CAST_TARGET",
+            "CAPABILITY_FIGHT"
+        ]
+    },
+    {
+        "condition": "CONDITION_PARALYZED",
+        "description": "Cause by spells. Prevent from doing anything, except seeing. This is a body affliction. Each turn, a saving throw is allowed to end condition",
+        "prevents": [
+            "CAPABILITY_ACT",
+            "CAPABILITY_MOVE",
+            "CAPABILITY_CAST_SELF",
+            "CAPABILITY_CAST_TARGET",
+            "CAPABILITY_FIGHT"
+        ]
+    },
+    {
+        "condition": "CONDITION_PETRIFIED",
+        "description": "Cause by spells or monster abilities. Prevent from doing anything. Creature is immune to poison and disease",
+        "prevents": [
+            "CAPABILITY_ACT",
+            "CAPABILITY_SEE",
+            "CAPABILITY_MOVE",
+            "CAPABILITY_CAST_SELF",
+            "CAPABILITY_CAST_TARGET",
+            "CAPABILITY_FIGHT"
+        ]
+    },
+    {
+        "condition": "CONDITION_POISONED",
+        "description": "Damage over time with poison damage, will give disadvantages",
+        "prevents": []
+    },
+    {
+        "condition": "CONDITION_RESTRAINED",
+        "description": "Caused by entanglement. Prevent from fleeing or approaching",
+        "prevents": ["CAPABILITY_MOVE"]
+    },
+    {
+        "condition": "CONDITION_STUNNED",
+        "description": "Caused by spells, psionic, shock, explosion. Prevent from doing anything, except seeing. This is a mind affliction.",
+        "prevents": [
+            "CAPABILITY_ACT",
+            "CAPABILITY_MOVE",
+            "CAPABILITY_CAST_SELF",
+            "CAPABILITY_CAST_TARGET",
+            "CAPABILITY_FIGHT"
+        ]
+    }
+]

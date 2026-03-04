@@ -1,4 +1,4 @@
-import { PROFICIENCY_BONUS } from '../../tables/proficiency-bonus';
+import PROFICIENCY_BONUS from '../../tables/proficiency-bonus.json';
 import { GetterReturnType } from '../define-getters';
 import { clamp } from '../../libs/clamp';
 import { State } from '../state';
