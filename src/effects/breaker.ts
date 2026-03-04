@@ -30,7 +30,7 @@ export class EffectBreakerProgram implements IEffectProgram {
         if (effect.type === CONSTS.EFFECT_BREAKER) {
             const dc = 'dc' in effect ? effect.dc : 0;
             if (dc > 0) {
-                //
+                // saving throw is required
             }
         }
     }

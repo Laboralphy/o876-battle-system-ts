@@ -20,6 +20,8 @@ import { EventEffectProcessorImmunity } from './schemas/events/EventEffectProces
 import { EventCreatureEquipItem } from './schemas/events/EventCreatureEquipItem';
 import { EffectType } from './schemas/enums/EffectType';
 import { PropertyType } from './schemas/enums/PropertyType';
+import { ThreatType } from './schemas/enums/ThreatType';
+import { Ability } from './schemas/enums/Ability';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -422,8 +424,24 @@ export class Creature {
         return false;
     }
 
-    rollSavingThrow() {
-        // getSavingThrowBonus
+    rollSavingThrow(ability: Ability, dc: number, threat: ThreatType) {
+        const stb = this.getters.getSavingThrowBonus;
+        const nThreatBonus = stb[threat] ?? 0;
+        const bonus = stb[ability] + nThreatBonus;
+        const result = {
+            creature: this,
+            roll: 0,
+            dc,
+            success: false,
+            bonus,
+            ability,
+            threat,
+            rollBias: {
+                result: 0,
+                advantages: new Set(),
+                disadvantage: new Set(),
+            },
+        };
     }
 
     // ▗▖   ▗▖   ▄▖                     ▄▖
