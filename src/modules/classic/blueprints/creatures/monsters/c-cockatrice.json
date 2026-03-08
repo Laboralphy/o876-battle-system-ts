@@ -33,7 +33,8 @@
         {
           "type": "PROPERTY_AILMENT",
           "ailment": "AILMENT_PETRIFICATION",
-          "savingThrow": "ABILITY_CONSTITUTION"
+          "savingThrowAbility": "ABILITY_CONSTITUTION",
+          "savingThrowThreat": "THREAT_TYPE_PETRIFICATION"
         }
       ],
       "equipmentSlots": [

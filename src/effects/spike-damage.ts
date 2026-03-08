@@ -3,6 +3,8 @@ import { CONSTS } from '../consts';
 import { AmpExpression } from '../schemas/AmpExpression';
 import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { SavingThrowSchema } from '../schemas/SavingThrow';
+import { AbilitySchema } from '../schemas/enums/Ability';
+import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 
 /**
  * This Effect modifies the spike damage of an armor or shield.
@@ -15,6 +17,7 @@ export const EffectSpikeDamage = z.strictObject({
     type: z.literal(CONSTS.EFFECT_SPIKE_DAMAGE),
     amp: AmpExpression,
     damageType: DamageTypeSchema.optional().default(CONSTS.DAMAGE_TYPE_ANY),
-    savingThrow: SavingThrowSchema.optional(),
+    savingThrowAbility: AbilitySchema.optional(),
+    savingThrowThreat: ThreatTypeSchema.optional(),
     maxDistance: z.number().int().optional().default(Infinity),
 });

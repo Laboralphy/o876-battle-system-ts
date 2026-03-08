@@ -34,7 +34,8 @@
           "type": "PROPERTY_AILMENT",
           "amp": "1d4",
           "ailment": "AILMENT_POISON",
-          "savingThrow": "ABILITY_CONSTITUTION",
+          "savingThrowAbility": "ABILITY_CONSTITUTION",
+          "savingThrowThreat": "THREAT_TYPE_POISON",
           "duration": 3
         }
       ],

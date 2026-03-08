@@ -50,7 +50,8 @@
         {
           "type": "PROPERTY_AILMENT",
           "ailment": "AILMENT_PARALYSIS",
-          "savingThrow": "ABILITY_CONSTITUTION",
+          "savingThrowAbility": "ABILITY_CONSTITUTION",
+          "savingThrowThreat": "THREAT_TYPE_PARALYSIS",
           "duration": 3
         }
       ],

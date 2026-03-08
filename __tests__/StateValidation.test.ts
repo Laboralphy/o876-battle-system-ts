@@ -43,8 +43,9 @@ describe('State Validation', () => {
             selectedOffensiveSlot: CONSTS.EQUIPMENT_SLOT_WEAPON_MELEE,
             effects: [],
             encumbrance: 0,
-            environment: {
+            environments: {
                 [CONSTS.ENVIRONMENT_DARKNESS]: false,
+                [CONSTS.ENVIRONMENT_FOG]: false,
                 [CONSTS.ENVIRONMENT_RAIN]: false,
                 [CONSTS.ENVIRONMENT_WIND]: false,
                 [CONSTS.ENVIRONMENT_DIFFICULT_TERRAIN]: false,

@@ -7,13 +7,14 @@ import { DamageTypeSchema } from '../schemas/enums/DamageType';
 import { AttackTypeSchema } from '../schemas/enums/AttackType';
 import { DiseaseSchema } from '../schemas/enums/Disease';
 import { AmpExpression } from '../schemas/AmpExpression';
-import { SavingThrowSchema } from '../schemas/SavingThrow';
+import { ThreatTypeSchema } from '../schemas/enums/ThreatType';
 
 export const PropertyAilment = z.strictObject({
     type: z.literal(CONSTS.PROPERTY_AILMENT).describe('fields.propertyType'),
     amp: AmpExpression.optional().default(0),
     ailment: AilmentSchema,
-    savingThrow: SavingThrowSchema.optional(),
+    savingThrowAbility: AbilitySchema.optional(),
+    savingThrowThreat: ThreatTypeSchema.optional(),
     subType: EffectSubtypeSchema.optional().default(CONSTS.EFFECT_SUBTYPE_MAGICAL),
     duration: z.number().int().optional().default(0),
     ability: AbilitySchema.optional().default(CONSTS.ABILITY_STRENGTH),

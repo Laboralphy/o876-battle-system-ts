@@ -34,7 +34,9 @@ function doProcess() {
             });
         }
     }
+    console.log('invalid items', invalidItems.length);
     console.log(invalidItems.slice(0, 3));
+    console.log('invalid creatures', invalidCreatures.length);
     console.log(invalidCreatures.slice(0, 3));
 }
 

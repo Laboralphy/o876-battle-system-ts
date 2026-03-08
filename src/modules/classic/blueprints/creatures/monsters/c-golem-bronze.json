@@ -48,7 +48,8 @@
       "type": "PROPERTY_SPIKE_DAMAGE",
       "amp": "1d6",
       "damageType": "DAMAGE_TYPE_FIRE",
-      "savingThrow": "ABILITY_DEXTERITY",
+      "savingThrowAbility": "ABILITY_DEXTERITY",
+      "savingThrowThreat": "THREAT_TYPE_FIRE",
       "maxDistance": 15
     },
     {

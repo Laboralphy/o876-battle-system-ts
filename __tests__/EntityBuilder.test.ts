@@ -23,6 +23,6 @@ describe('EntityBuilder item creation', () => {
         const c = ef.createCreature('c-mummy', 'm');
         expect(c.state.actions[0].blueprint.cooldown).toBe(6);
         expect(c.state.actions[0].blueprint.charges).toBe(0);
-        expect(c.state.actions[0].blueprint.rechargeDelay).toBe(0);
-    })
+        expect(c.state.actions[0].blueprint.delay).toBe(0);
+    });
 });

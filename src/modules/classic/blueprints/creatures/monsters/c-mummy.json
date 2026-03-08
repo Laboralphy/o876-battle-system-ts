@@ -39,7 +39,8 @@
           "type": "PROPERTY_AILMENT",
           "disease": "DISEASE_MUMMY_ROT",
           "ailment": "AILMENT_DISEASE",
-          "savingThrow": "ABILITY_CONSTITUTION"
+          "savingThrowAbility": "ABILITY_CONSTITUTION",
+          "savingThrowThreat": "THREAT_TYPE_DISEASE"
         }
       ],
       "equipmentSlots": [

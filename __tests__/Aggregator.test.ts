@@ -22,10 +22,8 @@ describe('aggregate', () => {
         });
         gob.applyEffect(ed, gob, 10, CONSTS.EFFECT_SUBTYPE_MAGICAL, '');
         expect(
-            gob.aggregate({
-                properties: { types: [CONSTS.PROPERTY_ABILITY_MODIFIER] },
-                effects: { types: [CONSTS.EFFECT_ABILITY_MODIFIER] },
-            }).sum
+            gob.aggregate([CONSTS.PROPERTY_ABILITY_MODIFIER, CONSTS.EFFECT_ABILITY_MODIFIER], {})
+                .sum
         ).toBe(3);
     });
 

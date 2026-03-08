@@ -46,7 +46,9 @@ export class Attack {
     constructor(
         public readonly attacker: Creature,
         public readonly target: Creature
-    ) {}
+    ) {
+        this.visibility = this.attacker.getCreatureVisibility(target);
+    }
 
     get id() {
         return this._id;

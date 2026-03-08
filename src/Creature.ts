@@ -23,6 +23,10 @@ import { PropertyType } from './schemas/enums/PropertyType';
 import { ThreatType } from './schemas/enums/ThreatType';
 import { Ability } from './schemas/enums/Ability';
 import { CreatureVisibility } from './schemas/enums/CreatureVisibility';
+import { SavingThrowOutcome } from './SavingThrowOutcome';
+import { Advantage } from './schemas/enums/Advantage';
+import { Disadvantage } from './schemas/enums/Disadvantage';
+import { EventCreatureEquipItemFailed } from './schemas/events/EventCreatureEquipItemFailed';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -56,8 +60,8 @@ export class Creature {
         return this._store.state;
     }
 
-    emit<T>(event: string, payload: T) {
-        this.events.emit(event, payload);
+    emit<T>(event: string, payload: T): boolean {
+        return this.events.emit(event, payload);
     }
 
     // ▗▄▄▖ ▗▖              ▟▜▖                 ▗▖                  ▗▖                                          ▗▖
@@ -166,7 +170,7 @@ export class Creature {
         const slots = item.equipmentSlots;
         if (slots.length === 0) {
             // Cannot equip this item: fits in no slot
-            this.emit<EventCreatureRemoveItemFailed>(CONSTS.EVENT_CREATURE_REMOVE_ITEM_FAILED, {
+            this.emit<EventCreatureEquipItemFailed>(CONSTS.EVENT_CREATURE_EQUIP_ITEM_FAILED, {
                 creature: this,
                 item,
                 reason: CONSTS.EQUIP_ITEM_FAILURE_REASON_NO_SUITABLE_SLOT,
@@ -182,7 +186,7 @@ export class Creature {
             (slot) => !this._store.state.equipment[slot]
         );
         if (availableSlot) {
-            const unequippedItem = this._store.state.equipment[availableSlot];
+            // Available slot identified ; no previous item to unequip
             this._store.state.equipment[availableSlot] = item;
             this.emit<EventCreatureEquipItem>(CONSTS.EVENT_CREATURE_EQUIP_ITEM, {
                 item: this._store.state.equipment[availableSlot],
@@ -190,7 +194,7 @@ export class Creature {
                 slot: availableSlot,
             });
             return {
-                unequippedItem,
+                unequippedItem: null,
                 outcome: CONSTS.EQUIP_ITEM_SUCCESS,
                 equippedItem: this._store.state.equipment[availableSlot],
             };
@@ -203,7 +207,6 @@ export class Creature {
                     // an item of one of the suitable slots has been unequipped
                     // use this very slot to equip the new item
                     // ann exit with success
-                    const unequippedItem = this._store.state.equipment[slot];
                     this._store.state.equipment[slot] = item;
                     this.emit<EventCreatureEquipItem>(CONSTS.EVENT_CREATURE_EQUIP_ITEM, {
                         item: this._store.state.equipment[slot],
@@ -211,7 +214,7 @@ export class Creature {
                         slot: slot,
                     });
                     return {
-                        unequippedItem,
+                        unequippedItem: eqo.unequippedItem,
                         outcome: CONSTS.EQUIP_ITEM_SUCCESS,
                         equippedItem: this._store.state.equipment[slot],
                     };
@@ -425,11 +428,11 @@ export class Creature {
         return false;
     }
 
-    rollSavingThrow(ability: Ability, dc: number, threat: ThreatType) {
+    rollSavingThrow(ability: Ability, dc: number, threat: ThreatType): SavingThrowOutcome {
         const stb = this.getters.getSavingThrowBonus;
         const nThreatBonus = stb[threat] ?? 0;
         const bonus = stb[ability] + nThreatBonus;
-        const result = {
+        const result: SavingThrowOutcome = {
             creature: this,
             roll: 0,
             dc,
@@ -437,12 +440,10 @@ export class Creature {
             bonus,
             ability,
             threat,
-            rollBias: {
-                result: 0,
-                advantages: new Set(),
-                disadvantage: new Set(),
-            },
+            advantages: new Set<Advantage>(),
+            disadvantages: new Set<Disadvantage>(),
         };
+        return result;
     }
 
     /**
