@@ -6,13 +6,13 @@
     },
     {
         "condition": "CONDITION_CHARMED",
-        "description": "Caused by spells and some supernatural abilities, the charmed creature cannot perform complex actions and hostile actions against creator of condition",
-        "prevents": ["CAPABILITY_CAST", "CAPABILITY_CAST_TARGET"]
+        "description": "The charmed creature cannot perform harmful action against its charmer",
+        "prevents": []
     },
     {
         "condition": "CONDITION_FRIGHTENED",
-        "description": "Caused by spells, and supernatural auras. Prevent from doing complex mental action like casting. And cannot approach creator of condition",
-        "prevents": ["CAPABILITY_CAST_SELF", "CAPABILITY_CAST_TARGET"]
+        "description": "Prevent from doing hostile and complex mental action like casting. And cannot approach creator of condition",
+        "prevents": ["CAPABILITY_CAST_SELF", "CAPABILITY_CAST_TARGET", "CAPABILITY_FIGHT"]
     },
     {
         "condition": "CONDITION_INCAPACITATED",
