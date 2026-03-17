@@ -8,6 +8,7 @@ import { getArmorClass } from './getters/getArmorClass';
 import { getCapabilitySet } from './getters/getCapabilitySet';
 import { getConditionSet } from './getters/getConditionSet';
 import { getDefensiveSlots } from './getters/getDefensiveSlots';
+import { getDifficultyClass } from './getters/getDifficultyClass';
 import { getEffectSet } from './getters/getEffectSet';
 import { getEffects } from './getters/getEffects';
 import { getEnvironments } from './getters/getEnvironments';
@@ -20,8 +21,8 @@ import { getProficiencyBonus } from './getters/getProficiencyBonus';
 import { getPropertySet } from './getters/getPropertySet';
 import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
-import { getSpecie } from './getters/getSpecie';
 import { getSpecieProtectionSet } from './getters/getSpecieProtectionSet';
+import { getSpecie } from './getters/getSpecie';
 import { getSpeed } from './getters/getSpeed';
 import { isDead } from './getters/isDead';
 import { isEquipmentProficient } from './getters/isEquipmentProficient';
@@ -38,6 +39,7 @@ export type GetterReturnType = {
     getCapabilitySet: ReturnType<typeof getCapabilitySet>;
     getConditionSet: ReturnType<typeof getConditionSet>;
     getDefensiveSlots: ReturnType<typeof getDefensiveSlots>;
+    getDifficultyClass: ReturnType<typeof getDifficultyClass>;
     getEffectSet: ReturnType<typeof getEffectSet>;
     getEffects: ReturnType<typeof getEffects>;
     getEnvironments: ReturnType<typeof getEnvironments>;
@@ -50,8 +52,8 @@ export type GetterReturnType = {
     getPropertySet: ReturnType<typeof getPropertySet>;
     getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
-    getSpecie: ReturnType<typeof getSpecie>;
     getSpecieProtectionSet: ReturnType<typeof getSpecieProtectionSet>;
+    getSpecie: ReturnType<typeof getSpecie>;
     getSpeed: ReturnType<typeof getSpeed>;
     isDead: ReturnType<typeof isDead>;
     isEquipmentProficient: ReturnType<typeof isEquipmentProficient>;
@@ -69,6 +71,7 @@ export const Getters = {
     getCapabilitySet,
     getConditionSet,
     getDefensiveSlots,
+    getDifficultyClass,
     getEffectSet,
     getEffects,
     getEnvironments,
@@ -81,8 +84,8 @@ export const Getters = {
     getPropertySet,
     getSavingThrowBonus,
     getSelectedWeaponAttributeSet,
-    getSpecie,
     getSpecieProtectionSet,
+    getSpecie,
     getSpeed,
     isDead,
     isEquipmentProficient,

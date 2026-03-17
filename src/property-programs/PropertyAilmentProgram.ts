@@ -4,6 +4,7 @@ import { PropertyAilment } from '../properties/ailment';
 import { CONSTS } from '../consts';
 import { Attack } from '../Attack';
 import z from 'zod';
+import { Ability } from '../schemas/enums/Ability';
 
 type PropertyAilmentType = z.infer<typeof PropertyAilment>;
 
@@ -13,12 +14,32 @@ function isPropertyAilment(prop: object): prop is PropertyAilmentType {
 
 export class PropertyAilmentProgram implements IPropertyProgram {
     attack(property: Property, attack: Attack) {
+        const attacker = attack.attacker;
+        const target = attack.target;
+        const attackerGetters = attacker.getters;
+        const targetGetters = target.getters;
         if (isPropertyAilment(property)) {
             switch (property.ailment) {
                 case CONSTS.AILMENT_ABILITY_DRAIN: {
-                    // Apply ability drain if attack hits and saving throw succes
+                    // Apply ability drain if attack hits and saving throw success
                     if (attack.hit) {
-                        //
+                        // The DC is computed by using attacker's proficiency bonus
+                        // and attacker's ability modifier
+                        // the ability used is the ability involved in the attack
+                        const sDefAbility: Ability = property.ability;
+                        const sAtkAbility: Ability = attack.ability;
+                        const dc =
+                            attackerGetters.getDifficultyClass +
+                            attackerGetters.getAbilityModifiers[sDefAbility];
+                        // Saving throw
+                        // The saving ability is specified in the property
+                        const st = attack.target.rollSavingThrow(
+                            sAtkAbility,
+                            dc,
+                            CONSTS.THREAT_TYPE_WITHERING
+                        );
+                        // If saving throw fails : apply effect ability modifier -amp
+                        // If saving throw succeeds : nothing
                     }
                     break;
                 }

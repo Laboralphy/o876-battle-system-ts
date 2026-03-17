@@ -1,12 +1,12 @@
 [
     {
         "condition": "CONDITION_BLINDED",
-        "description": "Caused by spells, spits, Prevent from seeing and casting spell on target",
+        "description": "Prevent from seeing and casting spell on target",
         "prevents": ["CAPABILITY_CAST_TARGET", "CAPABILITY_SEE"]
     },
     {
         "condition": "CONDITION_CHARMED",
-        "description": "The charmed creature cannot perform harmful action against its charmer",
+        "description": "The charmed creature doesn't lose any capability, but cannot perform harmful action against its charmer",
         "prevents": []
     },
     {
