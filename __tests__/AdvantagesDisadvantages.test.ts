@@ -43,7 +43,6 @@ describe('computeAttackRollAdvantages', () => {
         );
         const attack = new Attack(creature, target);
         const r = computeAttackRollAdvantages(attack);
-        console.log(r.advantages);
         expect(r.advantages.size).toBe(2);
         expect(r.disadvantages.size).toBe(0);
         expect(r.advantages.has(CONSTS.ADV_ATTACK_ROLL_TARGET_DISABLED)).toBe(true);
