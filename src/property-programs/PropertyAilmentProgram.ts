@@ -5,12 +5,15 @@ import { CONSTS } from '../consts';
 import { Attack } from '../Attack';
 import z from 'zod';
 import { Ability } from '../schemas/enums/Ability';
+import { EffectDefinitionSchema } from '../effects';
 
 type PropertyAilmentType = z.infer<typeof PropertyAilment>;
 
 function isPropertyAilment(prop: object): prop is PropertyAilmentType {
     return 'type' in prop && prop.type === CONSTS.PROPERTY_AILMENT;
 }
+
+function isAttackHitSaveFail(attack: Attack, property: Property) {}
 
 export class PropertyAilmentProgram implements IPropertyProgram {
     attack(property: Property, attack: Attack) {
@@ -39,12 +42,53 @@ export class PropertyAilmentProgram implements IPropertyProgram {
                             CONSTS.THREAT_TYPE_WITHERING
                         );
                         // If saving throw fails : apply effect ability modifier -amp
-                        // If saving throw succeeds : nothing
+                        if (!st.success) {
+                            const effectAbilityModifier = EffectDefinitionSchema.parse({
+                                type: CONSTS.EFFECT_ABILITY_MODIFIER,
+                                ability: property.ability,
+                                amp: -property.amp,
+                            });
+                            attack.target.applyEffect(
+                                effectAbilityModifier,
+                                attacker,
+                                property.duration,
+                                property.subType
+                            );
+                        }
                     }
                     break;
                 }
 
                 case CONSTS.AILMENT_ATTACK_DRAIN: {
+                    // Apply attack drain if attack hits and saving throw success
+                    if (attack.hit) {
+                        const sDefAbility: Ability = property.ability;
+                        const sAtkAbility: Ability = attack.ability;
+                        const dc =
+                            attackerGetters.getDifficultyClass +
+                            attackerGetters.getAbilityModifiers[sDefAbility];
+                        // Saving throw
+                        // The saving ability is specified in the property
+                        const st = attack.target.rollSavingThrow(
+                            sAtkAbility,
+                            dc,
+                            CONSTS.THREAT_TYPE_WITHERING
+                        );
+                        // If saving throw fails : apply effect ability modifier -amp
+                        if (!st.success) {
+                            const effectAbilityModifier = EffectDefinitionSchema.parse({
+                                type: CONSTS.EFFECT_ABILITY_MODIFIER,
+                                ability: property.ability,
+                                amp: -property.amp,
+                            });
+                            attack.target.applyEffect(
+                                effectAbilityModifier,
+                                attacker,
+                                property.duration,
+                                property.subType
+                            );
+                        }
+                    }
                     break;
                 }
 
