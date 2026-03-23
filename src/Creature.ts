@@ -326,14 +326,85 @@ export class Creature {
     }
 
     /**
+     * Apply an effect group to the creature.
+     * For all effect definition specified, the corresponding effect will be created and added to the creature's effects
+     * list unless the creature is immune to the effect.
+     *
+     * @param effectDefinitions - The definitions of all effects in the groupe.
+     * @param source - The source of the effect.
+     * @param duration - The duration of the effect in rounds.
+     * @param subtype - The subtype of the effect.
+     * @param tag - A tag to identify the effect.
+     */
+    applyEffectGroup(
+        effectDefinitions: EffectDefinition[],
+        source: Creature,
+        duration: number,
+        subtype: EffectSubtype = CONSTS.EFFECT_SUBTYPE_MAGICAL,
+        tag: string = ''
+    ): Effect[] {
+        const aEffectIds: string[] = [];
+        const aEffects: Effect[] = [];
+        for (const effectDefinition of effectDefinitions) {
+            const effect: Effect = EffectSchema.parse({
+                ...effectDefinition,
+                id: randomUUID(),
+                source: source.id,
+                target: this.id,
+                duration,
+                subtype,
+                tag,
+                siblings: aEffectIds,
+            });
+            let immune: boolean = false;
+            this.emit<EventEffectProcessorImmunity>(CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED, {
+                creature: this,
+                effect,
+                immune: () => {
+                    immune = true;
+                },
+            });
+            if (!immune) {
+                aEffectIds.push(effect.id);
+                aEffects.push(effect);
+                this.state.effects.push(effect);
+                this.emit<EventEffectProcessorCreatureEffect>(
+                    CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_APPLIED,
+                    {
+                        creature: this,
+                        effect,
+                    }
+                );
+            }
+        }
+        return aEffects;
+    }
+
+    /**
      * Remove an effect from the creature's effects list.
      * If the effect is not found in the creature's effects list, exit.
      * @param effect - The effect to remove from the creature's effects list.
+     * @param bIgnoreSiblings - If true, the effect will be removed, but its siblings will not be removed.
+     * If false (default value), the effect and its siblings will be removed.
      */
-    removeEffect(effect: Effect) {
+    removeEffect(effect: Effect, bIgnoreSiblings: boolean = false) {
         const effIndex = this.state.effects.findIndex((eff: Effect) => eff.id === effect.id);
         if (effIndex >= 0) {
+            // effect was found in the effects list
             const effect = this.state.effects[effIndex];
+            if (!bIgnoreSiblings) {
+                // remove siblings
+                effect.siblings.forEach((siblingId: string) => {
+                    const sibling = this.findEffectById(siblingId);
+                    if (sibling) {
+                        // Remove this sibling, but ignore the sibling's siblings
+                        this.removeEffect(sibling, true);
+                    }
+                });
+                // all siblings have been removed, remove the effect itself
+                this.removeEffect(effect, true);
+                return;
+            }
             this.emit<EventEffectProcessorCreatureEffect>(
                 CONSTS.EVENT_EFFECT_PROCESSOR_EFFECT_DISPOSED,
                 {
