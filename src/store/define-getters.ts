@@ -18,6 +18,7 @@ import { getInnateProperties } from './getters/getInnateProperties';
 import { getLevel } from './getters/getLevel';
 import { getOffensiveSlots } from './getters/getOffensiveSlots';
 import { getProficiencyBonus } from './getters/getProficiencyBonus';
+import { getPropertyRegistry } from './getters/getPropertyRegistry';
 import { getPropertySet } from './getters/getPropertySet';
 import { getSavingThrowBonus } from './getters/getSavingThrowBonus';
 import { getSelectedWeaponAttributeSet } from './getters/getSelectedWeaponAttributeSet';
@@ -49,6 +50,7 @@ export type GetterReturnType = {
     getLevel: ReturnType<typeof getLevel>;
     getOffensiveSlots: ReturnType<typeof getOffensiveSlots>;
     getProficiencyBonus: ReturnType<typeof getProficiencyBonus>;
+    getPropertyRegistry: ReturnType<typeof getPropertyRegistry>;
     getPropertySet: ReturnType<typeof getPropertySet>;
     getSavingThrowBonus: ReturnType<typeof getSavingThrowBonus>;
     getSelectedWeaponAttributeSet: ReturnType<typeof getSelectedWeaponAttributeSet>;
@@ -81,6 +83,7 @@ export const Getters = {
     getLevel,
     getOffensiveSlots,
     getProficiencyBonus,
+    getPropertyRegistry,
     getPropertySet,
     getSavingThrowBonus,
     getSelectedWeaponAttributeSet,

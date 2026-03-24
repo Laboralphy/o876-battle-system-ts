@@ -1,12 +1,12 @@
+import { CONSTS } from '../consts';
 import { IPropertyProgram } from '../IPropertyProgram';
 import { Property } from '../properties';
-import { PropertyAilment } from '../properties/ailment';
-import { CONSTS } from '../consts';
 import { Attack } from '../Attack';
-import z from 'zod';
 import { Ability } from '../schemas/enums/Ability';
 import { EffectDefinitionSchema } from '../effects';
 import { ThreatType } from '../schemas/enums/ThreatType';
+import { PropertyAilment } from '../properties/ailment';
+import z from 'zod';
 
 type PropertyAilmentType = z.infer<typeof PropertyAilment>;
 
@@ -44,7 +44,7 @@ function isAttackHitSaveFail(attack: Attack, property: Property, sThreat: Threat
     return !st.success;
 }
 
-export class PropertyAilmentProgram implements IPropertyProgram {
+export class PropertyProgramAilment implements IPropertyProgram {
     attack(property: Property, attack: Attack) {
         if (isPropertyAilment(property)) {
             switch (property.ailment) {
@@ -232,7 +232,8 @@ export class PropertyAilmentProgram implements IPropertyProgram {
                 case CONSTS.AILMENT_SLOW: {
                     if (isAttackHitSaveFail(attack, property, CONSTS.THREAT_TYPE_ANY)) {
                         const effectAilment = EffectDefinitionSchema.parse({
-                            type: CONSTS.EFFECT_PETRIFICATION,
+                            type: CONSTS.EFFECT_SPEED_FACTOR,
+                            amp: 0.5,
                         });
                         attack.target.applyEffect(
                             effectAilment,
@@ -245,6 +246,17 @@ export class PropertyAilmentProgram implements IPropertyProgram {
                 }
 
                 case CONSTS.AILMENT_STUN: {
+                    if (isAttackHitSaveFail(attack, property, CONSTS.THREAT_TYPE_PSYCHIC)) {
+                        const effectAilment = EffectDefinitionSchema.parse({
+                            type: CONSTS.EFFECT_STUN,
+                        });
+                        attack.target.applyEffect(
+                            effectAilment,
+                            attack.attacker,
+                            property.duration,
+                            property.subType
+                        );
+                    }
                     break;
                 }
 

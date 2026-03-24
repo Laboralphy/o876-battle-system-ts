@@ -27,6 +27,8 @@ import { SavingThrowOutcome } from './SavingThrowOutcome';
 import { Advantage } from './schemas/enums/Advantage';
 import { Disadvantage } from './schemas/enums/Disadvantage';
 import { EventCreatureEquipItemFailed } from './schemas/events/EventCreatureEquipItemFailed';
+import { Attack } from './Attack';
+import { propertyHasProgram, propertyRunProgramAttack } from './property-program-runner';
 
 export class Creature {
     private readonly _store: ReactiveStore<State, GetterReturnType>;
@@ -586,8 +588,20 @@ export class Creature {
     /**
      * Method called each time the creature is attacking
      */
-    triggerAttack() {
-        // Ailment
+    triggerAttack(attack: Attack) {
+        // for each property and effect
+        // try to determine effct or property program
+        // call attack method of this program
+        // first, determine if there is at least one property with program
+        const pr: Map<PropertyType, Property[]> = this.getters.getPropertyRegistry;
+        for (const [ptype, properties] of pr.entries()) {
+            if (propertyHasProgram(ptype)) {
+                // play all properties with this type
+                for (const property of properties) {
+                    propertyRunProgramAttack(property, attack);
+                }
+            }
+        }
     }
 
     /**

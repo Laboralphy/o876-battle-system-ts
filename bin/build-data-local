@@ -3,6 +3,7 @@
 script_folder=$(dirname "$(realpath "$0")")
 
 $script_folder/build-properties-index
+$script_folder/build-property-programs-index
 $script_folder/build-effects-index
 $script_folder/build-consts-index
 $script_folder/build-getters-index
